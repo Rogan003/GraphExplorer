@@ -1,0 +1,8 @@
+[project]
+name = "graph-explorer-api"
+version = "0.1"
+description = "Graph Explorer API."
+dependencies = []
+
+[tool.setuptools]
+provides = ["graph-explorer-api"]

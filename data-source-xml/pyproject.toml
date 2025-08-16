@@ -1,0 +1,7 @@
+[project]
+name = "data-source-xml"
+version = "0.1"
+description = "Data source XML plugin"
+dependencies = [
+    "graph-explorer-api==0.1",
+]
