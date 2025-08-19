@@ -1,6 +1,6 @@
 from abc import abstractmethod
 from .base import Plugin
-from model.graph import Graph
+from api.graph_explorer_api.model.graph import Graph
 
 class VisualizerPlugin(Plugin):
     """
