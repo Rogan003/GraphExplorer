@@ -9,7 +9,7 @@
 ## How to start the project
 1. Clone the repository
 2. Run `pip install -r requirements.txt`
-3. Run `pip install ./api ./platform ./data-source-json ./data-source-xml ./simple-visualizer ./block/visualizer`
+3. Run `pip install ./api ./platform ./data_source-json ./data_source-xml ./simple_visualizer ./block_visualizer`
 4. Run `python manage.py makemigrations`
 5. Run `python manage.py migrate`
 6. Run `python manage.py runserver`
