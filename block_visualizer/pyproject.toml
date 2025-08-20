@@ -1,5 +1,5 @@
 [project]
-name = "block_visualizer"
+name = "block_visualzier"
 version = "0.1"
 description = "Block visualizer plugin"
 dependencies = [

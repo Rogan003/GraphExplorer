@@ -1,5 +1,5 @@
 [project]
-name = "platform"
+name = "graph_explorer_platform"
 version = "0.1"
 description = "Graph explorer platform"
 dependencies = [
@@ -7,4 +7,4 @@ dependencies = [
 ]
 
 [tool.setuptools]
-provides = ["platform"]
+provides = ["graph_explorer_platform"]
