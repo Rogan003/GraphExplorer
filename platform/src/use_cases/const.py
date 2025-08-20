@@ -1,0 +1,1 @@
+VISUALIZER_GROUP = 'graph_explorer.visualizers'

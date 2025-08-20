@@ -1,0 +1,20 @@
+[project]
+name = "block_visualizer"
+version = "0.1"
+description = "Block visualizer plugin"
+dependencies = [
+    "graph_explorer_api==0.1",
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["block_visualizer"]
+
+[project.entry-points."graph_explorer.visualizers"]
+block_visualizer = "block_visualizer.block_visualizer:BlockVisualizerPlugin"
+
+[tool.setuptools.data-files]
+templates = ["block_visualizer/templates/*"]

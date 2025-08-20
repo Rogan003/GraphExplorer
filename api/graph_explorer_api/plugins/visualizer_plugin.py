@@ -1,6 +1,6 @@
 from abc import abstractmethod
 from .base import Plugin
-from model.graph import Graph
+from graph_explorer_api.model.graph import Graph
 
 class VisualizerPlugin(Plugin):
     """
@@ -10,7 +10,7 @@ class VisualizerPlugin(Plugin):
     """
 
     @abstractmethod
-    def visualize(self, graph: Graph, **kwargs) -> None:
+    def visualize(self, graph: Graph, **kwargs) -> str:
         """
         Visualizes the given Graph object.
 
