@@ -1,0 +1,9 @@
+<node>
+    <child_node>
+        <leaf>Something</leaf>
+    </child_node>
+    <child_node>
+        <leaf>Something else</leaf>
+        <leaf>End</leaf>
+    </child_node>
+</node>
