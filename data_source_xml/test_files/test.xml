@@ -4,6 +4,9 @@
     </child_node>
     <child_node>
         <leaf>Something else</leaf>
-        <leaf>End</leaf>
+        <leaf2>End</leaf2>
+        <friend>
+            <child_node reference="/node/child_node[1]"/>
+        </friend>
     </child_node>
 </node>

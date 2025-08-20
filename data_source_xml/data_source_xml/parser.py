@@ -10,6 +10,8 @@ from data_source_xml.data_source_xml.loader import XmlLoader, XmlFileLoader
 class DataSourceXmlParser(DataSourcePlugin):
     id: int = 0
     loader: XmlLoader = XmlFileLoader()
+    references: [tuple[Node, str]] = []
+    xml_elements_to_graph_nodes: dict[etree._Element, Node] = {}
 
     def load(self, **kwargs) -> Graph:
         self._select_loader(XmlFileLoader()) # make it not hard-coded through configuration
@@ -26,40 +28,79 @@ class DataSourceXmlParser(DataSourcePlugin):
         graph = Graph()
         graph.directed = True
 
-        root_xml_element = self.parse_xml_root(xml)
+        root_xml_element = self._parse_xml_root(xml)
         if root_xml_element is None:
             return graph
 
-        self.dfs_recursive(root_xml_element, graph)
+        self._dfs_recursive(root_xml_element, graph)
+
+        self._resolve_references(root_xml_element, graph)
 
         return graph
 
-    def parse_xml_root(self, xml: str) -> etree._Element:
+    def _parse_xml_root(self, xml: str) -> etree._Element:
         parser = etree.XMLParser(remove_blank_text=True)
         return etree.fromstring(xml.encode("utf-8"), parser=parser)
 
-    def dfs_recursive(self, node: etree._Element, graph: Graph) -> Node | tuple[str, str]:
+    def _dfs_recursive(self, node: etree._Element, graph: Graph) -> Node | tuple[str, str] | str | None:
         if len(node.getchildren()) == 0:
-            return node.tag, node.text
+            if node.get("reference") is not None:
+                return node.get("reference")
+            else:
+                return node.tag, node.text
 
         data = {
             "tag": node.tag,
             "text": node.text
         }
+        for attribute in node.attrib:
+            data[attribute] = node.attrib[attribute]
+
         new_node = Node(self.id, data)
         self.id += 1
         graph.nodes.append(new_node)
+        self.xml_elements_to_graph_nodes[node] = new_node
 
         for child in node.getchildren():
-            child_node = self.dfs_recursive(child, graph)
+            child_node = self._dfs_recursive(child, graph)
 
             if isinstance(child_node, Node):
                 graph.edges.append(Edge(new_node, child_node))
 
-            else:
+            elif isinstance(child_node, str):
+                self.references += [(new_node, child_node)]
+                self.id -= 1
+                graph.nodes.remove(new_node)
+                self.xml_elements_to_graph_nodes.pop(node)
+                return None
+
+            elif child_node is not None:
                 data[child_node[0]] = child_node[1]
 
+            else:
+                self.references[-1] = (new_node, self.references[-1][1])
+
         return new_node
+
+    def _resolve_references(self, root_element: etree._Element, graph: Graph) -> Graph:
+        # performance could be improved
+        for node, reference in self.references:
+            for node_in_graph in graph.nodes:
+                if node_in_graph.id == node.id:
+                    reference_node = self._find_reference_node(root_element, reference, graph)
+                    if reference_node is None:
+                        continue
+                    graph.edges.append(Edge(node, reference_node))
+                    break
+
+    def _find_reference_node(self, root_element: etree._Element, reference: str, graph: Graph) -> Node | None:
+        ref_node = root_element.xpath(reference)
+        if len(ref_node) != 1:
+            return None
+
+        ref_node = ref_node[0]
+
+        return self.xml_elements_to_graph_nodes[ref_node]
 
     def identifier(self) -> str:
         return "DataSourceXmlParser"
