@@ -1,16 +1,20 @@
-from abc import abstractmethod
+from abc import ABC, abstractmethod
+import requests
 
-class XmlLoader:
+class XmlLoader(ABC):
     @abstractmethod
-    def load(self, **kwargs) -> str:
+    def load(self, path: str) -> str:
         pass
 
 class XmlFileLoader(XmlLoader):
-    def load(self, file_path: str, **kwargs) -> str:
-        with open(file_path, "r") as file:
+    # path here should be a file path
+    def load(self, path: str) -> str:
+        with open(path, "r") as file:
             return file.read()
 
 class XmlLinkLoader(XmlLoader):
-    def load(self, link: str, **kwargs) -> str:
-        import requests
-        return requests.get(link).text
+    # path here should be a link
+    def load(self, path: str) -> str:
+        response = requests.get(path, timeout=10)
+        response.raise_for_status()
+        return response.text
