@@ -4,7 +4,8 @@ from api.graph_explorer_api.model.edge import Edge
 from api.graph_explorer_api.model.graph import Graph
 from api.graph_explorer_api.model.node import Node
 from api.graph_explorer_api.plugins.data_source_plugin import DataSourcePlugin
-from data_source_xml.data_source_xml.loader import XmlLoader, XmlFileLoader
+from data_source_xml.data_source_xml.loader import XmlLoader, XmlFileLoader, XmlLinkLoader
+from data_source_xml.data_source_xml.configuration import Configuration, XMLLoaderType
 
 
 class DataSourceXmlParser(DataSourcePlugin):
@@ -12,11 +13,26 @@ class DataSourceXmlParser(DataSourcePlugin):
     loader: XmlLoader = XmlFileLoader()
     references: [tuple[Node, str]] = []
     xml_elements_to_graph_nodes: dict[etree._Element, Node] = {}
+    config: Configuration | None = None
 
     def load(self, **kwargs) -> Graph:
-        self._select_loader(XmlFileLoader()) # make it not hard-coded through configuration
+        # Initialize configuration and select loader accordingly
+        self.config = Configuration()
+        loader_type = self.config.get_loader_type()
+        if loader_type == XMLLoaderType.LINK:
+            self._select_loader(XmlLinkLoader())
+            source = kwargs.get("link")
+            xml = self.loader.load(link=source)
+        else:
+            # Default to FILE
+            self._select_loader(XmlFileLoader())  # now controlled by configuration
+            file_path = kwargs.get("file_path", "../test_files/test.xml")
+            xml = self.loader.load(file_path=file_path)
 
-        xml = self.loader.load("../test_files/test.xml")
+        # Reset state for each load call
+        self.id = 0
+        self.references = []
+        self.xml_elements_to_graph_nodes = {}
 
         parsed_xml = self._parse_xml(xml)
         return parsed_xml
@@ -43,9 +59,11 @@ class DataSourceXmlParser(DataSourcePlugin):
         return etree.fromstring(xml.encode("utf-8"), parser=parser)
 
     def _dfs_recursive(self, node: etree._Element, graph: Graph) -> Node | tuple[str, str] | str | None:
+        # Determine which attribute indicates a reference from configuration
+        reference_attr = self.config.get_reference_attribute() if self.config else "reference"
         if len(node.getchildren()) == 0:
-            if node.get("reference") is not None:
-                return node.get("reference")
+            if node.get(reference_attr) is not None:
+                return node.get(reference_attr)
             else:
                 return node.tag, node.text
 
