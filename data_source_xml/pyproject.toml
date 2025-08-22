@@ -4,4 +4,6 @@ version = "0.1"
 description = "Data source XML plugin"
 dependencies = [
     "graph_explorer_api==0.1",
+    "lxml==6.0.0",
+    "requests==2.32.5"
 ]
