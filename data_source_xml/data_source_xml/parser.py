@@ -47,7 +47,7 @@ class XmlParser:
                 return xml_node.tag, xml_node.text
 
         data = {
-            "tag": xml_node.tag,
+            "name": xml_node.tag,
             "text": xml_node.text
         }
         if xml_node.attrib:

@@ -20,11 +20,11 @@ class BlockVisualizerPlugin(VisualizerPlugin):
     nodes_js = [
         {
             "id": str(n.id),
-            "name": f"{n.data.get('first','')} {n.data.get('last','')}",
+            "name": str(n.data.get('name', n.id)) if n.data.get('name', n.id) is not None else str(n.id),
             "attributes": [
-                {"name": "first", "value": n.data.get("first", "")},
-                {"name": "last", "value": n.data.get("last", "")},
-                {"name": "years", "value": n.data.get("years", "")}
+                {"name": key, "value": value}
+                for key, value in n.data.items()
+                if key is not None and value is not None and key != 'name'
             ]
         }
         for n in graph.nodes
