@@ -1,4 +1,3 @@
-from importlib.metadata import entry_points
 from typing import List
 import pkg_resources
 
