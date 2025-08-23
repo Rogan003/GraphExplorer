@@ -17,10 +17,18 @@ def index(request):
         # Get full system path to the saved file
         file_path = fs.path(filename)
 
+    visualizer_identifier = request.GET.get("visualizer")
+    data_source_identifier = request.GET.get("datasource")
+
     plugin_service = apps.get_app_config('graph_explorer').plugin_service
 
     data_source_plugins = plugin_service.plugins[DATA_SOURCE_GROUP]
     selected_data_source_plugin = data_source_plugins[0] if data_source_plugins else None
+    if data_source_identifier:
+        for plugin in data_source_plugins:
+            if plugin.identifier() == data_source_identifier:
+                selected_data_source_plugin = plugin
+                break
     
     graph = selected_data_source_plugin.load(path=file_path) if file_path else Graph()
 
@@ -29,6 +37,12 @@ def index(request):
     print("PLUGINS: " + str(visualizer_plugins))
 
     selected = visualizer_plugins[0] if visualizer_plugins else None
+    if visualizer_identifier:
+        for plugin in visualizer_plugins:
+            if plugin.identifier() == visualizer_identifier:
+                selected = plugin
+                break
+
     graph_html = selected.visualize(graph) if selected else "No visualizer selected 🚫"
 
     return render(request, "index.html", {
