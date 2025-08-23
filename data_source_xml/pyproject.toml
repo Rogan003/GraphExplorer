@@ -7,3 +7,6 @@ dependencies = [
     "lxml==6.0.0",
     "requests==2.32.5"
 ]
+
+[project.entry-points."graph_explorer.data_sources"]
+data_source_xml = "data_source_xml.data_source_parser:DataSourceXmlParser"

@@ -1,8 +1,8 @@
 from lxml import etree
 
-from api.graph_explorer_api.model.edge import Edge
-from api.graph_explorer_api.model.graph import Graph
-from api.graph_explorer_api.model.node import Node
+from graph_explorer_api.model.edge import Edge
+from graph_explorer_api.model.graph import Graph
+from graph_explorer_api.model.node import Node
 
 class XmlParser:
     __node_count: int = 0

@@ -1,6 +1,6 @@
 from abc import abstractmethod
 from .base import Plugin
-from api.graph_explorer_api.model.graph import Graph
+from graph_explorer_api.model.graph import Graph
 
 class DataSourcePlugin(Plugin):
     """

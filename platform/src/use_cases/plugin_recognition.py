@@ -8,14 +8,11 @@ class PluginService(object):
     def __init__(self):
         self.plugins: dict[str,List[VisualizerPlugin]] = {}
 
-    def load_datasource_plugins(self, group: str):
-        pass
-
-    def load_visualizer_plugins(self, group: str):
+    def load_plugins(self, group: str):
         """
-        Dynamically loads visualizer plugins based on entrypoint group.
+        Dynamically loads plugins based on entrypoint group.
         """
-        print("Group name in load_visualizer_plugins: " + group)
+        print("Group name: " + group)
         self.plugins[group] = []
         for entry in pkg_resources.iter_entry_points(group=group):
             print(f"Found {entry.name} plugin")
