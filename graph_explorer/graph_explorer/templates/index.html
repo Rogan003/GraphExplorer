@@ -27,6 +27,14 @@
             {% endfor %}
         </div>
     </div>
+
+    <div class="config-selector">
+        <span class="label">Select data source file:</span>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="file" onchange="this.form.submit()">
+        </form>
+    </div>
 </div>
 
 <div id="graph-area">

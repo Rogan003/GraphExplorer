@@ -1,15 +1,28 @@
+from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render
 from django.apps import apps
 from use_cases.const import VISUALIZER_GROUP
 from use_cases.const import DATA_SOURCE_GROUP
 
+from graph_explorer_api.model.graph import Graph
+
 def index(request):
+    file_path = None
+    if request.method == "POST" and request.FILES.get("file"):
+        uploaded_file = request.FILES["file"]
+
+        fs = FileSystemStorage()
+        filename = fs.save(uploaded_file.name, uploaded_file)
+
+        # Get full system path to the saved file
+        file_path = fs.path(filename)
+
     plugin_service = apps.get_app_config('graph_explorer').plugin_service
 
     data_source_plugins = plugin_service.plugins[DATA_SOURCE_GROUP]
     selected_data_source_plugin = data_source_plugins[0] if data_source_plugins else None
     
-    graph = selected_data_source_plugin.load(path="../data_source_xml/data_source_xml/test_files/test.xml")
+    graph = selected_data_source_plugin.load(path=file_path) if file_path else Graph()
 
     visualizer_plugins = plugin_service.plugins[VISUALIZER_GROUP]
 
