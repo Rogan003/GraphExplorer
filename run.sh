@@ -1,17 +1,23 @@
-# 1) Create a virtual environment
-python3 -m venv .venv
+python -m venv .venv
 
-# 2) Activate it
-source .venv/bin/activate
+if [ -f ".venv/bin/activate" ]; then
+    # macOS/Linux
+    source .venv/bin/activate
+elif [ -f ".venv/Scripts/activate" ]; then
+    # Windows (Git Bash or cmd)
+    source .venv/Scripts/activate
+elif [ -f ".venv/Scripts/Activate.ps1" ]; then
+    # Windows PowerShell
+    . .venv/Scripts/Activate.ps1
+else
+    echo "Could not find venv activation script"
+    exit 1
+fi
 
-# 3) Install requirements
 pip install -r requirements.txt
 
-# 4) Install local packages
 pip install ./api ./platform ./data_source_json ./data_source_xml ./simple_visualizer ./block_visualizer
 
-# 5) Enter the Django project
 cd graph_explorer || exit
 
-# 6) Make migrations, migrate, and run the server
 python manage.py makemigrations && python manage.py migrate && python manage.py runserver
