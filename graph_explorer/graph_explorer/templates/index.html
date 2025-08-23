@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="visualizer-selector">
+    <span class="label">Visualizer:</span>
+    <div class="tabs">
+        {% for plugin in plugins %}
+        <button 
+            class="tab-btn {% if plugin.identifier == selected_plugin %}active{% endif %}"
+            onclick="changeVisualizer('{{ plugin.identifier }}')">
+            {{ plugin.name }}
+        </button>
+        {% endfor %}
+    </div>
+</div>
+
+<div id="graph-area">
+    {{ graph_html|safe }}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function changeVisualizer(identifier) {
+    window.location.href = "?visualizer=" + identifier;
+}
+</script>
+{% endblock %}
