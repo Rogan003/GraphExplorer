@@ -1,16 +1,39 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="visualizer-selector">
-    <span class="label">Visualizer:</span>
-    <div class="tabs">
-        {% for plugin in plugins %}
-        <button 
-            class="tab-btn {% if plugin.identifier == selected_plugin %}active{% endif %}"
-            onclick="changeVisualizer('{{ plugin.identifier }}')">
-            {{ plugin.name }}
-        </button>
-        {% endfor %}
+<div class="configuration-row">
+    <div class="config-selector">
+        <span class="label">Visualizer:</span>
+        <div class="tabs">
+            {% for plugin in visualizer_plugins %}
+            <button
+                class="tab-btn {% if plugin.identifier == selected_visualizer_plugin %}active{% endif %}"
+                onclick="changeVisualizer('{{ plugin.identifier }}')">
+                {{ plugin.name }}
+            </button>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="config-selector">
+        <span class="label">Data Source:</span>
+        <div class="tabs">
+            {% for plugin in data_source_plugins %}
+            <button
+                class="tab-btn {% if plugin.identifier == selected_data_source_plugin %}active{% endif %}"
+                onclick="changeDataSource('{{ plugin.identifier }}')">
+                {{ plugin.name }}
+            </button>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="config-selector">
+        <span class="label">Select data source file:</span>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="file" onchange="this.form.submit()">
+        </form>
     </div>
 </div>
 
@@ -23,6 +46,9 @@
 <script>
 function changeVisualizer(identifier) {
     window.location.href = "?visualizer=" + identifier;
+}
+function changeDataSource(identifier) {
+    window.location.href = "?datasource=" + identifier;
 }
 </script>
 {% endblock %}

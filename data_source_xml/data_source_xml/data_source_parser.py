@@ -1,8 +1,8 @@
-from api.graph_explorer_api.model.graph import Graph
-from api.graph_explorer_api.plugins.data_source_plugin import DataSourcePlugin
-from data_source_xml.data_source_xml.loader import XmlLoader, XmlFileLoader, XmlLinkLoader
-from data_source_xml.data_source_xml.configuration import Configuration, XMLLoaderType
-from data_source_xml.data_source_xml.parser import XmlParser
+from graph_explorer_api.model.graph import Graph
+from graph_explorer_api.plugins.data_source_plugin import DataSourcePlugin
+from data_source_xml.loader import XmlLoader, XmlFileLoader, XmlLinkLoader
+from data_source_xml.configuration import Configuration, XMLLoaderType
+from data_source_xml.parser import XmlParser
 
 class DataSourceXmlParser(DataSourcePlugin):
     loader: XmlLoader = XmlFileLoader()

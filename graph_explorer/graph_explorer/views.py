@@ -1,41 +1,38 @@
-import json
+from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render
 from django.apps import apps
-from graph_explorer_api.model.graph import Graph
-from graph_explorer_api.model.edge import Edge
-from graph_explorer_api.model.node import Node
 from use_cases.const import VISUALIZER_GROUP
+from use_cases.const import DATA_SOURCE_GROUP
+
+from graph_explorer_api.model.graph import Graph
 
 def index(request):
+    file_path = None
+    if request.method == "POST" and request.FILES.get("file"):
+        uploaded_file = request.FILES["file"]
 
-    # Temporary hardcoded data for testing until the data source plugin is implemented.
-    
-    n1 = Node(id="n1", data={"first": "John", "last": "Doe", "years": 50})
-    n2 = Node(id="n2", data={"first": "Alice", "last": "Smith", "years": 30})
-    n3 = Node(id="n3", data={"first": "Bob", "last": "Brown", "years": 40})
-    n4 = Node(id="n4", data={"first": "Carol", "last": "White", "years": 25})
+        fs = FileSystemStorage()
+        filename = fs.save(uploaded_file.name, uploaded_file)
 
-    e1 = Edge(from_node=n1, to_node=n2)
-    e2 = Edge(from_node=n2, to_node=n3)
-    e3 = Edge(from_node=n3, to_node=n4)
-    e4 = Edge(from_node=n2, to_node=n4)
-
-    graph = Graph(
-        nodes=[n1, n2, n3, n4],
-        edges=[e1, e2, e3, e4],
-        directed=True
-    )
+        file_path = fs.path(filename)
 
     plugin_service = apps.get_app_config('graph_explorer').plugin_service
+    visualizer_identifier = request.GET.get("visualizer")
+    data_source_identifier = request.GET.get("datasource")
+
+    data_source_plugins = plugin_service.plugins[DATA_SOURCE_GROUP]
+    selected_data_source_plugin = plugin_service.get_selected_plugin(group=DATA_SOURCE_GROUP, identifier=data_source_identifier)
+
     visualizer_plugins = plugin_service.plugins[VISUALIZER_GROUP]
+    selected_visualizer_plugin = plugin_service.get_selected_plugin(group=VISUALIZER_GROUP, identifier=visualizer_identifier)
 
-    print("PLUGINS: " + str(visualizer_plugins))
-
-    selected = visualizer_plugins[0] if visualizer_plugins else None
-    graph_html = selected.visualize(graph) if selected else "No visualizer selected 🚫"
+    graph = selected_data_source_plugin.load(path=file_path) if file_path else Graph()
+    graph_html = selected_visualizer_plugin.visualize(graph) if selected_visualizer_plugin else "No visualizer selected 🚫"
 
     return render(request, "index.html", {
-        "plugins": visualizer_plugins,
+        "visualizer_plugins": visualizer_plugins,
+        "data_source_plugins": data_source_plugins,
         "graph_html": graph_html,
-        "selected_plugin": selected.identifier() if selected else None
+        "selected_visualizer_plugin": selected_visualizer_plugin.identifier() if selected_visualizer_plugin else None,
+        "selected_data_source_plugin": selected_data_source_plugin.identifier() if selected_data_source_plugin else None
     })

@@ -1,25 +1,29 @@
-from importlib.metadata import entry_points
 from typing import List
 import pkg_resources
 
-from graph_explorer_api.plugins.visualizer_plugin import VisualizerPlugin 
+from graph_explorer_api.plugins.base import Plugin
 
 class PluginService(object):
 
     def __init__(self):
-        self.plugins: dict[str,List[VisualizerPlugin]] = {}
+        self.plugins: dict[str,List[Plugin]] = {}
 
-    def load_datasource_plugins(self, group: str):
-        pass
-
-    def load_visualizer_plugins(self, group: str):
+    def load_plugins(self, group: str):
         """
-        Dynamically loads visualizer plugins based on entrypoint group.
+        Dynamically loads plugins based on entrypoint group.
         """
-        print("Group name in load_visualizer_plugins: " + group)
+        print("Group name: " + group)
         self.plugins[group] = []
         for entry in pkg_resources.iter_entry_points(group=group):
             print(f"Found {entry.name} plugin")
             p = entry.load()
             plugin = p()
             self.plugins[group].append(plugin)
+
+    def get_selected_plugin(self, group: str, identifier: str) -> Plugin:
+        if identifier:
+            for plugin in self.plugins[group]:
+                if plugin.identifier() == identifier:
+                    return plugin
+
+        return self.plugins[group][0] if self.plugins[group] else None

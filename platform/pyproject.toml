@@ -4,6 +4,7 @@ version = "0.1"
 description = "Graph explorer platform"
 dependencies = [
     "graph_explorer_api==0.1",
+    "setuptools==80.9.0"
 ]
 
 [tool.setuptools]
