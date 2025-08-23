@@ -56,11 +56,12 @@ body, html {
     flex-direction: column;
 }
 
-.visualizer-selector {
-  margin-bottom: 1rem;
+.config-selector {
+    margin-bottom: 1rem;
+    margin-right: 3rem;
 }
 
-.visualizer-selector .label {
+.config-selector .label {
   font-weight: bold;
   margin-right: 0.5rem;
 }
@@ -123,4 +124,11 @@ body, html {
     align-items: center;
     justify-content: center;
     font-size: 14px;
+}
+
+.configuration-row {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
 }

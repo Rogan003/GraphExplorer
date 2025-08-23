@@ -19,7 +19,9 @@ def index(request):
     graph_html = selected.visualize(graph) if selected else "No visualizer selected 🚫"
 
     return render(request, "index.html", {
-        "plugins": visualizer_plugins,
+        "visualizer_plugins": visualizer_plugins,
+        "data_source_plugins": data_source_plugins,
         "graph_html": graph_html,
-        "selected_plugin": selected.identifier() if selected else None
+        "selected_visualizer_plugin": selected.identifier() if selected else None,
+        "selected_data_source_plugin": selected_data_source_plugin.identifier() if selected_data_source_plugin else None
     })
