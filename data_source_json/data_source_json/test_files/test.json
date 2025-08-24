@@ -1,0 +1,49 @@
+{
+  "nodes": [
+    {
+      "@id": "1",
+      "name": "Parent Node",
+      "weight": 3.5,
+      "created": "2025-08-24",
+      "children": [
+        {
+          "@id": "2",
+          "name": "First Child",
+          "parent": 1,
+          "value": 42,
+          "children": []
+        },
+        {
+          "@id": "3",
+          "name": "Second Child",
+          "parent": 1,
+          "value": 17.2,
+          "children": [
+            {
+              "@id": "4",
+              "name": "Parent Node",
+              "parent": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Another Parent",
+      "weight": 2.1,
+      "created": "2025-07-15",
+      "children": [
+        {
+          "@id": "6",
+          "name": "Fifth Child",
+          "value": 100
+        },
+        {
+          "@id": "7",
+          "name": "Sixth Child",
+          "value": 50.5
+        }
+      ]
+    }
+  ]
+}
