@@ -1,0 +1,32 @@
+{
+  "nodes": [
+    {
+      "name": "I'm parent",
+      "children": [
+        {
+          "@id": "2",
+          "name": "I'm first child",
+          "parent": "1"
+        },
+        {
+          "@id": "3",
+          "name": "I'm second child",
+          "parent": "1"
+        }
+      ]
+    },
+    {
+      "@id": "4",
+      "name": "I'm parent",
+      "children": [
+        {
+          "name": "I'm 5th child"
+        },
+        {
+          "@id": "6",
+          "name": "I'm 6th child"
+        }
+      ]
+    }
+  ]
+}
