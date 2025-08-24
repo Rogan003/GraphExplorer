@@ -9,7 +9,7 @@ from data_source_json.data_source_json.configuration import JSONGraphType
 
 class JSONParser:
     __graph: Graph = Graph()
-    __nodes: dict[str, Node] = {}
+    __nodes: dict[str, Node] = {}  # node_id -> Node
     __edges_to_resolve: list[tuple[str, str]] = []  # (from_id, to_id)
 
     def parse(self, data: str, graph_type: JSONGraphType) -> Graph:
@@ -31,14 +31,14 @@ class JSONParser:
         if not isinstance(json_data, dict):
             return
 
-        root_node_id = json_data.get("@id")
-        if not root_node_id:
-            root_node_id = f"{len(self.__nodes)}"  # if no @id => generate value
+        # if no @id => generate value
+        root_node_id = json_data.get("@id") or str(len(self.__nodes))
 
         node_data = {}
         for key, val in json_data.items():
             if isinstance(val, (dict, list)):
                 continue
+            # collect node attributes
             if key not in ["@id", "parent"]:
                 node_data[key] = self.__convert_value(val)
 
