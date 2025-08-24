@@ -5,7 +5,7 @@ from datetime import datetime
 from graph_explorer_api.model.edge import Edge
 from graph_explorer_api.model.graph import Graph
 from graph_explorer_api.model.node import Node
-from configuration import JSONGraphType
+from data_source_json.configuration import JSONGraphType
 
 class JSONParser:
     __graph: Graph = Graph()
