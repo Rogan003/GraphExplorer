@@ -1,4 +1,4 @@
 {
   "loader_type": "file",
-  "graph_type": "undirected"
+  "graph_type": "directed"
 }
