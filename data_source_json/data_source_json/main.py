@@ -1,4 +1,4 @@
-from data_source_json.data_source_json.data_source_parser import DataSourceJSONParser
+from data_source_parser import DataSourceJSONParser
 
 if __name__ == "__main__":
     parser = DataSourceJSONParser()

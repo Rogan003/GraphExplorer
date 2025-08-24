@@ -1,10 +1,10 @@
 from __future__ import annotations
-from api.graph_explorer_api.model.graph import Graph
-from api.graph_explorer_api.plugins.data_source_plugin import DataSourcePlugin
-from data_source_json.data_source_json.configuration import JSONLoaderType, JSONGraphType
-from data_source_json.data_source_json.configuration import Configuration
-from data_source_json.data_source_json.loader import JSONFileLoader, JSONLoader, JSONUrlLoader
-from data_source_json.data_source_json.parser import JSONParser
+from graph_explorer_api.model.graph import Graph
+from graph_explorer_api.plugins.data_source_plugin import DataSourcePlugin
+from configuration import JSONLoaderType, JSONGraphType
+from configuration import Configuration
+from loader import JSONFileLoader, JSONLoader, JSONUrlLoader
+from parser import JSONParser
 
 class DataSourceJSONParser(DataSourcePlugin):
     loader: JSONLoader = JSONFileLoader()
