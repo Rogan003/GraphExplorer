@@ -2,9 +2,9 @@ import json
 
 from datetime import datetime
 
-from api.graph_explorer_api.model.edge import Edge
-from api.graph_explorer_api.model.graph import Graph
-from api.graph_explorer_api.model.node import Node
+from graph_explorer_api.model.edge import Edge
+from graph_explorer_api.model.graph import Graph
+from graph_explorer_api.model.node import Node
 from data_source_json.data_source_json.configuration import JSONGraphType
 
 class JSONParser:
