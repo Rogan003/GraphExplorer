@@ -14,7 +14,7 @@ class JSONParser:
 
     def parse(self, data: str, graph_type: JSONGraphType) -> Graph:
         self.__reset()  # so different instances won't use the same values
-        self.__graph.directed = graph_type == JSONGraphType.DIRECTED.value
+        self.__graph.directed = graph_type == JSONGraphType.DIRECTED
 
         json_data = json.loads(data)
         self.__build_graph(json_data, parent_id=None)
@@ -56,7 +56,7 @@ class JSONParser:
             self.__add_edge(self.__nodes[parent_id], current_node)
 
         if "parent" in json_data:
-            self.__edges_to_resolve.append((root_node_id, json_data["parent"]))
+            self.__edges_to_resolve.append((str(root_node_id), str(json_data["parent"])))
 
         # go through children
         for _, val in json_data.items():
