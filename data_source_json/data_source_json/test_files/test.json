@@ -4,19 +4,16 @@
       "@id": "1",
       "name": "Parent Node",
       "weight": 3.5,
-      "created": "2025-08-24",
+      "created": "2025-08-24 12:52",
       "children": [
         {
           "@id": "2",
           "name": "First Child",
-          "parent": 1,
-          "value": 42,
-          "children": []
+          "value": 42
         },
         {
           "@id": "3",
           "name": "Second Child",
-          "parent": 1,
           "value": 17.2,
           "children": [
             {
