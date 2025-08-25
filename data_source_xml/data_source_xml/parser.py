@@ -108,3 +108,4 @@ class XmlParser:
         self.__references = []
         self.__xml_elements_to_graph_nodes = {}
         self.__graph = Graph()
+        self.__node_count = 0
