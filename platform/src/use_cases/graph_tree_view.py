@@ -1,4 +1,5 @@
 import json
+from datetime import date, datetime
 
 from django.template.loader import get_template
 from graph_explorer_api.model.graph import Graph
@@ -15,6 +16,13 @@ class TreeViewService(object):
         self.__tree_root = None
         self.__graph = None
         self.__visited = set()
+
+    def safe_value(self, value):
+        if isinstance(value, datetime):
+            return value.strftime("%d.%m.%Y. %H:%M")  # "24.08.2025. 21:15"
+        elif isinstance(value, date):
+            return value.strftime("%d.%m.%Y.")  # "24.08.2025."
+        return str(value)
 
     def generate_template(self, graph: Graph) -> str:
         if graph is not None and len(graph.nodes) > 0:
@@ -52,9 +60,11 @@ class TreeViewService(object):
         if tree_node is None:
             return {}
 
+        node_data = {k: self.safe_value(v) for k, v in tree_node.node.data.items()}
+
         return {
             "id": tree_node.node.id,
-            **tree_node.node.data,
+            **node_data,
             "children" : [
                 self.__generate_tree_json(child) for child in tree_node.children if child is not None
             ]
