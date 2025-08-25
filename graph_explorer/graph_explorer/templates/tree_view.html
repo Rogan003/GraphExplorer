@@ -17,7 +17,7 @@
     position: relative;
 }
 .tree li span {
-    display: block;  /* make each property go on its own line */
+    display: block;
     padding: 2px 6px;
     border-radius: 4px;
     transition: background-color 0.2s;
@@ -51,31 +51,60 @@
 .node-attr {
     font-size: 12px;
     color: #777;
-    margin-left: 20px;  /* indent id under the name */
+    margin-left: 20px;
 }
 </style>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // Pass tree_data from Django safely
     const treeData = JSON.parse('{{ tree_view|escapejs }}');
 
     const nodeIndex = {};
+    function isRicher(newNode, existingNode) {
+        const newHasChildren = !!(newNode && newNode.children && newNode.children.length);
+        const existingHasChildren = !!(existingNode && existingNode.children && existingNode.children.length);
+        if (newHasChildren && !existingHasChildren) return true;
+        if (!newHasChildren && existingHasChildren) return false;
+        const newKeys = newNode ? Object.keys(newNode).length : 0;
+        const existingKeys = existingNode ? Object.keys(existingNode).length : 0;
+        return newKeys > existingKeys;
+    }
     function indexNodes(node) {
-        if (!node.id) return;
-        nodeIndex[node.id] = node;
+        if (!node || !node.id) {
+            if (node && node.children) node.children.forEach(indexNodes);
+            return;
+        }
+        const existing = nodeIndex[node.id];
+        if (!existing || isRicher(node, existing)) {
+            nodeIndex[node.id] = node;
+        }
         if (node.children) {
             node.children.forEach(indexNodes);
         }
     }
     indexNodes(treeData);
 
+    function hasExpandableChildren(node) {
+        const hasOwnChildren = !!(node.children && node.children.length);
+        if (hasOwnChildren) return true;
+        if (node.id) {
+            const full = nodeIndex[node.id];
+            if (full && full.children && full.children.length) return true;
+        }
+        return false;
+    }
+
     function buildTree(node, parentElement) {
         const li = document.createElement("li");
+        if (node.id) li.dataset.nodeId = node.id;
 
         // name
         const nameSpan = document.createElement("span");
         nameSpan.textContent = node.name;
+
+        if (hasExpandableChildren(node)) {
+            nameSpan.classList.add("caret");
+        }
 
         li.appendChild(nameSpan);
 
@@ -89,7 +118,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         if (node.children && node.children.length > 0) {
-            nameSpan.classList.add("caret");
             const ul = document.createElement("ul");
             ul.classList.add("nested");
             node.children.forEach(child => buildTree(child, ul));
@@ -102,14 +130,31 @@ document.addEventListener("DOMContentLoaded", function() {
     const rootElement = document.getElementById("tree-root");
     buildTree(treeData, rootElement);
 
-    // Toggle expand/collapse
     rootElement.addEventListener("click", function(event) {
-        if (event.target.classList.contains("caret")) {
-            const nested = event.target.parentElement.querySelector(".nested");
-            if (nested) {
-                nested.classList.toggle("active");
-                event.target.classList.toggle("caret-down");
+        if (!event.target.classList.contains("caret")) return;
+
+        const li = event.target.closest("li");
+        if (!li) return;
+
+        let nested = null;
+        try {
+            nested = li.querySelector(":scope > ul.nested");
+        } catch (e) {
+            nested = li.querySelector("ul.nested");
+        }
+        if (!nested) {
+            const nodeId = li.dataset.nodeId;
+            if (nodeId && nodeIndex[nodeId] && nodeIndex[nodeId].children && nodeIndex[nodeId].children.length) {
+                nested = document.createElement("ul");
+                nested.classList.add("nested");
+                nodeIndex[nodeId].children.forEach(child => buildTree(child, nested));
+                li.appendChild(nested);
             }
+        }
+
+        if (nested) {
+            nested.classList.toggle("active");
+            event.target.classList.toggle("caret-down");
         }
     });
 });

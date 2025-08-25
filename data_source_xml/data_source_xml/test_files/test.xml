@@ -1,6 +1,9 @@
 <node>
     <child_node>
         <leaf>Something</leaf>
+        <friend>
+            <child_node reference="/node/child_node[2]"/>
+        </friend>
     </child_node>
     <child_node>
         <leaf>Something else</leaf>
