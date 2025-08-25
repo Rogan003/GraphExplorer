@@ -25,3 +25,15 @@ class Graph:
         for edge in self.edges:
             if edge.from_node.id not in node_ids or edge.to_node.id not in node_ids:
                 raise ValueError(f"Edge {edge} connects nodes not in the graph!")
+
+    def add_node(self, node: Node):
+        self.nodes.append(node)
+
+    def add_edge(self, edge: Edge):
+        self.edges.append(edge)
+
+    def remove_node(self, node: Node):
+        self.nodes.remove(node)
+
+    def remove_edge(self, edge: Edge):
+        self.edges.remove(edge)
