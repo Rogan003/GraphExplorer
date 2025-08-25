@@ -49,6 +49,11 @@ body, html {
     font-weight: bold;
 }
 
+.left p {
+    font-weight: bold;
+    font-size: 20px;
+}
+
 .center {
     grid-area: main;
     padding: 10px;

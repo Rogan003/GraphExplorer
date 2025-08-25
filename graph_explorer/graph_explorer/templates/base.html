@@ -22,6 +22,10 @@
                 <a href="{% url 'index' %}">Home</a>
             </li>
         </ul>
+        <p>Tree layout</p>
+        <div class="tree-container">
+            {{ tree_view }}
+        </div>
             {% block links %}{% endblock %}
     </div>
     <div class="center">
