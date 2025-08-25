@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+    <info>
+        <name>Central City Library</name>
+        <address>Main Street 123, Central City</address>
+        <established>1985</established>
+    </info>
+
+    <books>
+        <book id="B001">
+            <title>The Fellowship of the Ring</title>
+            <author id="A001">J.R.R. Tolkien</author>
+            <genre>Fantasy</genre>
+            <published>1954</published>
+            <available>true</available>
+        </book>
+        <book id="B002">
+            <title>The Two Towers</title>
+            <author id="A001">J.R.R. Tolkien</author>
+            <genre>Fantasy</genre>
+            <published>1954</published>
+            <available>false</available>
+        </book>
+        <book id="B003">
+            <title>1984</title>
+            <author id="A002">George Orwell</author>
+            <genre>Dystopian</genre>
+            <published>1949</published>
+            <available>true</available>
+        </book>
+        <book id="B004">
+            <title>Brave New World</title>
+            <author id="A003">Aldous Huxley</author>
+            <genre>Dystopian</genre>
+            <published>1932</published>
+            <available>true</available>
+        </book>
+    </books>
+
+    <authors>
+        <author id="A001">
+            <name>J.R.R. Tolkien</name>
+            <birth>1892</birth>
+            <death>1973</death>
+            <nationality>British</nationality>
+        </author>
+        <author id="A002">
+            <name>George Orwell</name>
+            <birth>1903</birth>
+            <death>1950</death>
+            <nationality>British</nationality>
+        </author>
+        <author id="A003">
+            <name>Aldous Huxley</name>
+            <birth>1894</birth>
+            <death>1963</death>
+            <nationality>British</nationality>
+        </author>
+    </authors>
+
+    <members>
+        <member id="M001">
+            <name>Alice Johnson</name>
+            <joined>2021-05-14</joined>
+            <borrowed>
+                <bookRef>B002</bookRef>
+            </borrowed>
+        </member>
+        <member id="M002">
+            <name>Bob Smith</name>
+            <joined>2020-11-02</joined>
+            <borrowed>
+                <bookRef>B001</bookRef>
+                <bookRef>B003</bookRef>
+            </borrowed>
+        </member>
+        <member id="M003">
+            <name>Clara Lee</name>
+            <joined>2022-01-22</joined>
+            <borrowed/>
+        </member>
+    </members>
+</library>

@@ -1,0 +1,117 @@
+{% block tree_block %}
+<div class="tree-container">
+    <ul class="tree" id="tree-root"></ul>
+</div>
+
+<style>
+.tree {
+    list-style-type: none;
+    margin: 0;
+    padding-left: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+}
+.tree li {
+    line-height: 1.8em;
+    padding-left: 15px;
+    position: relative;
+}
+.tree li span {
+    display: block;  /* make each property go on its own line */
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+.tree li span:hover {
+    background-color: #cecece;
+}
+.caret {
+    cursor: pointer;
+    user-select: none;
+    font-weight: bold;
+}
+.caret::before {
+    content: "►";
+    color: #555;
+    display: inline-block;
+    margin-right: 6px;
+    transition: transform 0.2s;
+}
+.caret-down::before {
+    transform: rotate(90deg);
+}
+.nested {
+    display: none;
+    list-style-type: none;
+    padding-left: 15px;
+}
+.active {
+    display: block;
+}
+.node-attr {
+    font-size: 12px;
+    color: #777;
+    margin-left: 20px;  /* indent id under the name */
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Pass tree_data from Django safely
+    const treeData = JSON.parse('{{ tree_view|escapejs }}');
+
+    const nodeIndex = {};
+    function indexNodes(node) {
+        if (!node.id) return;
+        nodeIndex[node.id] = node;
+        if (node.children) {
+            node.children.forEach(indexNodes);
+        }
+    }
+    indexNodes(treeData);
+
+    function buildTree(node, parentElement) {
+        const li = document.createElement("li");
+
+        // name
+        const nameSpan = document.createElement("span");
+        nameSpan.textContent = node.name;
+
+        li.appendChild(nameSpan);
+
+        for (key in node) {
+            if (key !== "name" && key !== "children") {
+                const attrSpan = document.createElement("span");
+                attrSpan.textContent = key + ": " + node[key];
+                attrSpan.classList.add("node-attr");
+                li.appendChild(attrSpan);
+            }
+        }
+
+        if (node.children && node.children.length > 0) {
+            nameSpan.classList.add("caret");
+            const ul = document.createElement("ul");
+            ul.classList.add("nested");
+            node.children.forEach(child => buildTree(child, ul));
+            li.appendChild(ul);
+        }
+
+        parentElement.appendChild(li);
+    }
+
+    const rootElement = document.getElementById("tree-root");
+    buildTree(treeData, rootElement);
+
+    // Toggle expand/collapse
+    rootElement.addEventListener("click", function(event) {
+        if (event.target.classList.contains("caret")) {
+            const nested = event.target.parentElement.querySelector(".nested");
+            if (nested) {
+                nested.classList.toggle("active");
+                event.target.classList.toggle("caret-down");
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

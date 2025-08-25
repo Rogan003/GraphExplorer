@@ -1,4 +1,5 @@
 from django.apps import AppConfig
+from use_cases.graph_tree_view import TreeViewService
 from use_cases.plugin_recognition import PluginService
 from use_cases.const import VISUALIZER_GROUP
 from use_cases.const import DATA_SOURCE_GROUP
@@ -7,6 +8,7 @@ class GraphExplorerConfig(AppConfig):
   default_auto_field = 'django.db.models.BigAutoField'
   name = 'graph_explorer'
   plugin_service = PluginService()
+  tree_view_service = TreeViewService()
 
   def ready(self):
     # On aplication start load all plugins
