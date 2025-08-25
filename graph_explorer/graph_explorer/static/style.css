@@ -121,6 +121,73 @@ body, html {
     height: 100%;
 }
 
+.footer-tabs {
+    background-color: #2e343a;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    margin-top: auto;
+}
+
+.page {
+    display: grid;
+    grid-template-rows: 60px 1fr 50px 40px;
+    grid-template-columns: 250px 1fr;
+    grid-template-areas:
+        "header header"
+        "sidebar main"
+        "tabs tabs"
+        "footer footer";
+    height: 100vh;
+}
+
+.footer-tabs {
+    grid-area: tabs;
+    background-color: #2e343a;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.workspace-tabs {
+    display: flex;
+    align-items: center;
+}
+
+.workspace-tab {
+    padding: 10px 15px;
+    margin: 0 5px;
+    background-color: #444c54;
+    color: #fff;
+    border-radius: 5px 5px 0 0;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.workspace-tab:hover {
+    background-color: #555e66;
+}
+
+.workspace-tab.active {
+    background-color: #3f464d;
+    border-bottom: 2px solid #fff;
+}
+
+.add-tab {
+    background-color: #5cb85c;
+    font-size: 1.5em;
+    padding: 5px 10px;
+}
+
+.add-tab:hover {
+    background-color: #4cae4c;
+}
+
+.tab-name {
+    font-size: 0.9em;
+}
+
 .footer {
     grid-area: footer;
     background: #2c3e50;

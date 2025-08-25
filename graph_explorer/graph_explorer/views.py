@@ -1,42 +1,53 @@
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render
 from django.apps import apps
-
-from use_cases.const import VISUALIZER_GROUP
-from use_cases.const import DATA_SOURCE_GROUP
-from graph_explorer_api.model.graph import Graph
+from use_cases.workspace import Workspace
+from use_cases.workspace_manager import get_workspaces, add_workspace
+from use_cases.const import DATA_SOURCE_GROUP, VISUALIZER_GROUP
 
 def index(request):
+    plugin_service = apps.get_app_config("graph_explorer").plugin_service
+    tree_view_service = apps.get_app_config("graph_explorer").tree_view_service
+
+    workspaces = get_workspaces(request.session)
+
+    new_ws = request.GET.get("new")
+    active_ws_id = int(request.GET.get("tab", len(workspaces)-1)) if workspaces else 0
+
     file_path = None
     if request.method == "POST" and request.FILES.get("file"):
-        uploaded_file = request.FILES["file"]
-
         fs = FileSystemStorage()
-        filename = fs.save(uploaded_file.name, uploaded_file)
-
+        filename = fs.save(request.FILES["file"].name, request.FILES["file"])
         file_path = fs.path(filename)
+        new_ws = True
 
-    plugin_service = apps.get_app_config('graph_explorer').plugin_service
-    visualizer_identifier = request.GET.get("visualizer")
-    data_source_identifier = request.GET.get("datasource")
+    if not workspaces or new_ws:
+        ws = Workspace(
+            id=len(workspaces),
+            file_path=file_path,
+            data_source_identifier=request.GET.get("datasource"),
+            visualizer_identifier=request.GET.get("visualizer"),
+        )
+        ws.load_graph(plugin_service, tree_view_service)
+        add_workspace(request.session, ws)
+        active_ws_id = ws.id
+        workspaces = get_workspaces(request.session) 
 
-    data_source_plugins = plugin_service.plugins[DATA_SOURCE_GROUP]
-    selected_data_source_plugin = plugin_service.get_selected_plugin(group=DATA_SOURCE_GROUP, identifier=data_source_identifier)
 
-    visualizer_plugins = plugin_service.plugins[VISUALIZER_GROUP]
-    selected_visualizer_plugin = plugin_service.get_selected_plugin(group=VISUALIZER_GROUP, identifier=visualizer_identifier)
-
-    graph = selected_data_source_plugin.load(path=file_path) if file_path else Graph()
-    graph_html = selected_visualizer_plugin.visualize(graph) if selected_visualizer_plugin else "No visualizer selected 🚫"
-
-    tree_view_service = apps.get_app_config('graph_explorer').tree_view_service
-    tree_view = tree_view_service.generate_template(graph)
+    active_workspace = None
+    if workspaces and 0 <= active_ws_id < len(workspaces):
+        ws_dict = workspaces[active_ws_id]
+        ws = Workspace(**ws_dict)  # graph_html, tree_view = None
+        ws.load_graph(plugin_service, tree_view_service)
+        active_workspace = ws
 
     return render(request, "index.html", {
-        "visualizer_plugins": visualizer_plugins,
-        "data_source_plugins": data_source_plugins,
-        "graph_html": graph_html,
-        "selected_visualizer_plugin": selected_visualizer_plugin.identifier() if selected_visualizer_plugin else None,
-        "selected_data_source_plugin": selected_data_source_plugin.identifier() if selected_data_source_plugin else None,
-        "tree_view": tree_view
+        "visualizer_plugins": plugin_service.plugins[VISUALIZER_GROUP],
+        "data_source_plugins": plugin_service.plugins[DATA_SOURCE_GROUP],
+        "graph_html": active_workspace.graph_html if active_workspace else "No graph yet",
+        "selected_visualizer_identifier": active_workspace.visualizer_identifier if active_workspace else None,
+        "selected_data_source_identifier": active_workspace.data_source_identifier if active_workspace else None,
+        "tree_view": active_workspace.tree_view if active_workspace else None,
+        "workspaces": workspaces,
+        "active_workspace_id": active_ws_id,
     })
