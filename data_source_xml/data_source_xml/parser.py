@@ -24,8 +24,9 @@ class XmlParser:
 
         self.__resolve_references()
 
+        ret_graph = self.__graph
         self.__reset()
-        return self.__graph
+        return ret_graph
 
     def __parse_xml_root(self, xml: str) -> etree._Element:
         parser = etree.XMLParser(remove_blank_text=True)
@@ -106,3 +107,4 @@ class XmlParser:
         self.__id = 0
         self.__references = []
         self.__xml_elements_to_graph_nodes = {}
+        self.__graph = Graph()
