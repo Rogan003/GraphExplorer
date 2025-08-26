@@ -1,79 +1,44 @@
-from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render
 from django.apps import apps
-from use_cases.workspace.workspace import Workspace
-from use_cases.workspace.workspace_manager import get_workspaces, add_workspace
 from use_cases.const import DATA_SOURCE_GROUP, VISUALIZER_GROUP
+from use_cases.workspace.workspace_service import (
+    handle_initial_workspace,
+    upload_file,
+    get_active_workspace,
+    create_workspace,
+)
 
 def index(request):
     # request.session.flush()
     plugin_service = apps.get_app_config("graph_explorer").plugin_service
     tree_view_service = apps.get_app_config("graph_explorer").tree_view_service
 
-    workspaces = get_workspaces(request.session)
-    if not workspaces:
-        ws = Workspace(
-            id=0,
-            file_path=None,
-            data_source_identifier=None,
-            visualizer_identifier=None,
-        )
-        ws.load_graph(plugin_service, tree_view_service)
-        add_workspace(request.session, ws)
-        workspaces = get_workspaces(request.session)
+    workspaces = handle_initial_workspace(request.session, plugin_service, tree_view_service)
 
-    new_ws = request.GET.get("new_workspace")
-    active_ws_id = int(request.GET.get("tab", len(workspaces)-1)) if workspaces else 0
+    file_path = upload_file(request)
 
-    file_path = None
-    if request.method == "POST" and request.FILES.get("file"):
-        fs = FileSystemStorage()
-        filename = fs.save(request.FILES["file"].name, request.FILES["file"])
-        file_path = fs.path(filename)
+    active_ws_id = int(request.GET.get("tab", len(workspaces)))
+    new_ws_flag = request.GET.get("new_workspace") == "true"
 
-        if workspaces and 0 <= active_ws_id < len(workspaces):
-            ws_dict = workspaces[active_ws_id]
-            ws = Workspace(**ws_dict)
-            ws.file_path = file_path
-            ws.load_graph(plugin_service, tree_view_service)
-            active_workspace = ws
-
-            workspaces[active_ws_id] = ws.to_dict()
-            request.session["workspaces"] = workspaces
-        else:
-            new_ws = True
-
-
-    if new_ws == "true":
-        ws = Workspace(
-            id=len(workspaces),
+    if new_ws_flag:
+        active_workspace, workspaces = create_workspace(
+            request.session,
             file_path=file_path,
-            data_source_identifier=request.GET.get("datasource"),
-            visualizer_identifier=request.GET.get("visualizer"),
+            datasource=request.GET.get("datasource"),
+            visualizer=request.GET.get("visualizer"),
+            plugin_service=plugin_service,
+            tree_view_service=tree_view_service,
         )
-        ws.load_graph(plugin_service, tree_view_service)
-        add_workspace(request.session, ws)
-        active_ws_id = ws.id
-        workspaces = get_workspaces(request.session) 
-
-    active_workspace = None
-    if workspaces and 0 <= active_ws_id < len(workspaces):
-        ws_dict = workspaces[active_ws_id]
-        ws = Workspace(**ws_dict)
-
-        if request.GET.get("visualizer"):
-            ws.visualizer_identifier = request.GET.get("visualizer")
-        if request.GET.get("datasource"):
-            ws.data_source_identifier = request.GET.get("datasource")
-        if file_path:
-            ws.file_path = file_path
-
-        ws.load_graph(plugin_service, tree_view_service)
-        active_workspace = ws
-
-        workspaces[active_ws_id] = ws.to_dict()
-        request.session["workspaces"] = workspaces
-
+    else:
+        active_workspace, workspaces = get_active_workspace(
+            request.session,
+            active_ws_id,
+            file_path=file_path,
+            datasource=request.GET.get("datasource"),
+            visualizer=request.GET.get("visualizer"),
+            plugin_service=plugin_service,
+            tree_view_service=tree_view_service,
+        )
 
     return render(request, "index.html", {
         "visualizer_plugins": plugin_service.plugins[VISUALIZER_GROUP],
