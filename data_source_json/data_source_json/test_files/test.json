@@ -4,7 +4,6 @@
       "@id": "1",
       "name": "Parent Node",
       "weight": 3.5,
-      "created": "2025-08-24 12:52",
       "children": [
         {
           "@id": "2",
@@ -28,7 +27,6 @@
     {
       "name": "Another Parent",
       "weight": 2.1,
-      "created": "2025-07-15",
       "children": [
         {
           "@id": "6",

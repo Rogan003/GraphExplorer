@@ -7,7 +7,7 @@
         <div class="tabs">
             {% for plugin in visualizer_plugins %}
             <button
-                class="tab-btn {% if plugin.identifier == selected_visualizer_plugin %}active{% endif %}"
+                class="tab-btn {% if plugin.identifier == selected_visualizer_identifier %}active{% endif %}"
                 onclick="changeVisualizer('{{ plugin.identifier }}')">
                 {{ plugin.name }}
             </button>
@@ -20,7 +20,7 @@
         <div class="tabs">
             {% for plugin in data_source_plugins %}
             <button
-                class="tab-btn {% if plugin.identifier == selected_data_source_plugin %}active{% endif %}"
+                class="tab-btn {% if plugin.identifier == selected_data_source_identifier %}active{% endif %}"
                 onclick="changeDataSource('{{ plugin.identifier }}')">
                 {{ plugin.name }}
             </button>
@@ -42,13 +42,37 @@
 </div>
 {% endblock %}
 
+{% block workspace_tabs %}
+<div class="workspace-tabs">
+    {% for workspace in workspaces %}
+        <a href="?tab={{ workspace.id }}" class="workspace-tab {% if workspace.id == active_workspace_id %}active{% endif %}">
+            <span class="tab-name">Workspace {{ workspace.id|add:1 }}</span>
+        </a>
+    {% endfor %}
+    <a href="javascript:void(0)" class="workspace-tab add-tab" onclick="createNewWorkspace()">+</a>
+</div>
+{% endblock %}
+
 {% block scripts %}
 <script>
 function changeVisualizer(identifier) {
-    window.location.href = "?visualizer=" + identifier;
+    const url = new URL(window.location.href);
+    url.searchParams.set("visualizer", identifier);
+    url.searchParams.delete("new_workspace"); 
+    window.location.href = url.toString();
 }
+
 function changeDataSource(identifier) {
-    window.location.href = "?datasource=" + identifier;
+    const url = new URL(window.location.href);
+    url.searchParams.set("datasource", identifier);
+    url.searchParams.delete("new_workspace"); 
+    window.location.href = url.toString();
+}
+
+function createNewWorkspace() {
+    const url = new URL(window.location.href);
+    url.searchParams.set("new_workspace", "true");
+    window.location.href = url.toString();
 }
 </script>
 {% endblock %}
