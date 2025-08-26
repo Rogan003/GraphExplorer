@@ -52,12 +52,6 @@ def index(request):
         "active_workspace_id": active_ws_id,
     })
 
-
-def get_current_workspace(request, workspace_id):
-    #workspaces = request.session.get("workspaces", {})
-    # return workspaces.get(str(workspace_id))
-    return "workspace"
-
 def apply_filter(request, workspace_id):
     if request.method == "POST":
         #current_workspace = get_current_workspace(request, workspace_id)
