@@ -58,6 +58,7 @@ def get_active_workspace(session, ws_id, file_path=None, datasource=None, visual
 
     ws_dict = workspaces[ws_id]
     ws = Workspace(**ws_dict)
+    ws.tree_view = tree_view_service.empty_tree()
     if file_path:
         ws.file_path = file_path
     if datasource:
@@ -83,6 +84,7 @@ def create_workspace(session, file_path=None, datasource=None, visualizer=None, 
         data_source_identifier=datasource,
         visualizer_identifier=visualizer,
     )
+    ws.tree_view = tree_view_service.empty_tree()
     if plugin_service and tree_view_service:
         ws.load_graph(plugin_service, tree_view_service)
     _add_workspace(session, ws)
