@@ -1,13 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form method="post" action="/workspace/{{ active_workspace.id }}/apply_filter/">
+<form method="post" action="/workspace/{{ current_workspace.id }}/apply_filter/">
     {% csrf_token %}
     <div class="filter-row" style="padding: 10px; padding-left: 17px; padding-right: 17px; background-color: #b8c8d9; border-radius: 12px;">
         <label>
+            <b>Search:</b>
+            <input value="" placeholder="search.." type="text" name="filter_search" style="margin-left: 2px; padding: 6px; border-radius: 7px; border: 0; width: 12%">
+        </label>
+        <label style = "margin-left: 5px">
             <b>Filter:</b>
-            <input value="" placeholder="attribute name" type="text" name="filter_attribute_name" style="margin-left: 3px; padding: 5px; border-radius: 5px; border: 0">
-            <select name="filter_comparator" style="margin-left: 8px; padding: 5px; border-radius: 5px; border: 0">
+            <input value="" placeholder="attribute name" type="text" name="filter_attribute_name" style="margin-left: 2px; padding: 6px; border-radius: 7px; border: 0; width: 12%">
+            <select name="filter_comparator" style="margin-left: 2px; padding: 6px; border-radius: 7px; border: 0">
                 <option value="=="> == </option>
                 <option value=">"> > </option>
                 <option value=">="> >= </option>
@@ -15,9 +19,9 @@
                 <option value="<="> <= </option>
                 <option value="!="> != </option>
             </select>
-            <input value="" placeholder="value" type="text" name="filter_attribute_value" style="margin-left: 8px; margin-right: 8px; padding: 5px; border-radius: 5px; border: 0">
-            <button class="tab-btn" type="submit">Apply Filter</button>
-            <button class="tab-btn" type="button" formaction="/workspace/{{ active_workspace.id }}/reset_filter/">Reset</button>
+            <input value="" placeholder="value" type="text" name="filter_attribute_value" style="margin-left: 2px; margin-right: 8px; padding: 6px; border-radius: 7px; border: 0; width: 12%">
+            <button class="tab-btn" type="submit">Apply</button>
+            <button class="tab-btn" type="button" formaction="/workspace/{{ current_workspace.id }}/reset_filter/">Reset</button>
         </label>
     </div>
 </form>
