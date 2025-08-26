@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.http import HttpResponseBadRequest
+from django.shortcuts import render, redirect
 from django.apps import apps
 from use_cases.const import DATA_SOURCE_GROUP, VISUALIZER_GROUP
 from use_cases.workspace.workspace_service import (
@@ -50,3 +51,46 @@ def index(request):
         "workspaces": workspaces,
         "active_workspace_id": active_ws_id,
     })
+
+
+def get_current_workspace(request, workspace_id):
+    #workspaces = request.session.get("workspaces", {})
+    # return workspaces.get(str(workspace_id))
+    return "workspace"
+
+def apply_filter(request, workspace_id):
+    if request.method == "POST":
+        #current_workspace = get_current_workspace(request, workspace_id)
+        #graph = current_workspace["current_graph"]
+
+        #graph = get_current_graph(request) # for now this one, we need to use the graph from the currently active workspace
+
+        filters = {
+            "attribute_name": request.POST.get("filter_attribute_name"),
+            "comparator": request.POST.get("filter_comparator"),
+            "attribute_value": request.POST.get("filter_attribute_value"),
+            "search": request.POST.get("filter_search"),
+        }
+
+        # apply filters to the graph
+        try:
+            pass
+            #graph = graph.apply_filters(filters)
+            #print(graph)
+            # update filters and filtered graph (G1 -> G2) from the current workspace
+            #current_workspace["filters"].append(filters)
+            #current_workspace["current_graph"] = graph
+        except ValueError:
+            return HttpResponseBadRequest("Invalid filter.")
+
+    # so the new filtered graph can be reloaded on the current workspace
+    return redirect("index", workspace_id=workspace_id)
+
+def reset_filters(request, workspace_id):
+    """
+    current_workspace = get_workspace_state(request, workspace_id)
+    current_workspace["current_graph"] = current_workspace["original_graph"]
+    current_workspace["filters"] = []
+    """
+
+    return redirect("index", workspace_id=workspace_id)
