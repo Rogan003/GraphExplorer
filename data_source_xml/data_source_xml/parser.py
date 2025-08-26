@@ -12,8 +12,8 @@ class XmlParser:
     __graph: Graph = Graph()
     __root_xml_element: etree._Element = None
 
-    def parse_xml(self, xml: str, refrence_attribute: str) -> Graph:
-        self.__graph.directed = True
+    def parse_xml(self, xml: str, refrence_attribute: str, is_directed: bool) -> Graph:
+        self.__graph.directed = is_directed
         self.__reference_attribute = refrence_attribute
 
         self.__root_xml_element = self.__parse_xml_root(xml)
