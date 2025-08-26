@@ -1,8 +1,8 @@
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render
 from django.apps import apps
-from use_cases.workspace import Workspace
-from use_cases.workspace_manager import get_workspaces, add_workspace
+from use_cases.workspace.workspace import Workspace
+from use_cases.workspace.workspace_manager import get_workspaces, add_workspace
 from use_cases.const import DATA_SOURCE_GROUP, VISUALIZER_GROUP
 
 def index(request):

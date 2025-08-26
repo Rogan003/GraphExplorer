@@ -11,8 +11,3 @@ def add_workspace(session, workspace):
     })
     session["workspaces"] = workspaces
     session.modified = True
-
-def update_workspace(session, index, workspace):
-    workspaces = get_workspaces(session)
-    workspaces[index] = workspace.__dict__
-    session.modified = True
