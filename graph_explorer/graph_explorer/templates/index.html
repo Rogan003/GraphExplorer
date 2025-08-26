@@ -49,7 +49,7 @@
             <span class="tab-name">Workspace {{ workspace.id|add:1 }}</span>
         </a>
     {% endfor %}
-    <a href="?new=true" class="workspace-tab add-tab" onclick="createNewWorkspace()">+</a>
+    <a href="javascript:void(0)" class="workspace-tab add-tab" onclick="createNewWorkspace()">+</a>
 </div>
 {% endblock %}
 
@@ -58,12 +58,14 @@
 function changeVisualizer(identifier) {
     const url = new URL(window.location.href);
     url.searchParams.set("visualizer", identifier);
+    url.searchParams.delete("new_workspace"); 
     window.location.href = url.toString();
 }
 
 function changeDataSource(identifier) {
     const url = new URL(window.location.href);
     url.searchParams.set("datasource", identifier);
+    url.searchParams.delete("new_workspace"); 
     window.location.href = url.toString();
 }
 
