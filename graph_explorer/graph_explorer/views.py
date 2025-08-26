@@ -11,6 +11,16 @@ def index(request):
     tree_view_service = apps.get_app_config("graph_explorer").tree_view_service
 
     workspaces = get_workspaces(request.session)
+    if not workspaces:
+        ws = Workspace(
+            id=0,
+            file_path=None,
+            data_source_identifier=None,
+            visualizer_identifier=None,
+        )
+        ws.load_graph(plugin_service, tree_view_service)
+        add_workspace(request.session, ws)
+        workspaces = get_workspaces(request.session)
 
     new_ws = request.GET.get("new_workspace")
     active_ws_id = int(request.GET.get("tab", len(workspaces)-1)) if workspaces else 0
