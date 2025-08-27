@@ -14,8 +14,9 @@ class DataSourceJSONParser(DataSourcePlugin):
     def load(self, **kwargs) -> Graph:
         self.__configure_plugin()
         data = self.loader.load(kwargs.get("path"))
+        reference_attribute = self.config.get_reference_attribute() if self.config else "reference"
         graph_type = self.config.get_graph_type() if self.config else "directed"
-        return self.parser.parse(data, graph_type)
+        return self.parser.parse(data, reference_attribute, graph_type)
 
     def __configure_plugin(self):
         loader_type = self.config.get_loader_type()

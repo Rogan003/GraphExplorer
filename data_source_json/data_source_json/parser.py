@@ -11,9 +11,11 @@ class JSONParser:
     __graph: Graph = Graph()
     __nodes: dict[str, Node] = {}  # node_id -> Node
     __edges_to_resolve: list[tuple[str, str]] = []  # (from_id, to_id)
+    __reference_attribute: str = "reference"
 
-    def parse(self, data: str, graph_type: JSONGraphType) -> Graph:
+    def parse(self, data: str, reference_attribute: str, graph_type: JSONGraphType) -> Graph:
         self.__reset()  # so different instances won't use the same values
+        self.__reference_attribute = reference_attribute
         self.__graph.directed = graph_type == JSONGraphType.DIRECTED
 
         json_data = json.loads(data)
@@ -39,7 +41,7 @@ class JSONParser:
             if isinstance(val, (dict, list)):
                 continue
             # collect node attributes
-            if key not in ["@id", "parent"]:
+            if key not in ["@id", self.__reference_attribute]:
                 node_data[key] = self.__convert_value(val)
 
         if root_node_id not in self.__nodes:
@@ -55,8 +57,8 @@ class JSONParser:
         if parent_id and parent_id in self.__nodes:
             self.__add_edge(self.__nodes[parent_id], current_node)
 
-        if "parent" in json_data:
-            self.__edges_to_resolve.append((str(root_node_id), str(json_data["parent"])))
+        if self.__reference_attribute in json_data:
+            self.__edges_to_resolve.append((str(root_node_id), str(json_data[self.__reference_attribute])))
 
         # go through children
         for _, val in json_data.items():
