@@ -23,10 +23,10 @@ def index(request):
 
     data_source_config = None
 
-    if request.method == "POST" and request.POST.get("graph_type") and request.POST.get("reference_attribute") \
+    if request.method == "POST" and request.POST.get("is_graph_directed") and request.POST.get("reference_attribute") \
             and request.POST.get("loader_type"):
         data_source_config = {
-            "graph_type": request.POST.get("graph_type"),
+            "is_graph_directed": request.POST.get("is_graph_directed") == "true",
             "reference_attribute": request.POST.get("reference_attribute"),
             "loader_type": request.POST.get("loader_type"),
         }
@@ -65,7 +65,7 @@ def index(request):
     })
 
 def data_source_config(request):
-    if request.method == "POST" and request.POST.get("graph_type") and request.POST.get("reference_attribute")\
+    if request.method == "POST" and request.POST.get("is_graph_directed") and request.POST.get("reference_attribute")\
             and request.POST.get("loader_type"):
         return index(request)
 

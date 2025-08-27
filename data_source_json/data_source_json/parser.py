@@ -5,7 +5,6 @@ from datetime import datetime
 from graph_explorer_api.model.edge import Edge
 from graph_explorer_api.model.graph import Graph
 from graph_explorer_api.model.node import Node
-from data_source_json.configuration import JSONGraphType
 
 class JSONParser:
     __graph: Graph = Graph()
@@ -13,10 +12,10 @@ class JSONParser:
     __edges_to_resolve: list[tuple[str, str]] = []  # (from_id, to_id)
     __reference_attribute: str = "reference"
 
-    def parse(self, data: str, reference_attribute: str, graph_type: JSONGraphType) -> Graph:
+    def parse(self, data: str, reference_attribute: str, is_graph_directed: bool) -> Graph:
         self.__reset()  # so different instances won't use the same values
         self.__reference_attribute = reference_attribute
-        self.__graph.directed = graph_type == JSONGraphType.DIRECTED
+        self.__graph.directed = is_graph_directed
 
         json_data = json.loads(data)
         self.__build_graph(json_data, parent_id=None)

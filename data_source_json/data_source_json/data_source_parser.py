@@ -1,29 +1,14 @@
 from __future__ import annotations
 from graph_explorer_api.model.graph import Graph
 from graph_explorer_api.plugins.data_source_plugin import DataSourcePlugin
-from data_source_json.configuration import JSONLoaderType, JSONGraphType
-from data_source_json.configuration import Configuration
 from data_source_json.parser import JSONParser
-from graph_explorer_api.plugins.data_source_loaders import DataSourceUrlLoader, DataSourceFileLoader, DataSourceLoader
 
 class DataSourceJSONParser(DataSourcePlugin):
-    loader: DataSourceLoader = DataSourceFileLoader()
-    config: Configuration | None = Configuration()
     parser: JSONParser = JSONParser()
 
-    def load(self, **kwargs) -> Graph:
-        self.__configure_plugin()
-        data = self.loader.load(kwargs.get("path"))
-        reference_attribute = self.config.get_reference_attribute() if self.config else "reference"
-        graph_type = self.config.get_graph_type() if self.config else "directed"
-        return self.parser.parse(data, reference_attribute, graph_type)
-
-    def __configure_plugin(self):
-        loader_type = self.config.get_loader_type()
-        if loader_type == JSONLoaderType.URL:
-            self.loader = DataSourceUrlLoader()
-        else:
-            self.loader = DataSourceFileLoader()
+    def load(self, path: str) -> Graph:
+        data = self.loader.load(path)
+        return self.parser.parse(data, self.reference_attribute, self.is_graph_directed)
 
     def identifier(self) -> str:
         return "DataSourceJSONParser"
