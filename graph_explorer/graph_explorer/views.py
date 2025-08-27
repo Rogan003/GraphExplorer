@@ -1,6 +1,7 @@
+import pkg_resources
 from django.shortcuts import render
 from django.apps import apps
-from use_cases.const import DATA_SOURCE_GROUP, VISUALIZER_GROUP
+from use_cases.const import DATA_SOURCE_GROUP, VISUALIZER_GROUP, DATA_SOURCE_LOADERS_GROUP
 from use_cases.workspace.workspace_service import (
     handle_initial_workspace,
     upload_file,
@@ -49,4 +50,15 @@ def index(request):
         "tree_view": active_workspace.tree_view if active_workspace else None,
         "workspaces": workspaces,
         "active_workspace_id": active_ws_id,
+    })
+
+def data_source_config(request):
+    if request.method == "POST" and request.POST.get("graph_type") and request.POST.get("reference_attribute")\
+            and request.POST.get("loader_type"):
+        # set config for the active workspace
+        return index(request)
+
+    loaders = pkg_resources.iter_entry_points(group=DATA_SOURCE_LOADERS_GROUP)
+    return render(request, "data_source_configuration.html", {
+        "loaders" : loaders
     })

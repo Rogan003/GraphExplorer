@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .form-container {
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 2rem 10rem;
+        border-radius: 20px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        background: #ffffff;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        font-size: 1.4rem;
+    }
+    .form-container h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 2rem;
+    }
+    .form-group {
+        margin-bottom: 2.5rem;
+    }
+    label {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+    }
+    input[type="text"], select {
+        width: 100%;
+        padding: 1.2rem;
+        border: 2px solid #ccc;
+        border-radius: 12px;
+        font-size: 1.3rem;
+    }
+    .radio-group {
+        display: flex;
+        gap: 3rem;
+        margin-top: 1rem;
+        font-size: 1.3rem;
+    }
+    .radio-group input {
+        transform: scale(1.5);
+        margin-right: 0.5rem;
+    }
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 3rem;
+    }
+    button, .back-btn {
+        padding: 1.2rem 2.5rem;
+        border: none;
+        border-radius: 12px;
+        font-size: 1.3rem;
+        cursor: pointer;
+        text-decoration: none;
+        text-align: center;
+        transition: background 0.2s;
+    }
+    .submit-btn {
+        background: #28a745;
+        color: white;
+    }
+    .submit-btn:hover {
+        background: #218838;
+    }
+    .back-btn {
+        background: #6c757d;
+        color: white;
+    }
+    .back-btn:hover {
+        background: #545b62;
+    }
+    .error-message {
+        color: #b00020;
+        background: #fdd;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        display: none; /* hidden by default */
+    }
+</style>
+
+<div class="form-container">
+    <h2>Example Form</h2>
+    <!-- Error area -->
+    <div id="errorBox" class="error-message"></div>
+
+    <form id="graphForm" method="post">
+        {% csrf_token %}
+
+        <!-- Radio choice -->
+        <div class="form-group">
+            <label>Graph type:</label>
+            <div class="radio-group">
+                <label><input type="radio" name="graph_type" value="undirected"> Undirected</label>
+                <label><input type="radio" name="graph_type" value="directed"> Directed</label>
+            </div>
+        </div>
+
+        <!-- String input -->
+        <div class="form-group">
+            <label for="reference_attribute">Enter the reference attribute:</label>
+            <input type="text" id="reference_attribute" name="reference_attribute" placeholder="Type reference attribute...">
+        </div>
+
+        <!-- Dropdown -->
+        <div class="form-group">
+            <label for="loader_type">Select the data source loader:</label>
+            <select id="loader_type" name="loader_type">
+                <option value="" disabled selected>-- Choose one --</option>
+                {% for loader in loaders %}
+                <option value="{{ loader.name }}">{{ loader.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Buttons -->
+        <div class="buttons">
+            <button type="button" class="back-btn" onclick="navigateToHome()">Back</button>
+            <button type="submit" class="submit-btn">Submit</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function navigateToHome() {
+        window.location.href = "{% url 'index' %}";
+    }
+
+    // simple validation
+    document.getElementById("graphForm").addEventListener("submit", function (e) {
+        let errorBox = document.getElementById("errorBox");
+        errorBox.style.display = "none";
+        errorBox.innerHTML = "";
+
+        let graph_type = document.querySelector("input[name='graph_type']:checked");
+        let reference_attribute = document.getElementById("reference_attribute").value.trim();
+        let loader_type = document.getElementById("loader_type").value;
+
+        if (!graph_type || !reference_attribute || !loader_type) {
+            e.preventDefault();
+            errorBox.style.display = "block";
+            errorBox.innerHTML = "⚠ Please select a graph type, enter a reference attribute, and choose a loader.";
+        }
+    });
+</script>
+{% endblock %}

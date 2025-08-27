@@ -35,6 +35,11 @@
             <input type="file" name="file" onchange="this.form.submit()">
         </form>
     </div>
+
+    <div class="config-selector">
+        <span class="label">Change data source config:</span>
+        <button class="tab-btn" onClick="navigateToConfig()">Configuration</button>
+    </div>
 </div>
 
 <div id="graph-area">
@@ -73,6 +78,9 @@ function createNewWorkspace() {
     const url = new URL(window.location.href);
     url.searchParams.set("new_workspace", "true");
     window.location.href = url.toString();
+}
+function navigateToConfig() {
+    window.location.href = "{% url 'data_source_config' %}";
 }
 </script>
 {% endblock %}
