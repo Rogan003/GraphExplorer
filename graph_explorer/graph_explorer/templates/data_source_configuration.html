@@ -94,8 +94,8 @@
         <div class="form-group">
             <label>Graph type:</label>
             <div class="radio-group">
-                <label><input type="radio" name="graph_type" value="false"> Undirected</label>
-                <label><input type="radio" name="graph_type" value="true"> Directed</label>
+                <label><input type="radio" name="is_graph_directed" value="false"> Undirected</label>
+                <label><input type="radio" name="is_graph_directed" value="true"> Directed</label>
             </div>
         </div>
 
@@ -135,11 +135,11 @@
         errorBox.style.display = "none";
         errorBox.innerHTML = "";
 
-        let graph_type = document.querySelector("input[name='graph_type']:checked");
+        let is_graph_directed = document.querySelector("input[name='is_graph_directed']:checked");
         let reference_attribute = document.getElementById("reference_attribute").value.trim();
         let loader_type = document.getElementById("loader_type").value;
 
-        if (!graph_type || !reference_attribute || !loader_type) {
+        if (!is_graph_directed || !reference_attribute || !loader_type) {
             e.preventDefault();
             errorBox.style.display = "block";
             errorBox.innerHTML = "⚠ Please select a graph type, enter a reference attribute, and choose a loader.";
