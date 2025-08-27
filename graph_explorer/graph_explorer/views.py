@@ -21,24 +21,36 @@ def index(request):
     active_ws_id = int(request.GET.get("tab", len(workspaces)))
     new_ws_flag = request.GET.get("new_workspace") == "true"
 
+    data_source_config = None
+
+    if request.method == "POST" and request.POST.get("graph_type") and request.POST.get("reference_attribute") \
+            and request.POST.get("loader_type"):
+        data_source_config = {
+            "graph_type": request.POST.get("graph_type"),
+            "reference_attribute": request.POST.get("reference_attribute"),
+            "loader_type": request.POST.get("loader_type"),
+        }
+
     if new_ws_flag:
         active_workspace, workspaces = create_workspace(
             request.session,
-            file_path=file_path,
+            path=file_path,
             datasource=request.GET.get("datasource"),
             visualizer=request.GET.get("visualizer"),
             plugin_service=plugin_service,
             tree_view_service=tree_view_service,
+            data_source_config=data_source_config
         )
     else:
         active_workspace, workspaces = get_active_workspace(
             request.session,
             active_ws_id,
-            file_path=file_path,
+            path=file_path,
             datasource=request.GET.get("datasource"),
             visualizer=request.GET.get("visualizer"),
             plugin_service=plugin_service,
             tree_view_service=tree_view_service,
+            data_source_config=data_source_config
         )
 
     return render(request, "index.html", {
@@ -55,7 +67,6 @@ def index(request):
 def data_source_config(request):
     if request.method == "POST" and request.POST.get("graph_type") and request.POST.get("reference_attribute")\
             and request.POST.get("loader_type"):
-        # set config for the active workspace
         return index(request)
 
     loaders = pkg_resources.iter_entry_points(group=DATA_SOURCE_LOADERS_GROUP)
