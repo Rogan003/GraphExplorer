@@ -59,3 +59,13 @@ class TreeViewService(object):
                 self.__generate_tree_json(child) for child in tree_node.children if child is not None
             ]
         }
+
+    def empty_tree(self) -> str:
+        self.__tree_root = None
+        self.__graph = None
+        self.__visited = set()
+
+        template_path = "tree_view.html"
+        template = get_template(template_path)
+        json_data_str = json.dumps({})
+        return template.render({'tree_view': json_data_str})
