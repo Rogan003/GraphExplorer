@@ -18,7 +18,7 @@ class DataSourceFileLoader(DataSourceLoader):
             return file.read()
 
     def identifier(self) -> str:
-        return "DataSourceFileLoader"
+        return "data_source_file_loader"
 
 class DataSourceUrlLoader(DataSourceLoader):
     # path in this context is a url, path on the web
@@ -28,4 +28,4 @@ class DataSourceUrlLoader(DataSourceLoader):
         return response.text
 
     def identifier(self) -> str:
-        return "DataSourceUrlLoader"
+        return "data_source_url_loader"

@@ -94,15 +94,22 @@
         <div class="form-group">
             <label>Graph type:</label>
             <div class="radio-group">
-                <label><input type="radio" name="is_graph_directed" value="false"> Undirected</label>
-                <label><input type="radio" name="is_graph_directed" value="true"> Directed</label>
+                <label><input type="radio" name="is_graph_directed" value="false"
+                              {% if not config.is_graph_directed %}checked{% endif %}>
+                    Undirected
+                </label>
+                <label><input type="radio" name="is_graph_directed" value="true"
+                              {% if config.is_graph_directed %}checked{% endif %}>
+                    Directed
+                </label>
             </div>
         </div>
 
         <!-- String input -->
         <div class="form-group">
             <label for="reference_attribute">Enter the reference attribute:</label>
-            <input type="text" id="reference_attribute" name="reference_attribute" placeholder="Type reference attribute...">
+            <input type="text" id="reference_attribute" name="reference_attribute" placeholder="Type reference attribute..."
+             value="{{ config.reference_attribute }}">
         </div>
 
         <!-- Dropdown -->
@@ -111,7 +118,9 @@
             <select id="loader_type" name="loader_type">
                 <option value="" disabled selected>-- Choose one --</option>
                 {% for loader in loaders %}
-                <option value="{{ loader.name }}">{{ loader.name }}</option>
+                <option value="{{ loader.name }}" {% if config.loader_type == loader.name %} selected {% endif %}>
+                    {{ loader.name }}
+                </option>
                 {% endfor %}
             </select>
         </div>

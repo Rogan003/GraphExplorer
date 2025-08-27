@@ -7,6 +7,7 @@ from use_cases.workspace.workspace_service import (
     upload_file,
     get_active_workspace,
     create_workspace,
+    get_config_for_workspace
 )
 
 def index(request):
@@ -75,5 +76,6 @@ def data_source_config(request, ws_id):
     loaders = pkg_resources.iter_entry_points(group=DATA_SOURCE_LOADERS_GROUP)
     return render(request, "data_source_configuration.html", {
         "loaders" : loaders,
-        "active_workspace_id": ws_id
+        "active_workspace_id": ws_id,
+        "config" : get_config_for_workspace(request.session, ws_id)
     })

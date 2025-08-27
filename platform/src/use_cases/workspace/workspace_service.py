@@ -90,3 +90,10 @@ def create_workspace(session, path=None, datasource=None, visualizer=None, plugi
     _add_workspace(session, ws)
     workspaces = _get_workspaces(session)
     return ws, workspaces
+
+def get_config_for_workspace(session, ws_id: int) -> dict:
+    workspaces = _get_workspaces(session)
+
+    for workspace in workspaces:
+        if workspace["id"] == ws_id:
+            return workspace["data_source_configuration"]
