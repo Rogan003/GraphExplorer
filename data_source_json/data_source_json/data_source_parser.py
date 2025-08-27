@@ -8,6 +8,10 @@ class DataSourceJSONParser(DataSourcePlugin):
 
     def load(self, path: str) -> Graph:
         data = self.loader.load(path)
+
+        if not data or len(data) == 0:
+            return Graph()
+
         return self.parser.parse(data, self.reference_attribute, self.is_graph_directed)
 
     def identifier(self) -> str:

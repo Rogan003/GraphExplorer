@@ -32,7 +32,12 @@
         <span class="label">Select data source file:</span>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
+            {% if loader_type == 'data_source_url_loader' %}
+            <input type="text" name="url" onchange="this.form.submit()">
+            <input type="submit" value="submit"/>
+            {% else %}
             <input type="file" name="file" onchange="this.form.submit()">
+            {% endif %}
         </form>
     </div>
 

@@ -7,6 +7,9 @@ class DataSourceXmlParser(DataSourcePlugin):
 
     def load(self, path: str) -> Graph:
         xml = self.loader.load(path)
+        if not xml or len(xml) == 0:
+            return Graph()
+
         return self.parser.parse_xml(xml, self.reference_attribute, self.is_graph_directed)
 
     def identifier(self) -> str:

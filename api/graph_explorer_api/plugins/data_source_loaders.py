@@ -14,8 +14,11 @@ class DataSourceLoader(ABC):
 class DataSourceFileLoader(DataSourceLoader):
     # path in this context here should be a file path
     def load(self, path: str) -> str:
-        with open(path, "r") as file:
-            return file.read()
+        try:
+            with open(path, "r", encoding="utf-8") as file:
+                return file.read()
+        except Exception:
+            return ""
 
     def identifier(self) -> str:
         return "data_source_file_loader"
@@ -23,6 +26,9 @@ class DataSourceFileLoader(DataSourceLoader):
 class DataSourceUrlLoader(DataSourceLoader):
     # path in this context is a url, path on the web
     def load(self, path: str) -> str:
+        if not path or not path.startswith("http"):
+            return ""
+
         response = requests.get(path, timeout=10)
         response.raise_for_status()
         return response.text
