@@ -50,5 +50,27 @@ function changeVisualizer(identifier) {
 function changeDataSource(identifier) {
     window.location.href = "?datasource=" + identifier;
 }
+
+document.addEventListener("DOMContentLoaded", function() { 
+  const svg = d3.select("#graph-area svg");
+
+  let g = svg.select("g");
+
+  const zoom = d3.behavior.zoom()
+        .scaleExtent([0.5, 5])
+        .on("zoom", function() {
+            g.attr("transform",
+                "translate(" + d3.event.translate[0] + "," + d3.event.translate[1] + ") " +
+                "scale(" + d3.event.scale + ")");
+        });
+
+    svg.call(zoom);
+
+    const nodes = g.selectAll(".node");
+
+    nodes.on("mousedown", function() {
+        d3.event.stopPropagation();
+    });
+})
 </script>
 {% endblock %}

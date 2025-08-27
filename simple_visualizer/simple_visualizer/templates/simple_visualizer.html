@@ -61,6 +61,8 @@ function render() {
         .attr("width", width)
         .attr("height", height);
 
+    const g = svg.append("g")
+    
     // Arrow marker
     svg.append("defs").append("marker")
         .attr("id", "arrowhead")
@@ -82,13 +84,13 @@ function render() {
         .on("tick", ticked)
         .start();
 
-    const link = svg.selectAll(".link")
+    const link = g.selectAll(".link")
         .data(graphLinks)
         .enter().append("line")
         .attr("class", "link")
         .attr("marker-end", d => d.directed ? "url(#arrowhead)" : "");
 
-    const node = svg.selectAll(".node")
+    const node = g.selectAll(".node")
         .data(graphNodes)
         .enter().append("g")
         .attr("class", "node")

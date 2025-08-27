@@ -67,6 +67,8 @@ function render() {
         .attr("width", width)
         .attr("height", height);
 
+    const g = svg.append("g")
+
     // Drop shadow
     const defs = svg.append("defs");
     const filter = defs.append("filter")
@@ -107,14 +109,14 @@ function render() {
         .start();
 
     // Draw links BELOW nodes
-    const link = svg.selectAll(".link")
+    const link = g.selectAll(".link")
         .data(graphLinks)
         .enter().insert("line", ":first-child")
         .attr("class", "link")
         .attr("marker-end", d => d.directed ? "url(#arrowhead)" : "");
 
     // Draw nodes
-    const node = svg.selectAll(".node")
+    const node = g.selectAll(".node")
         .data(graphNodes)
         .enter().append("g")
         .attr("class", "node")
