@@ -7,5 +7,5 @@ def find_loader(id: str) -> DataSourceLoader:
 
     for loader_name in loaders_names:
         loader = loader_name.load()()
-        if loader.identifier() == id:
+        if loader.identifier() == id or str(loader_name.name) == id:
             return loader

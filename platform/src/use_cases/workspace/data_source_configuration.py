@@ -16,6 +16,6 @@ class DataSourceConfiguration:
         }
 
     def update(self, reference_attribute: str, is_graph_directed: bool, loader_type: str):
-       self.reference_attribute=reference_attribute
-       self.is_graph_directed=is_graph_directed
-       self.loader_type=find_loader(loader_type)
+        self.reference_attribute=reference_attribute
+        self.is_graph_directed=is_graph_directed
+        self.loader_type=find_loader(loader_type)

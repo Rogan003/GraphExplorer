@@ -61,10 +61,10 @@ def get_active_workspace(session, ws_id, path=None, datasource=None, visualizer=
         ws.data_source_identifier = datasource
     if visualizer:
         ws.visualizer_identifier = visualizer
-    if plugin_service and tree_view_service:
-        ws.load_graph(plugin_service, tree_view_service)
     if data_source_config:
         ws.configuration.update(**data_source_config)
+    if plugin_service and tree_view_service:
+        ws.load_graph(plugin_service, tree_view_service)
 
     _update_workspace_in_session(session, ws)
     workspaces = _get_workspaces(session)

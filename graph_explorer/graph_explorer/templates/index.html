@@ -36,10 +36,12 @@
         </form>
     </div>
 
+    {% if active_workspace_id is not None and active_workspace_id < workspace_count %}
     <div class="config-selector">
         <span class="label">Change data source config:</span>
         <button class="tab-btn" onClick="navigateToConfig()">Configuration</button>
     </div>
+    {% endif %}
 </div>
 
 <div id="graph-area">
@@ -80,7 +82,7 @@ function createNewWorkspace() {
     window.location.href = url.toString();
 }
 function navigateToConfig() {
-    window.location.href = "{% url 'data_source_config' %}";
+    window.location.href = "{% url 'data_source_config' ws_id=active_workspace_id %}";
 }
 </script>
 {% endblock %}

@@ -126,7 +126,7 @@
 
 <script>
     function navigateToHome() {
-        window.location.href = "{% url 'index' %}";
+        window.location.href = "{% url 'index' %}?tab={{ active_workspace_id }}";
     }
 
     // simple validation

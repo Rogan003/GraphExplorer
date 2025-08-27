@@ -30,6 +30,7 @@ def index(request):
             "reference_attribute": request.POST.get("reference_attribute"),
             "loader_type": request.POST.get("loader_type"),
         }
+        active_ws_id = request.active_workspace_id
 
     if new_ws_flag:
         active_workspace, workspaces = create_workspace(
@@ -62,14 +63,17 @@ def index(request):
         "tree_view": active_workspace.tree_view if active_workspace else None,
         "workspaces": workspaces,
         "active_workspace_id": active_ws_id,
+        "workspace_count": len(workspaces)
     })
 
-def data_source_config(request):
+def data_source_config(request, ws_id):
     if request.method == "POST" and request.POST.get("is_graph_directed") and request.POST.get("reference_attribute")\
             and request.POST.get("loader_type"):
+        request.active_workspace_id = ws_id
         return index(request)
 
     loaders = pkg_resources.iter_entry_points(group=DATA_SOURCE_LOADERS_GROUP)
     return render(request, "data_source_configuration.html", {
-        "loaders" : loaders
+        "loaders" : loaders,
+        "active_workspace_id": ws_id
     })
