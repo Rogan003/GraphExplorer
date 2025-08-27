@@ -1,19 +1,20 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod, ABC
+
 import requests
 
-class XmlLoader(ABC):
+class DataSourceLoader(ABC):
     @abstractmethod
     def load(self, path: str) -> str:
         pass
 
-class XmlFileLoader(XmlLoader):
-    # path here should be a file path
+class DataSourceFileLoader(DataSourceLoader):
+    # path in this context here should be a file path
     def load(self, path: str) -> str:
         with open(path, "r") as file:
             return file.read()
 
-class XmlLinkLoader(XmlLoader):
-    # path here should be a link
+class DataSourceUrlLoader(DataSourceLoader):
+    # path in this context is a url, path on the web
     def load(self, path: str) -> str:
         response = requests.get(path, timeout=10)
         response.raise_for_status()

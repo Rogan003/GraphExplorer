@@ -3,11 +3,11 @@ from graph_explorer_api.model.graph import Graph
 from graph_explorer_api.plugins.data_source_plugin import DataSourcePlugin
 from data_source_json.configuration import JSONLoaderType, JSONGraphType
 from data_source_json.configuration import Configuration
-from data_source_json.loader import JSONFileLoader, JSONLoader, JSONUrlLoader
 from data_source_json.parser import JSONParser
+from graph_explorer_api.plugins.data_source_loaders import DataSourceUrlLoader, DataSourceFileLoader, DataSourceLoader
 
 class DataSourceJSONParser(DataSourcePlugin):
-    loader: JSONLoader = JSONFileLoader()
+    loader: DataSourceLoader = DataSourceFileLoader()
     config: Configuration | None = Configuration()
     parser: JSONParser = JSONParser()
 
@@ -21,9 +21,9 @@ class DataSourceJSONParser(DataSourcePlugin):
     def __configure_plugin(self):
         loader_type = self.config.get_loader_type()
         if loader_type == JSONLoaderType.URL:
-            self.loader = JSONUrlLoader()
+            self.loader = DataSourceUrlLoader()
         else:
-            self.loader = JSONFileLoader()
+            self.loader = DataSourceFileLoader()
 
     def identifier(self) -> str:
         return "DataSourceJSONParser"

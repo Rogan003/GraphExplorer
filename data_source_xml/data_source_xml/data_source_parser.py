@@ -1,11 +1,11 @@
 from graph_explorer_api.model.graph import Graph
 from graph_explorer_api.plugins.data_source_plugin import DataSourcePlugin
-from data_source_xml.loader import XmlLoader, XmlFileLoader, XmlLinkLoader
+from graph_explorer_api.plugins.data_source_loaders import DataSourceUrlLoader, DataSourceFileLoader, DataSourceLoader
 from data_source_xml.configuration import Configuration, XMLLoaderType, GraphType
 from data_source_xml.parser import XmlParser
 
 class DataSourceXmlParser(DataSourcePlugin):
-    loader: XmlLoader = XmlFileLoader()
+    loader: DataSourceLoader = DataSourceFileLoader()
     config: Configuration | None = Configuration()
     parser: XmlParser = XmlParser()
 
@@ -19,9 +19,9 @@ class DataSourceXmlParser(DataSourcePlugin):
     def __configure_plugin(self):
         loader_type = self.config.get_loader_type()
         if loader_type == XMLLoaderType.LINK:
-            self.loader = XmlLinkLoader()
+            self.loader = DataSourceUrlLoader()
         else:
-            self.loader = XmlFileLoader()
+            self.loader = DataSourceFileLoader()
 
     def identifier(self) -> str:
         return "DataSourceXmlParser"
