@@ -34,7 +34,7 @@ class Workspace:
             "file_path": self.file_path,
             "data_source_identifier": self.data_source_identifier,
             "visualizer_identifier": self.visualizer_identifier,
-            "filters": [f.to_dict() for f in self.filters],
+            "filters": [f.to_dict() if hasattr(f, "to_dict") else f for f in self.filters],
         }
 
     @classmethod
@@ -48,8 +48,8 @@ class Workspace:
             filters=filters,
         )
 
-    def add_filter(self, filter_obj: Filter):
-        self.filters.append(filter_obj)
+    def add_filter(self, filters: Filter):
+        self.filters.append(filters)
 
     def clear_filters(self):
         self.filters = []
@@ -58,6 +58,6 @@ class Workspace:
         g = self.graph
 
         for f in self.filters:
-            g = g.apply_filters(f.to_dict())
+            g = g.apply_filters(f.to_dict() if hasattr(f, "to_dict") else f)
 
         return g
