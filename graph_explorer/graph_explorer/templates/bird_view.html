@@ -1,0 +1,97 @@
+<div id="bird-view-wrapper">
+    <svg id="bird-view-svg">
+        <g id="bird-view-group"></g>
+    </svg>
+</div>
+
+<style>
+#mini-map-wrapper { 
+  width: 100%;
+  height: 100%;
+  border: 1px solid #c0c0c0;
+  background-color: #fafafa;
+}
+
+#mini-map-svg {
+  width: 80%;
+  height: 100%;
+}
+
+.viewport-box { 
+  fill: none;
+  stroke: #e74c3c;
+  stroke-width: 4px;
+}
+</style>
+
+<script>
+let isReady = false;
+const observerOptions = { attributes: true, childList: true, subtree: true };
+
+function initGraphWatcher() {
+    const mainGraphSvg = d3.select("#graph-container svg").node();
+    if (mainGraphSvg) {
+        const observer = new MutationObserver(() => {
+            if (!isReady) { updateBirdView(); }
+        });
+        observer.observe(mainGraphSvg, observerOptions);
+    }
+}
+
+function addViewportBorder(mainSvg) {
+    mainSvg.select("#mini-view-border").remove();
+    const w = mainSvg.node().clientWidth;
+    const h = mainSvg.node().clientHeight;
+    const offset = 4;
+
+    mainSvg.append("rect")
+        .attr("x", -offset / 2)
+        .attr("y", -offset / 2)
+        .attr("width", w + offset)
+        .attr("height", h + offset)
+        .attr("id", "mini-view-border")
+        .attr("class", "viewport-box");
+}
+
+function renderView(mainSvg) {
+    const mainHtml = mainSvg.html();
+    const miniGroup = d3.select("#bird-view-group");
+    miniGroup.html(""); 
+
+    const wrapper = miniGroup.append("g").attr("class", "wrapper-group");
+    wrapper.html(mainHtml);
+
+    const miniSvg = d3.select("#bird-view-svg");
+    const miniW = miniSvg.node().clientWidth;
+    const miniH = miniSvg.node().clientHeight;
+    const bbox = wrapper.node().getBBox();
+    const scale = Math.min(miniW / bbox.width, miniH / bbox.height);
+    const tx = (miniW - bbox.width * scale) / 2 - bbox.x * scale;
+    const ty = (miniH - bbox.height * scale) / 2 - bbox.y * scale;
+
+    wrapper.attr("transform", `translate(${tx},${ty}) scale(${scale})`);
+
+    attachNodeClickEvents();
+}
+
+  function attachNodeClickEvents() {
+      d3.selectAll("#bird-view-svg g.node[focus-click='true']")
+          .on("click", function(event, d) {
+              const id = d3.select(this).attr("id");
+          });
+}
+
+function updateBirdView() {
+    isReady = true;
+    const mainSvg = d3.select("#graph-container svg");
+
+    addViewportBorder(mainSvg);
+    renderView(mainSvg);
+
+    setTimeout(() => { isReady = false; }, 120);
+}
+
+window.onload = () => {
+    initGraphWatcher();
+};
+</script>
