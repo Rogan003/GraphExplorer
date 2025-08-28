@@ -42,7 +42,7 @@ class Graph:
         attribute_name = filters["attribute_name"]
         comparator = filters["comparator"]
         attribute_value = filters["attribute_value"]
-        search = filters["search"]
+        search = filters["search_value"]
 
         filtered_nodes = []
 
