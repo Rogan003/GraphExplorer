@@ -15,14 +15,12 @@ def _add_workspace(session, workspace):
     session["workspaces"] = workspaces
     session.modified = True
 
-def _update_workspace_in_session(session, ws):
+def update_workspace_in_session(session, ws):
     workspaces = _get_workspaces(session)
     if 0 <= ws.id < len(workspaces):
         workspaces[ws.id] = ws.to_dict()
         session["workspaces"] = workspaces
         session.modified = True
-
-
 
 def handle_initial_workspace(session, plugin_service, tree_view_service):
     """
@@ -67,7 +65,7 @@ def get_active_workspace(session, ws_id, file_path=None, datasource=None, visual
     if plugin_service and tree_view_service:
         ws.load_graph(plugin_service, tree_view_service)
 
-    _update_workspace_in_session(session, ws)
+    update_workspace_in_session(session, ws)
     workspaces = _get_workspaces(session)
     return ws, workspaces
 
