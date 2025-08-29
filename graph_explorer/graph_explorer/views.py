@@ -1,3 +1,5 @@
+import json
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.apps import apps
 from django.http import JsonResponse
@@ -7,9 +9,11 @@ from use_cases.workspace.workspace_service import (
     upload_file,
     get_active_workspace,
     create_workspace,
+    save_workspace
 )
 from use_cases.cli.command_executor import execute_command
 from use_cases.cli.command_parser import parse_command
+# import pdb
 
 def index(request):
     # request.session.flush()
@@ -17,9 +21,7 @@ def index(request):
     tree_view_service = apps.get_app_config("graph_explorer").tree_view_service
 
     workspaces = handle_initial_workspace(request.session, plugin_service, tree_view_service)
-
     file_path = upload_file(request)
-
     active_ws_id = int(request.GET.get("tab", len(workspaces)))
     new_ws_flag = request.GET.get("new_workspace") == "true"
 
@@ -42,6 +44,11 @@ def index(request):
             plugin_service=plugin_service,
             tree_view_service=tree_view_service,
         )
+
+    if active_workspace:
+        active_workspace.load_graph(plugin_service, tree_view_service)
+        active_workspace.show_graph(plugin_service, tree_view_service)
+
 
     return render(request, "index.html", {
         "visualizer_plugins": plugin_service.plugins[VISUALIZER_GROUP],
@@ -81,14 +88,10 @@ def cli_execute(request):
 
     result = execute_command(command, active_ws)
     active_ws.refresh_visualization(plugin_service)
-    request.session["workspaces"] = [
-        ws.to_dict() if hasattr(ws, "to_dict") else ws
-        for ws in workspaces
-    ]
+    save_workspace(request.session, active_ws)
+
+    request.session["workspaces"] = workspaces
     request.session.modified = True
-    
-    print("ACTIVE_WS ID: " + str(active_ws_id))
-    print("ACTIVE_WS GRAPH_HTML: " + str(active_ws.graph_html))
 
     return JsonResponse({
         "result": result,

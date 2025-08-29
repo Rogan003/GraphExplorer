@@ -1,4 +1,3 @@
-from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import List
 from .node import Node
@@ -30,3 +29,17 @@ class Graph:
 
     def remove_edge(self, edge: Edge):
         self.edges.remove(edge)
+
+    def to_dict(self):
+        return {
+            "nodes": [node.to_dict() for node in self.nodes],
+            "edges": [edge.to_dict() for edge in self.edges],
+            "directed": self.directed,
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        g = cls(directed=data.get("directed", False))
+        g.nodes = [Node.from_dict(nd) for nd in data.get("nodes", [])]
+        g.edges = [Edge.from_dict(ed) for ed in data.get("edges", [])]
+        return g

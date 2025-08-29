@@ -14,3 +14,16 @@ class Node:
     
     id: int
     data: dict = field(default_factory=dict)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "data": self.data,
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        return cls(
+            id=data["id"],
+            data=data.get("data", {})
+        )

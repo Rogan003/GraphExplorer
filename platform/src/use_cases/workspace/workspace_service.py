@@ -1,17 +1,16 @@
 from django.core.files.storage import FileSystemStorage
 from use_cases.workspace.workspace import Workspace
+from graph_explorer_api.model.graph import Graph
+# import pdb
+
+# TODO: expand documentation to explain return values
 
 def _get_workspaces(session):
     return session.get("workspaces", [])
 
 def _add_workspace(session, workspace):
     workspaces = _get_workspaces(session)
-    workspaces.append({
-        "id": workspace.id,
-        "file_path": workspace.file_path,
-        "data_source_identifier": workspace.data_source_identifier,
-        "visualizer_identifier": workspace.visualizer_identifier,
-    })
+    workspaces.append(workspace.to_dict())
     session["workspaces"] = workspaces
     session.modified = True
 
@@ -23,7 +22,6 @@ def _update_workspace_in_session(session, ws):
         session.modified = True
 
 
-
 def handle_initial_workspace(session, plugin_service, tree_view_service):
     """
     If there are no workspaces in the session, create an empty workspace.
@@ -33,6 +31,7 @@ def handle_initial_workspace(session, plugin_service, tree_view_service):
     if not workspaces:
         ws = Workspace(id=0)
         ws.load_graph(plugin_service, tree_view_service)
+        ws.show_graph(plugin_service, tree_view_service)
         _add_workspace(session, ws)
         workspaces = _get_workspaces(session)
     return workspaces
@@ -47,7 +46,7 @@ def upload_file(request):
         return fs.path(filename)
     return None
 
-def get_active_workspace(session, ws_id, file_path=None, datasource=None, visualizer=None, plugin_service=None, tree_view_service=None):
+def get_active_workspace(session, ws_id, visualizer=None, plugin_service=None, tree_view_service=None, file_path=None, datasource=None):
     """
     Loads the workspace with the given ID and updates its parameters.
     Returns the Workspace object and the list of workspaces.
@@ -56,17 +55,25 @@ def get_active_workspace(session, ws_id, file_path=None, datasource=None, visual
     if not workspaces or not (0 <= ws_id < len(workspaces)):
         return None, workspaces
 
-    ws_dict = workspaces[ws_id]
+    ws_dict = workspaces[ws_id].copy()
+    ws_dict.pop("graph", None)
+    
     ws = Workspace(**ws_dict)
-    ws.tree_view = tree_view_service.empty_tree()
-    if file_path:
-        ws.file_path = file_path
-    if datasource:
-        ws.data_source_identifier = datasource
+
+    if "graph_data" in ws_dict and ws_dict["graph_data"] is not None:
+        ws.graph = Graph.from_dict(ws_dict["graph_data"])
+
     if visualizer:
         ws.visualizer_identifier = visualizer
+    if datasource:
+        ws.data_source_identifier = datasource
+    if file_path:
+        ws.file_path = file_path
+
     if plugin_service and tree_view_service:
-        ws.load_graph(plugin_service, tree_view_service)
+        if ws.graph is None or not ws.graph.nodes:
+            ws.load_graph(plugin_service, tree_view_service)
+        ws.graph_html = ws.show_graph(plugin_service, tree_view_service)
 
     _update_workspace_in_session(session, ws)
     workspaces = _get_workspaces(session)
@@ -84,9 +91,18 @@ def create_workspace(session, file_path=None, datasource=None, visualizer=None, 
         data_source_identifier=datasource,
         visualizer_identifier=visualizer,
     )
-    ws.tree_view = tree_view_service.empty_tree()
+
     if plugin_service and tree_view_service:
-        ws.load_graph(plugin_service, tree_view_service)
+        if ws.graph is None:
+            ws.load_graph(plugin_service, tree_view_service)
+        ws.graph_html = ws.show_graph(plugin_service, tree_view_service)
+
     _add_workspace(session, ws)
     workspaces = _get_workspaces(session)
     return ws, workspaces
+
+def save_workspace(session, ws):
+    """Save workspace to session, ensuring graph_data is up-to-date."""
+    ws.graph_data = ws.graph.to_dict()
+    _update_workspace_in_session(session, ws)
+
