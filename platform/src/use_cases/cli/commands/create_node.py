@@ -3,12 +3,11 @@ from graph_explorer_api.model.node import Node
 
 class CreateNodeCommand(Command):
     def execute(self):
-        print("ARGUMENTI U CREATE NODE COMMAND: " + str(self.args))
         node_id = self.args.get("--id")
         properties = self.args.get("properties", {})
 
         if not node_id:
-            return "Error: Node ID is required"
+            return "Error: ID is required"
 
         node = Node(id=node_id, data=properties)
         self.workspace.graph.add_node(node)

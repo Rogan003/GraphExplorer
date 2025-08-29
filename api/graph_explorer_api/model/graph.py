@@ -20,7 +20,6 @@ class Graph:
     directed: bool = False
 
     def add_node(self, node: Node):
-        print("APPENDUJE SE NODE")
         self.nodes.append(node)
 
     def add_edge(self, edge: Edge):
