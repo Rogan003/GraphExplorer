@@ -1,6 +1,9 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
+from datetime import date, datetime
 from typing import List
+from use_cases.filter.filter_error import FilterError
+
 from .node import Node
 from .edge import Edge
 
@@ -38,6 +41,28 @@ class Graph:
     def remove_edge(self, edge: Edge):
         self.edges.remove(edge)
 
+    from datetime import date, datetime
+
+    def __parse_date(self, value: str) -> date:
+        """
+        Try to parse the input string to datetime.date.
+        Allowed formats:
+        - YYYY-MM-DD (ISO standard)
+        - DD.MM.YYYY
+        """
+        try:
+            # ISO format
+            return date.fromisoformat(value)
+        except ValueError:
+            pass
+
+        try:
+            return datetime.strptime(value, "%d.%m.%Y").date()
+        except ValueError:
+            pass
+
+        raise ValueError(f"Invalid date format: {value}. Use YYYY-MM-DD or DD.MM.YYYY")
+
     def apply_filters(self, filters):
         attribute_name = filters["attribute_name"]
         comparator = filters["comparator"]
@@ -57,24 +82,45 @@ class Graph:
                 if attribute_name not in node.data:
                     ok_filter = False
                 else:
-                    value = node.data[attribute_name]
+                    node_value = node.data[attribute_name]
+                    node_type = type(node_value)
+
                     try:
-                        if comparator == "==":
-                            ok_filter = str(value) == str(attribute_value)
-                        elif comparator == "!=":
-                            ok_filter = str(value) != str(attribute_value)
-                        elif comparator == ">":
-                            ok_filter = float(value) > float(attribute_value)
-                        elif comparator == ">=":
-                            ok_filter = float(value) >= float(attribute_value)
-                        elif comparator == "<":
-                            ok_filter = float(value) < float(attribute_value)
-                        elif comparator == "<=":
-                            ok_filter = float(value) <= float(attribute_value)
+                        if node_type is int:
+                            filter_val = int(attribute_value)
+                        elif node_type is float:
+                            filter_val = float(attribute_value)
+                        elif node_type is str:
+                            filter_val = str(attribute_value)
+                        elif node_type is date:
+                            filter_val = self.__parse_date(attribute_value)
                         else:
-                            raise ValueError(f"Nepoznat komparator: {comparator}")
-                    except (ValueError, TypeError):
-                        raise ValueError("Neodgovarajući tip vrednosti za filter")
+                            raise FilterError(f"Unsupported attribute type: {node_type.__name__}")
+                    except Exception:
+                        raise FilterError(
+                            f"Cannot convert '{attribute_value}' to {node_type.__name__} for filtering"
+                        )
+
+                    if comparator == "==":
+                        ok_filter = node_value == filter_val
+                    elif comparator == "!=":
+                        ok_filter = node_value != filter_val
+                    elif comparator in (">", ">=", "<", "<="):
+                        if isinstance(node_value, (int, float, date)):
+                            if comparator == ">":
+                                ok_filter = node_value > filter_val
+                            elif comparator == ">=":
+                                ok_filter = node_value >= filter_val
+                            elif comparator == "<":
+                                ok_filter = node_value < filter_val
+                            elif comparator == "<=":
+                                ok_filter = node_value <= filter_val
+                        else:
+                            raise FilterError(
+                                f"Comparator '{comparator}' not supported for type {node_type.__name__}"
+                            )
+                    else:
+                        raise FilterError(f"Unknown comparator: {comparator}")
 
             if search:
                 ok_search = False

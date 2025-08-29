@@ -1,6 +1,7 @@
 from graph_explorer_api.model.graph import Graph
 from use_cases.const import DATA_SOURCE_GROUP, VISUALIZER_GROUP
 from use_cases.filter.filter import Filter
+from use_cases.filter.filter_error import FilterError
 
 class Workspace:
     def __init__(self, id, file_path=None, data_source_identifier=None, visualizer_identifier=None, filters=None):
@@ -49,7 +50,14 @@ class Workspace:
         )
 
     def add_filter(self, filters: Filter):
-        self.filters.append(filters)
+        try:
+            self.graph.apply_filters(filters.to_dict())
+            self.filters.append(filters)
+
+        except FilterError as fe:
+            raise fe
+
+        return None
 
     def clear_filters(self):
         self.filters = []

@@ -8,8 +8,8 @@ from use_cases.workspace.workspace_service import (
     create_workspace,
     update_workspace_in_session,
 )
-
 from use_cases.filter.filter import Filter
+from use_cases.filter.filter_error import FilterError
 
 
 def index(request):
@@ -62,11 +62,10 @@ def index(request):
         "workspaces": workspaces,
         "active_workspace_id": active_ws_id,
         "filter_error_msg": filter_error_msg,
+        "applied_filters": [f.to_dict() if hasattr(f, "to_dict") else f for f in active_workspace.filters if f is not None] if active_workspace else [],
     })
 
 def apply_filters(request, ws):
-    filter_error_msg = None
-
     if ws is not None:
         filters = Filter (
             request.POST.get("filter_attribute_name"),
@@ -75,14 +74,19 @@ def apply_filters(request, ws):
             request.POST.get("filter_search"),
         )
 
+        if ((filters.search_value == "") and
+            (filters.attribute_name == "" or filters.comparator == "" or filters.attribute_value == "")):
+            return None
+
         try:
             ws.add_filter(filters)
             update_workspace_in_session(request.session, ws)
 
-        except ValueError:
-            filter_error_msg = "Invalid filter."
+        except FilterError as fe:
+            return fe
 
-    return filter_error_msg
+    return None
+
 
 def reset_filters(request, ws):
     if ws is not None:
