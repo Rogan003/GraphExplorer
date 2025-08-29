@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form method="post" action="{% url 'index' %}{% if request.META.QUERY_STRING %}?{{ request.META.QUERY_STRING }}{% endif %}">
+<form id="filterForm" method="post" action="{% url 'index' %}{% if request.META.QUERY_STRING %}?{{ request.META.QUERY_STRING }}{% endif %}">
     {% csrf_token %}
      <input type="hidden" name="workspace_id" value="{{ active_workspace_id }}">
 
     <div class="filter-row" style="padding: 10px; padding-left: 17px; padding-right: 17px; background-color: #b8c8d9; border-radius: 12px;">
         <label>
             <b>Search:</b>
-            <input value="" placeholder="search.." type="text" name="filter_search" style="margin-left: 2px; padding: 6px; border-radius: 7px; border: 0; width: 12%">
+            <input id="filter_search" value="" placeholder="search.." type="text" name="filter_search" style="margin-left: 2px; padding: 6px; border-radius: 7px; border: 0; width: 12%">
         </label>
         <label style = "margin-left: 5px">
             <b>Filter:</b>
-            <input value="" placeholder="attribute name" type="text" name="filter_attribute_name" style="margin-left: 2px; padding: 6px; border-radius: 7px; border: 0; width: 12%">
-            <select name="filter_comparator" style="margin-left: 2px; padding: 6px; border-radius: 7px; border: 0">
+            <input id="filter_attribute_name" value="" placeholder="attribute name" type="text" name="filter_attribute_name" style="margin-left: 2px; padding: 6px; border-radius: 7px; border: 0; width: 12%">
+            <select id="filter_comparator" name="filter_comparator" style="margin-left: 2px; padding: 6px; border-radius: 7px; border: 0">
                 <option value="=="> == </option>
                 <option value=">"> > </option>
                 <option value=">="> >= </option>
@@ -21,12 +21,64 @@
                 <option value="<="> <= </option>
                 <option value="!="> != </option>
             </select>
-            <input value="" placeholder="value" type="text" name="filter_attribute_value" style="margin-left: 2px; margin-right: 8px; padding: 6px; border-radius: 7px; border: 0; width: 12%">
+            <input id="filter_attribute_value" value="" placeholder="value" type="text" name="filter_attribute_value" style="margin-left: 2px; margin-right: 8px; padding: 6px; border-radius: 7px; border: 0; width: 12%">
             <button class="tab-btn" type="submit">Apply</button>
-            <button class="tab-btn" type="submit" formaction="{% url 'index' %}{% if request.META.QUERY_STRING %}?{{ request.META.QUERY_STRING }}&reset_filters=true{% endif %}">Reset</button>
+            <button class="tab-btn" name="reset_filters" type="submit" formaction="{% url 'index' %}{% if request.META.QUERY_STRING %}?{{ request.META.QUERY_STRING }}&reset_filters=true{% endif %}">Reset</button>
         </label>
     </div>
 </form>
+
+<script>
+document.getElementById("filterForm").addEventListener("submit", function(e) {
+    if (e.submitter && e.submitter.name === "reset_filters") {
+        return;
+    }
+
+    const search = document.getElementById("filter_search").value.trim();
+    const attr = document.getElementById("filter_attribute_name").value.trim();
+    const comp = document.getElementById("filter_comparator").value;
+    const val = document.getElementById("filter_attribute_value").value.trim();
+
+    if (!search && (!attr || !comp || !val)) {
+        e.preventDefault();  // stop submission
+    }
+});
+</script>
+
+{% if applied_filters %}
+<div class="applied-filters" style="margin-top: 3px; padding: 10px;">
+    <b>Applied Filters:</b>
+    <div style="margin-top: 6px; display: flex; flex-wrap: wrap; gap: 6px;">
+        {% for f in applied_filters %}
+            {% if f.search_value %}
+                <span style="
+                    display: inline-flex;
+                    align-items: center;
+                    background-color: #e2e8f0;
+                    color: #1a202c;
+                    font-size: 14px;
+                    border-radius: 16px;
+                    padding: 4px 10px;
+                ">
+                    🔍 {{ f.search_value }}
+                </span>
+            {% elif f.attribute_name and f.comparator and f.attribute_value %}
+                <span style="
+                    display: inline-flex;
+                    align-items: center;
+                    background-color: #e2e8f0;
+                    color: #1a202c;
+                    font-size: 14px;
+                    border-radius: 16px;
+                    padding: 4px 10px;
+                ">
+                    {{ f.attribute_name }} {{ f.comparator }} {{ f.attribute_value }}
+                </span>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
 
 {% if filter_error_msg %}
 <div class="filter_error_msg-msg" style="color: red; margin-top: 8px; font-weight: bold;">
