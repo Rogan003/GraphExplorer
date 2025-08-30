@@ -3,7 +3,7 @@ from graph_explorer_api.model.node import Node
 
 class CreateNodeCommand(Command):
     def execute(self):
-        node_id = self.args.get("--id")
+        node_id = self.args.get("id")
         properties = self.args.get("properties", {})
 
         if not node_id:

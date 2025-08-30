@@ -1,7 +1,6 @@
 class Command:
-    def __init__(self, args, positional, workspace):
+    def __init__(self, args, workspace):
         self.args = args
-        self.positional = positional
         self.workspace = workspace
 
     def execute(self):
