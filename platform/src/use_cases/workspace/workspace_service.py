@@ -3,8 +3,6 @@ from use_cases.workspace.workspace import Workspace
 from graph_explorer_api.model.graph import Graph
 # import pdb
 
-# TODO: expand documentation to explain return values
-
 def _get_workspaces(session):
     return session.get("workspaces", [])
 
@@ -24,8 +22,15 @@ def _update_workspace_in_session(session, ws):
 
 def handle_initial_workspace(session, plugin_service, tree_view_service):
     """
-    If there are no workspaces in the session, create an empty workspace.
-    Returns the list of workspaces.
+    Initialize the session with a default workspace if none exist.
+
+    Args:
+        session (Session): Django session object where workspaces are stored.
+        plugin_service: Service used for loading and rendering the graph.
+        tree_view_service: Service used for generating the tree view.
+
+    Returns:
+        list[dict]: List of serialized workspaces stored in the session.
     """
     workspaces = _get_workspaces(session)
     if not workspaces:
@@ -38,7 +43,14 @@ def handle_initial_workspace(session, plugin_service, tree_view_service):
 
 def upload_file(request):
     """
-    Uploads a file from a POST request. Returns the file path or None.
+    Handle file upload from a POST request.
+
+    Args:
+        request (HttpRequest): Django request object containing uploaded file.
+
+    Returns:
+        str | None: Absolute file path of the saved file if upload succeeds,
+        otherwise None.
     """
     if request.method == "POST" and request.FILES.get("file"):
         fs = FileSystemStorage()
@@ -46,10 +58,23 @@ def upload_file(request):
         return fs.path(filename)
     return None
 
-def get_active_workspace(session, ws_id, visualizer=None, plugin_service=None, tree_view_service=None, file_path=None, datasource=None):
+def get_active_workspace(session, ws_id, visualizer=None, datasource=None, plugin_service=None, tree_view_service=None, file_path=None):
     """
-    Loads the workspace with the given ID and updates its parameters.
-    Returns the Workspace object and the list of workspaces.
+    Load and update a workspace by ID, optionally updating its parameters.
+
+    Args:
+        session (Session): Django session object where workspaces are stored.
+        ws_id (int): ID of the workspace to load.
+        visualizer (str, optional): Visualizer identifier to set.
+        datasource (str, optional): Data source identifier to set.
+        plugin_service (optional): Service used for loading and rendering the graph.
+        tree_view_service (optional): Service used for generating the tree view.
+        file_path (str, optional): Path to the graph data file.
+
+    Returns:
+        tuple[Workspace | None, list[dict]]:
+            - Workspace instance if found, otherwise None.
+            - List of serialized workspaces currently in the session.
     """
     workspaces = _get_workspaces(session)
     if not workspaces or not (0 <= ws_id < len(workspaces)):
@@ -81,8 +106,20 @@ def get_active_workspace(session, ws_id, visualizer=None, plugin_service=None, t
 
 def create_workspace(session, file_path=None, datasource=None, visualizer=None, plugin_service=None, tree_view_service=None):
     """
-    Creates a new workspace, loads the graph if plugins are provided, adds it to the session.
-    Returns the Workspace object and the list of workspaces.
+    Create a new workspace and add it to the session.
+
+    Args:
+        session (Session): Django session object where workspaces are stored.
+        file_path (str, optional): Path to the graph data file.
+        datasource (str, optional): Data source identifier.
+        visualizer (str, optional): Visualizer identifier.
+        plugin_service (optional): Service used for loading and rendering the graph.
+        tree_view_service (optional): Service used for generating the tree view.
+
+    Returns:
+        tuple[Workspace, list[dict]]:
+            - Newly created Workspace instance.
+            - List of serialized workspaces currently in the session.
     """
     workspaces = _get_workspaces(session)
     ws = Workspace(
@@ -102,7 +139,18 @@ def create_workspace(session, file_path=None, datasource=None, visualizer=None, 
     return ws, workspaces
 
 def save_workspace(session, ws):
-    """Save workspace to session, ensuring graph_data is up-to-date."""
+    """
+    Persist the given workspace into the session.
+
+    Ensures that the graph data is serialized before saving.
+
+    Args:
+        session (Session): Django session object where workspaces are stored.
+        ws (Workspace): Workspace instance to save.
+
+    Returns:
+        None
+    """
     ws.graph_data = ws.graph.to_dict()
     _update_workspace_in_session(session, ws)
 
