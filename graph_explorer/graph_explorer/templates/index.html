@@ -32,9 +32,21 @@
         <span class="label">Select data source file:</span>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
+            {% if loader_type == 'data_source_url_loader' %}
+            <input type="text" name="url" onchange="this.form.submit()">
+            <input type="submit" value="submit"/>
+            {% else %}
             <input type="file" name="file" onchange="this.form.submit()">
+            {% endif %}
         </form>
     </div>
+
+    {% if active_workspace_id is not None and active_workspace_id < workspace_count %}
+    <div class="config-selector">
+        <span class="label">Change data source config:</span>
+        <button class="tab-btn" onClick="navigateToConfig()">Configuration</button>
+    </div>
+    {% endif %}
 </div>
 
 <div id="graph-area">
@@ -73,6 +85,9 @@ function createNewWorkspace() {
     const url = new URL(window.location.href);
     url.searchParams.set("new_workspace", "true");
     window.location.href = url.toString();
+}
+function navigateToConfig() {
+    window.location.href = "{% url 'data_source_config' ws_id=active_workspace_id %}";
 }
 </script>
 {% endblock %}

@@ -6,12 +6,7 @@ def _get_workspaces(session):
 
 def _add_workspace(session, workspace):
     workspaces = _get_workspaces(session)
-    workspaces.append({
-        "id": workspace.id,
-        "file_path": workspace.file_path,
-        "data_source_identifier": workspace.data_source_identifier,
-        "visualizer_identifier": workspace.visualizer_identifier,
-    })
+    workspaces.append(workspace.to_dict())
     session["workspaces"] = workspaces
     session.modified = True
 
@@ -47,7 +42,8 @@ def upload_file(request):
         return fs.path(filename)
     return None
 
-def get_active_workspace(session, ws_id, file_path=None, datasource=None, visualizer=None, plugin_service=None, tree_view_service=None):
+def get_active_workspace(session, ws_id, path=None, datasource=None, visualizer=None, plugin_service=None, tree_view_service=None,
+                         data_source_config=None):
     """
     Loads the workspace with the given ID and updates its parameters.
     Returns the Workspace object and the list of workspaces.
@@ -59,12 +55,14 @@ def get_active_workspace(session, ws_id, file_path=None, datasource=None, visual
     ws_dict = workspaces[ws_id]
     ws = Workspace(**ws_dict)
     ws.tree_view = tree_view_service.empty_tree()
-    if file_path:
-        ws.file_path = file_path
+    if path:
+        ws.path = path
     if datasource:
         ws.data_source_identifier = datasource
     if visualizer:
         ws.visualizer_identifier = visualizer
+    if data_source_config:
+        ws.configuration.update(**data_source_config)
     if plugin_service and tree_view_service:
         ws.load_graph(plugin_service, tree_view_service)
 
@@ -72,7 +70,8 @@ def get_active_workspace(session, ws_id, file_path=None, datasource=None, visual
     workspaces = _get_workspaces(session)
     return ws, workspaces
 
-def create_workspace(session, file_path=None, datasource=None, visualizer=None, plugin_service=None, tree_view_service=None):
+def create_workspace(session, path=None, datasource=None, visualizer=None, plugin_service=None, tree_view_service=None,
+                     data_source_config=None):
     """
     Creates a new workspace, loads the graph if plugins are provided, adds it to the session.
     Returns the Workspace object and the list of workspaces.
@@ -80,9 +79,10 @@ def create_workspace(session, file_path=None, datasource=None, visualizer=None, 
     workspaces = _get_workspaces(session)
     ws = Workspace(
         id=len(workspaces),
-        file_path=file_path,
+        path=path,
         data_source_identifier=datasource,
         visualizer_identifier=visualizer,
+        data_source_configuration=data_source_config
     )
     ws.tree_view = tree_view_service.empty_tree()
     if plugin_service and tree_view_service:
@@ -90,3 +90,10 @@ def create_workspace(session, file_path=None, datasource=None, visualizer=None, 
     _add_workspace(session, ws)
     workspaces = _get_workspaces(session)
     return ws, workspaces
+
+def get_config_for_workspace(session, ws_id: int) -> dict:
+    workspaces = _get_workspaces(session)
+
+    for workspace in workspaces:
+        if workspace["id"] == ws_id:
+            return workspace["data_source_configuration"]
