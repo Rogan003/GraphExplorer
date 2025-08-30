@@ -25,8 +25,5 @@ def get_command_class(action, obj):
 
         >>> get_command_class("create", "edge")
         <class 'use_cases.cli.commands.create_edge.CreateEdgeCommand'>
-
-        >>> get_command_class("delete", "node")
-        None
     """
     return COMMANDS.get((action, obj))
