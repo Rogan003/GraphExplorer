@@ -52,8 +52,6 @@
     <a href="javascript:void(0)" class="workspace-tab add-tab" onclick="createNewWorkspace()">+</a>
 </div>
 
-<button onclick="openTerminal()" style="margin-top:15px;">Open CLI</button>
-
 <div id="terminalModal" class="modal">
   <div class="modal-content">
     <span class="close" onclick="closeTerminal()">&times;</span>
@@ -67,6 +65,10 @@
   </div>
 </div>
 
+{% endblock %}
+
+{% block header_actions %}
+    <button onclick="openTerminal()" class="open-cli-btn">Open CLI</button>
 {% endblock %}
 
 {% block scripts %}

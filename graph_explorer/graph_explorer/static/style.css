@@ -236,3 +236,28 @@ body, html {
 .close:hover {
   color: white;
 }
+
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.header-actions {
+    margin-left: auto;
+}
+
+.open-cli-btn {
+    background: #389ab8;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.open-cli-btn:hover {
+    background: #2c7f9a;
+}
