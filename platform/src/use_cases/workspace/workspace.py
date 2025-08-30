@@ -1,10 +1,36 @@
 from graph_explorer_api.model.graph import Graph
 from use_cases.const import DATA_SOURCE_GROUP, VISUALIZER_GROUP
-# import pdb
-
-# TODO: add documentation
 
 class Workspace:
+    """
+    Represents a workspace containing a graph, its visualization, and associated metadata.
+
+    Attributes:
+        id (int | str): Unique identifier for the workspace.
+        visualizer_identifier (str, optional): Identifier of the selected visualizer plugin.
+        data_source_identifier (str, optional): Identifier of the selected data source plugin.
+        graph_data (dict, optional): Serialized representation of the graph.
+        file_path (str, optional): Path to the file from which the graph is loaded.
+        graph_html (str, optional): HTML representation of the graph visualization.
+        tree_view (any, optional): Tree view template generated from the graph.
+        graph (Graph): The actual Graph object associated with this workspace.
+
+    Methods:
+        load_graph(plugin_service, tree_view_service):
+            Loads the graph from the selected data source or creates an empty graph if none exists.
+            Updates `graph_data` and `tree_view` accordingly.
+
+        show_graph(plugin_service, tree_view_service) -> str:
+            Generates and returns the HTML visualization of the graph using the selected visualizer.
+            Updates `graph_data` and `tree_view`.
+
+        to_dict() -> dict:
+            Returns a dictionary representation of the workspace, including serialized graph data.
+
+        refresh_visualization(plugin_service):
+            Refreshes the graph HTML visualization using the currently selected visualizer.
+    """
+    
     def __init__(self, id, visualizer_identifier=None, data_source_identifier=None, graph_data=None, file_path=None, graph_html=None, tree_view=None):
         self.id = id
         self.file_path = file_path
