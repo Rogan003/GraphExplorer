@@ -1,5 +1,3 @@
-import json
-from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.apps import apps
 from django.http import JsonResponse
@@ -13,7 +11,6 @@ from use_cases.workspace.workspace_service import (
 )
 from use_cases.cli.command_executor import execute_command
 from use_cases.cli.command_parser import parse_command
-# import pdb
 
 def index(request):
     # request.session.flush()

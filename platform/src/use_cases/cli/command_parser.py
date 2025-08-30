@@ -23,7 +23,7 @@ def parse_command(command_str: str):
 
     Args:
         command_str (str): Command line string to parse. 
-            Example: 'create node --id=1 --property Name=Alice --property Age=25'
+            Example: 'create node --id=123 --property Name=Alice --property Age=25'
 
     Returns:
         dict | None: A dictionary with the following keys, or None if the input is empty:
@@ -31,6 +31,8 @@ def parse_command(command_str: str):
             - "object" (str | None): The object type (second token), e.g. "node".
             - "args" (dict): Named arguments provided with `--key=value`.
                 - Special key "properties" (dict) if `--property key=value` tokens were present.
+            - "positional" (list[str]): List of remaining tokens not starting with `--`.
+              Useful for referencing node IDs in edges or other positional data.
 
     Raises:
         ValueError: If an argument or property token is malformed 
@@ -41,7 +43,7 @@ def parse_command(command_str: str):
         return None
 
     action, obj_type, *rest = tokens
-    args, properties = {}, {}
+    args, properties, positional = {}, {}, []
 
     i = 0
     while i < len(rest):
@@ -53,7 +55,8 @@ def parse_command(command_str: str):
                 _parse_arg(t, args)
                 i += 1
         else:
-            raise ValueError(f"Unexpected positional argument: {t}")
+            positional.append(t)
+            i += 1
 
     if properties:
         args["properties"] = properties
@@ -61,5 +64,6 @@ def parse_command(command_str: str):
     return {
         "action": action,
         "object": obj_type if obj_type else None,
-        "args": args
+        "args": args,
+        "positional": positional
     }

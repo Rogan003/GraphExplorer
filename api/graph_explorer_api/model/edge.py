@@ -10,7 +10,7 @@ class Edge:
         from_node (Node): The starting node of the edge.
         to_node (Node): The ending node of the edge.
     """
-    
+    # TODO: add id
     from_node: Node
     to_node: Node
 
