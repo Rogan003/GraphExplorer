@@ -2,7 +2,35 @@ from use_cases.cli.commands.base import Command
 from graph_explorer_api.model.edge import Edge
 
 class CreateEdgeCommand(Command):
+    """
+    Command to create an edge between two nodes in a workspace graph.
+
+    This command uses positional arguments for source and target node IDs,
+    and optional properties provided via the CLI parser.
+    """
+
     def execute(self):
+        """
+        Execute the creation of an edge between two nodes.
+
+        Positional arguments:
+            self.positional[0] (str): Source node ID.
+            self.positional[1] (str): Target node ID.
+
+        Named arguments:
+            args["properties"] (dict, optional): Edge properties provided via `--property key=value`.
+
+        Returns:
+            str: Success message if the edge is created, otherwise an error message:
+                - "Error: Need source and target node IDs" if positional arguments are missing
+                - "Error: Node(s) not found: source_id, target_id" if either node does not exist
+
+        Example:
+            >>> parsed_command = parse_command("create edge 10 20 --property Name=Siblings")
+            >>> cmd = CreateEdgeCommand(parsed_command["args"], workspace, positional=parsed_command["positional"])
+            >>> cmd.execute()
+            "Edge created between 10 and 20 with {'Name': 'Siblings'}"
+        """
         properties = self.args.get("properties", {})
 
         if len(self.positional) < 2:

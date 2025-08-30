@@ -8,4 +8,25 @@ COMMANDS = {
 }
 
 def get_command_class(action, obj):
+    """
+    Retrieve the command class for a given CLI action and object type.
+
+    Args:
+        action (str): The action part of the command (e.g., "create").
+        obj (str): The object type part of the command (e.g., "node", "edge").
+
+    Returns:
+        Command subclass | None: The corresponding command class if found,
+        or None if the combination of action and object is not registered.
+
+    Example:
+        >>> get_command_class("create", "node")
+        <class 'use_cases.cli.commands.create_node.CreateNodeCommand'>
+
+        >>> get_command_class("create", "edge")
+        <class 'use_cases.cli.commands.create_edge.CreateEdgeCommand'>
+
+        >>> get_command_class("delete", "node")
+        None
+    """
     return COMMANDS.get((action, obj))
