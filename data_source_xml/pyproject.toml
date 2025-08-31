@@ -5,7 +5,6 @@ description = "Data source XML plugin"
 dependencies = [
     "graph_explorer_api==0.1",
     "lxml==6.0.0",
-    "requests==2.32.5"
 ]
 
 [project.entry-points."graph_explorer.data_sources"]
