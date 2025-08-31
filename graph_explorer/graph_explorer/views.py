@@ -7,8 +7,12 @@ from use_cases.workspace.workspace_service import (
     upload_file,
     get_active_workspace,
     create_workspace,
+    update_workspace_in_session,
     get_config_for_workspace
 )
+from use_cases.filter.filter import Filter
+from use_cases.filter.filter_error import FilterError
+
 
 def index(request):
     # request.session.flush()
@@ -57,6 +61,14 @@ def index(request):
             data_source_config=data_source_config
         )
 
+    if request.GET.get("reset_filters"):
+        return reset_filters(request, active_workspace)
+    else:
+        filter_error_msg = apply_filters(request, active_workspace)
+
+    if active_workspace and filter_error_msg is None:
+        active_workspace.load_graph(plugin_service, tree_view_service)
+
     return render(request, "index.html", {
         "visualizer_plugins": plugin_service.plugins[VISUALIZER_GROUP],
         "data_source_plugins": plugin_service.plugins[DATA_SOURCE_GROUP],
@@ -67,9 +79,11 @@ def index(request):
         "workspaces": workspaces,
         "active_workspace_id": active_ws_id,
         "workspace_count": len(workspaces),
-        "loader_type": active_workspace.configuration.loader_type.identifier() if active_workspace else None
+        "loader_type": active_workspace.configuration.loader_type.identifier() if active_workspace else None,
+        "filter_error_msg": filter_error_msg,
+        "applied_filters": [f.to_dict() if hasattr(f, "to_dict") else f for f in active_workspace.filters if f is not None] if active_workspace else []
     })
-
+  
 def data_source_config(request, ws_id):
     if request.method == "POST" and request.POST.get("is_graph_directed") and request.POST.get("reference_attribute")\
             and request.POST.get("loader_type"):
@@ -82,3 +96,43 @@ def data_source_config(request, ws_id):
         "active_workspace_id": ws_id,
         "config" : get_config_for_workspace(request.session, ws_id)
     })
+  
+def apply_filters(request, ws):
+    if ws is not None:
+        filters = Filter (
+            request.POST.get("filter_attribute_name"),
+            request.POST.get("filter_comparator"),
+            request.POST.get("filter_attribute_value"),
+            request.POST.get("filter_search"),
+        )
+
+        if ((filters.search_value == "") and
+            (filters.attribute_name == "" or filters.comparator == "" or filters.attribute_value == "")):
+            return None
+
+        try:
+            ws.add_filter(filters)
+            update_workspace_in_session(request.session, ws)
+
+        except FilterError as fe:
+            return fe
+
+    return None
+
+
+def reset_filters(request, ws):
+    if ws is not None:
+        ws.clear_filters()
+        update_workspace_in_session(request.session, ws)
+
+    query_params = request.GET.copy()
+    while "reset_filters" in query_params:
+        query_params.pop("reset_filters", None)
+
+    url = request.path
+
+    if query_params:
+        url += "?" + query_params.urlencode()
+
+    return redirect(url)
+
