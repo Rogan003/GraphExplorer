@@ -1,41 +1,24 @@
 from graph_explorer_api.model.graph import Graph
 from use_cases.const import DATA_SOURCE_GROUP, VISUALIZER_GROUP
+from use_cases.filter.filter import Filter
+from use_cases.filter.filter_error import FilterError
+from use_cases.workspace.data_source_configuration import DataSourceConfiguration
 
 class Workspace:
-    """
-    Represents a workspace containing a graph, its visualization, and associated metadata.
-
-    Attributes:
-        id (int | str): Unique identifier for the workspace.
-        visualizer_identifier (str, optional): Identifier of the selected visualizer plugin.
-        data_source_identifier (str, optional): Identifier of the selected data source plugin.
-        graph_data (dict, optional): Serialized representation of the graph.
-        file_path (str, optional): Path to the file from which the graph is loaded.
-        graph_html (str, optional): HTML representation of the graph visualization.
-        tree_view (any, optional): Tree view template generated from the graph.
-        graph (Graph): The actual Graph object associated with this workspace.
-
-    Methods:
-        load_graph(plugin_service, tree_view_service):
-            Loads the graph from the selected data source or creates an empty graph if none exists.
-            Updates `graph_data` and `tree_view` accordingly.
-
-        show_graph(plugin_service, tree_view_service) -> str:
-            Generates and returns the HTML visualization of the graph using the selected visualizer.
-            Updates `graph_data` and `tree_view`.
-
-        to_dict() -> dict:
-            Returns a dictionary representation of the workspace, including serialized graph data.
-
-        refresh_visualization(plugin_service):
-            Refreshes the graph HTML visualization using the currently selected visualizer.
-    """
     
-    def __init__(self, id, visualizer_identifier=None, data_source_identifier=None, graph_data=None, file_path=None, graph_html=None, tree_view=None):
+    def __init__(self, id, visualizer_identifier=None, data_source_identifier=None, graph_data=None, path=None, graph_html=None, tree_view=None, data_source_configuration=None, filters=None):
         self.id = id
-        self.file_path = file_path
+        self.path = path
         self.visualizer_identifier = visualizer_identifier
         self.data_source_identifier = data_source_identifier
+        self.configuration = DataSourceConfiguration()
+        if data_source_configuration:
+            self.configuration.update(
+                reference_attribute=data_source_configuration.get("reference_attribute"),
+                is_graph_directed=data_source_configuration.get('is_graph_directed', True),
+                loader_type=data_source_configuration.get("loader_type")
+            )
+        self.filters = filters or []
         self.graph_html = graph_html
         self.tree_view = tree_view
         self.graph_data = graph_data
@@ -46,24 +29,32 @@ class Workspace:
 
     def load_graph(self, plugin_service, tree_view_service):
         data_source = plugin_service.get_selected_plugin(DATA_SOURCE_GROUP, self.data_source_identifier)
-        if self.file_path and data_source:
-            self.graph = data_source.load(path=self.file_path)
+        data_source.configure_plugin(
+            reference_attribute = self.configuration.reference_attribute,
+            loader = self.configuration.loader_type,
+            is_graph_directed = self.configuration.is_graph_directed
+        )
+        if self.path and data_source:
+            self.graph = data_source.load(path=self.path)
             self.graph_data = self.graph.to_dict()
         else:
             self.graph = Graph()
+
 
         self.graph_data = self.graph.to_dict()
         self.tree_view = tree_view_service.generate_template(self.graph)
 
     def show_graph(self, plugin_service, tree_view_service):
         visualizer = plugin_service.get_selected_plugin(VISUALIZER_GROUP, self.visualizer_identifier)
+        
+        filtered_graph = self.get_filtered_graph()
         if visualizer:
-            self.graph_html = visualizer.visualize(self.graph)
-            self.graph_data = self.graph.to_dict()
+            self.graph_html = visualizer.visualize(filtered_graph)
+            self.graph_data = filtered_graph.to_dict()
         else:
             self.graph_html = "No visualizer selected 🚫"
 
-        self.tree_view = tree_view_service.generate_template(self.graph)
+        self.tree_view = tree_view_service.generate_template(filtered_graph)
         return self.graph_html
 
     def to_dict(self):
@@ -71,8 +62,10 @@ class Workspace:
             "id": self.id,
             "visualizer_identifier": self.visualizer_identifier,
             "data_source_identifier": self.data_source_identifier,
-            "file_path": self.file_path,
-            "graph_data": self.graph.to_dict()
+            "path": self.path,
+            "graph_data": self.graph.to_dict(),
+            "data_source_configuration": self.configuration.to_dict(),
+            "filters": [f.to_dict() if hasattr(f, "to_dict") else f for f in self.filters]
         }
 
     def refresh_visualization(self, plugin_service):
@@ -81,3 +74,35 @@ class Workspace:
             self.graph_html = visualizer.visualize(self.graph)
         else:
             self.graph_html = "No visualizer selected 🚫"
+
+    @classmethod
+    def from_dict(cls, data):
+        filters = [Filter.from_dict(fd) for fd in data.get("filters", [])]
+        return cls(
+            id=data["id"],
+            path=data.get("path"),
+            data_source_identifier=data.get("data_source_identifier"),
+            visualizer_identifier=data.get("visualizer_identifier"),
+            filters=filters,
+        )
+
+    def add_filter(self, filters: Filter):
+        try:
+            self.graph.apply_filters(filters.to_dict())
+            self.filters.append(filters)
+
+        except FilterError as fe:
+            raise fe
+
+        return None
+
+    def clear_filters(self):
+        self.filters = []
+
+    def get_filtered_graph(self) -> Graph:
+        g = self.graph
+
+        for f in self.filters:
+            g = g.apply_filters(f.to_dict() if hasattr(f, "to_dict") else f)
+
+        return g

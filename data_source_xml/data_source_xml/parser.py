@@ -1,4 +1,4 @@
-from lxml import etree
+from lxml import etree, html
 
 from graph_explorer_api.model.edge import Edge
 from graph_explorer_api.model.graph import Graph
@@ -29,8 +29,11 @@ class XmlParser:
         return ret_graph
 
     def __parse_xml_root(self, xml: str) -> etree._Element:
-        parser = etree.XMLParser(remove_blank_text=True)
-        return etree.fromstring(xml.encode("utf-8"), parser=parser)
+        try:
+            parser = etree.XMLParser(remove_blank_text=True)
+            return etree.fromstring(xml.encode("utf-8"), parser=parser)
+        except Exception:
+            return html.fromstring(xml)
 
     """
     Does a DFS over the XML tree and adds nodes and edges to the graph.
