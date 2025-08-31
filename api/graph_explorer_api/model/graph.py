@@ -24,9 +24,6 @@ class Graph:
     def add_node(self, node: Node):
         self.nodes.append(node)
 
-    def add_node(self, node: Node):
-        self.nodes.append(node)
-
     def add_edge(self, edge: Edge):
         self.edges.append(edge)
 
