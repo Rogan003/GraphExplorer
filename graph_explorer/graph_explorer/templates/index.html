@@ -148,7 +148,27 @@ document.getElementById("filterForm").addEventListener("submit", function(e) {
     {% endfor %}
     <a href="javascript:void(0)" class="workspace-tab add-tab" onclick="createNewWorkspace()">+</a>
 </div>
+
+<div id="terminalModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeTerminal()">&times;</span>
+    <div id="terminal" style="background:black; color:rgb(56, 154, 184); padding:10px; font-family:monospace; height:300px; overflow-y:auto;">
+        <div id="output"></div>
+        <div>
+            <span>&gt; </span>
+            <input id="cli-input" style="background:black; color:rgb(220, 119, 190); border:none; outline:none; width:80%;" autofocus />
+        </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
+
+{% block header_actions %}
+    <button onclick="openTerminal()" class="open-cli-btn">Open CLI</button>
+{% endblock %}
+
+
 
 {% block scripts %}
 <script>
@@ -171,6 +191,59 @@ function createNewWorkspace() {
     url.searchParams.set("new_workspace", "true");
     window.location.href = url.toString();
 }
+
+// CLI
+function openTerminal() {
+    document.getElementById("terminalModal").style.display = "block";
+    const input = document.getElementById("cli-input");
+    input.focus();
+
+    input.onkeydown = function(e) {
+        if (e.key === "Enter") {
+            const command = input.value;
+            fetch("/cli/execute/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: "command=" + encodeURIComponent(command)
+            })
+            .then(res => res.json())
+            .then(data => {
+                const output = document.getElementById("output");
+                output.innerHTML += "&gt; " + command + "<br/>";
+                if (data.result) {
+                    output.innerHTML += data.result + "<br/>";
+                }
+                input.value = "";
+
+                if (data.graph_html) {
+                    const graphArea = document.getElementById("graph-area");
+                    graphArea.innerHTML = data.graph_html;
+
+                    graphArea.querySelectorAll("script").forEach(oldScript => {
+                        const newScript = document.createElement("script");
+                        if (oldScript.src) {
+                            newScript.src = oldScript.src;
+                            document.head.appendChild(newScript);
+                        } else {
+                            newScript.textContent = oldScript.textContent;
+                            graphArea.appendChild(newScript);
+                        }
+                    });
+                }
+
+                output.scrollTop = output.scrollHeight;
+            });
+        }
+    };
+}
+
+function closeTerminal() {
+    document.getElementById("terminalModal").style.display = "none";
+}
+
 function navigateToConfig() {
     window.location.href = "{% url 'data_source_config' ws_id=active_workspace_id %}";
 }

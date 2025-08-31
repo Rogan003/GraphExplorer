@@ -1,18 +1,21 @@
 import pkg_resources
 from django.shortcuts import render, redirect
 from django.apps import apps
+from django.http import JsonResponse
 from use_cases.const import DATA_SOURCE_GROUP, VISUALIZER_GROUP, DATA_SOURCE_LOADERS_GROUP
 from use_cases.workspace.workspace_service import (
     handle_initial_workspace,
     upload_file,
     get_active_workspace,
     create_workspace,
+    save_workspace,    
     update_workspace_in_session,
     get_config_for_workspace
 )
+from use_cases.cli.command_executor import execute_command
+from use_cases.cli.command_parser import parse_command
 from use_cases.filter.filter import Filter
 from use_cases.filter.filter_error import FilterError
-
 
 def index(request):
     # request.session.flush()
@@ -61,6 +64,10 @@ def index(request):
             data_source_config=data_source_config
         )
 
+    if active_workspace:
+        active_workspace.load_graph(plugin_service, tree_view_service)
+        active_workspace.show_graph(plugin_service, tree_view_service)
+
     if request.GET.get("reset_filters"):
         return reset_filters(request, active_workspace)
     else:
@@ -68,6 +75,7 @@ def index(request):
 
     if active_workspace and filter_error_msg is None:
         active_workspace.load_graph(plugin_service, tree_view_service)
+        active_workspace.show_graph(plugin_service, tree_view_service)
 
     return render(request, "index.html", {
         "visualizer_plugins": plugin_service.plugins[VISUALIZER_GROUP],
@@ -83,7 +91,43 @@ def index(request):
         "filter_error_msg": filter_error_msg,
         "applied_filters": [f.to_dict() if hasattr(f, "to_dict") else f for f in active_workspace.filters if f is not None] if active_workspace else []
     })
-  
+
+def cli_execute(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "Only POST supported"}, status=405)
+
+    cmd_str = request.POST.get("command")
+    if not cmd_str:
+        return JsonResponse({"error": "No command provided"}, status=400)
+
+    command = parse_command(cmd_str)
+
+    plugin_service = apps.get_app_config("graph_explorer").plugin_service
+    tree_view_service = apps.get_app_config("graph_explorer").tree_view_service
+
+    active_ws_id = int(request.GET.get("tab", 0))
+    active_ws, workspaces = get_active_workspace(
+        request.session,
+        active_ws_id,
+        plugin_service=plugin_service,
+        tree_view_service=tree_view_service,
+    )
+
+    if not active_ws:
+        return JsonResponse({"error": "No active workspace"}, status=400)
+
+    result = execute_command(command, active_ws)
+    active_ws.refresh_visualization(plugin_service)
+    save_workspace(request.session, active_ws)
+
+    request.session["workspaces"] = workspaces
+    request.session.modified = True
+
+    return JsonResponse({
+        "result": result,
+        "graph_html": active_ws.graph_html,
+    })
+
 def data_source_config(request, ws_id):
     if request.method == "POST" and request.POST.get("is_graph_directed") and request.POST.get("reference_attribute")\
             and request.POST.get("loader_type"):
@@ -135,4 +179,3 @@ def reset_filters(request, ws):
         url += "?" + query_params.urlencode()
 
     return redirect(url)
-

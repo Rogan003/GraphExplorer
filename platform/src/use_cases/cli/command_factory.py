@@ -1,0 +1,29 @@
+from use_cases.cli.commands.create_edge import CreateEdgeCommand
+from use_cases.cli.commands.create_node import CreateNodeCommand
+
+COMMANDS = {
+    ("create", "node"): CreateNodeCommand,
+    ("create", "edge"): CreateEdgeCommand,
+    # TODO: add other commands here
+}
+
+def get_command_class(action, obj):
+    """
+    Retrieve the command class for a given CLI action and object type.
+
+    Args:
+        action (str): The action part of the command (e.g., "create").
+        obj (str): The object type part of the command (e.g., "node", "edge").
+
+    Returns:
+        Command subclass | None: The corresponding command class if found,
+        or None if the combination of action and object is not registered.
+
+    Example:
+        >>> get_command_class("create", "node")
+        <class 'use_cases.cli.commands.create_node.CreateNodeCommand'>
+
+        >>> get_command_class("create", "edge")
+        <class 'use_cases.cli.commands.create_edge.CreateEdgeCommand'>
+    """
+    return COMMANDS.get((action, obj))
