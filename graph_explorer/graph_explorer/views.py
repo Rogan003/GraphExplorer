@@ -98,12 +98,12 @@ def cli_execute(request):
     if not cmd_str:
         return JsonResponse({"error": "No command provided"}, status=400)
 
+    active_ws_id = int(request.POST.get("workspace_id"))
     command = parse_command(cmd_str)
 
     plugin_service = apps.get_app_config("graph_explorer").plugin_service
     tree_view_service = apps.get_app_config("graph_explorer").tree_view_service
 
-    active_ws_id = int(request.GET.get("tab", 0))
     active_ws, workspaces = get_active_workspace(
         request.session,
         active_ws_id,
