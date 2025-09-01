@@ -115,7 +115,7 @@ def cli_execute(request):
         return JsonResponse({"error": "No active workspace"}, status=400)
 
     result = execute_command(command, active_ws)
-    active_ws.show_graph
+    active_ws.show_graph(plugin_service, tree_view_service)
     save_workspace(request.session, active_ws)
 
     request.session["workspaces"] = workspaces

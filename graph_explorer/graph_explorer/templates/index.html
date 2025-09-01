@@ -165,7 +165,9 @@ document.getElementById("filterForm").addEventListener("submit", function(e) {
 {% endblock %}
 
 {% block header_actions %}
+    {% if active_workspace_id is not None and active_workspace_id < workspace_count %}
     <button onclick="openTerminal()" class="open-cli-btn">Open CLI</button>
+    {% endif %}
 {% endblock %}
 
 
@@ -189,6 +191,7 @@ function changeDataSource(identifier) {
 function createNewWorkspace() {
     const url = new URL(window.location.href);
     url.searchParams.set("new_workspace", "true");
+    url.searchParams.set("tab", "{{ workspace_count }}");
     window.location.href = url.toString();
 }
 
