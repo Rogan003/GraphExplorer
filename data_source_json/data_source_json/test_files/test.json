@@ -3,18 +3,20 @@
     {
       "@id": "1",
       "name": "Parent Node",
+      "value": 4,
       "weight": 3.5,
-      "created": "2025-08-24 12:52",
       "children": [
         {
           "@id": "2",
           "name": "First Child",
-          "value": 42
+          "value": 42,
+          "weight": 8
         },
         {
           "@id": "3",
           "name": "Second Child",
           "value": 17.2,
+          "weight": 5,
           "children": [
             {
               "@id": "4",
@@ -27,18 +29,20 @@
     },
     {
       "name": "Another Parent",
+      "value": 5,
       "weight": 2.1,
-      "created": "2025-07-15",
       "children": [
         {
           "@id": "6",
           "name": "Fifth Child",
-          "value": 100
+          "value": 100,
+          "weight": 8
         },
         {
           "@id": "7",
           "name": "Sixth Child",
-          "value": 50.5
+          "value": 50.5,
+          "weight": 1
         }
       ]
     }

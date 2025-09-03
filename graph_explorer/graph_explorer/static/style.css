@@ -121,6 +121,73 @@ body, html {
     height: 100%;
 }
 
+.footer-tabs {
+    background-color: #2e343a;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    margin-top: auto;
+}
+
+.page {
+    display: grid;
+    grid-template-rows: 60px 1fr 50px 40px;
+    grid-template-columns: 250px 1fr;
+    grid-template-areas:
+        "header header"
+        "sidebar main"
+        "tabs tabs"
+        "footer footer";
+    height: 100vh;
+}
+
+.footer-tabs {
+    grid-area: tabs;
+    background-color: #2e343a;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.workspace-tabs {
+    display: flex;
+    align-items: center;
+}
+
+.workspace-tab {
+    padding: 10px 15px;
+    margin: 0 5px;
+    background-color: #444c54;
+    color: #fff;
+    border-radius: 5px 5px 0 0;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.workspace-tab:hover {
+    background-color: #555e66;
+}
+
+.workspace-tab.active {
+    background-color: #3f464d;
+    border-bottom: 2px solid #fff;
+}
+
+.add-tab {
+    background-color: #5cb85c;
+    font-size: 1.5em;
+    padding: 5px 10px;
+}
+
+.add-tab:hover {
+    background-color: #4cae4c;
+}
+
+.tab-name {
+    font-size: 0.9em;
+}
+
 .footer {
     grid-area: footer;
     background: #2c3e50;
@@ -136,4 +203,61 @@ body, html {
     display: flex;
     flex-direction: row;
     margin-bottom: 10px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background-color: #1e1e1e;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 70%;
+  max-width: 800px;
+  color: rgb(0, 170, 255);
+  box-shadow: 0 0 20px #000;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: white;
+}
+
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.header-actions {
+    margin-left: auto;
+}
+
+.open-cli-btn {
+    background: #389ab8;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.open-cli-btn:hover {
+    background: #2c7f9a;
 }

@@ -6,22 +6,18 @@
     <script type="text/javascript" src="https://d3js.org/d3.v3.js"></script>
     <link rel="stylesheet" href="{% static 'style.css' %}"/>
     <title>{{title}}</title>
-    {% block head_sadrzaj %}{% endblock %}
 </head>
 <body>
 <div class="page">
     <div class="header">
-    <div>
-        Graph Explorer
-    </div>
-
+        <header class="site-header">
+            <div class="logo">Graph Explorer</div>
+            <div class="header-actions">
+                {% block header_actions %}{% endblock %}
+            </div>
+        </header>
     </div>
     <div class="left">
-        <ul>
-            <li>
-                <a href="{% url 'index' %}">Home</a>
-            </li>
-        </ul>
         <p>Tree layout</p>
         <div class="tree-container">
             {{ tree_view }}
@@ -35,6 +31,10 @@
     <div class="center">
         {% block content %}{% endblock %}
     </div>
+    <div class="footer-tabs">
+        {% block workspace_tabs %}{% endblock %}
+    </div>
+
     <div class="footer">Graph explorer</div>
 </div>
 {% block scripts %}{% endblock %}
