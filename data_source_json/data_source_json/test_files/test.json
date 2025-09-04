@@ -5,6 +5,7 @@
       "name": "Parent Node",
       "value": 4,
       "weight": 3.5,
+      "birthday": "2025-08-24 12:52",
       "children": [
         {
           "@id": "2",
