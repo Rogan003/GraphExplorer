@@ -68,13 +68,6 @@ class Workspace:
             "filters": [f.to_dict() if hasattr(f, "to_dict") else f for f in self.filters]
         }
 
-    def refresh_visualization(self, plugin_service):
-        visualizer = plugin_service.get_selected_plugin(VISUALIZER_GROUP, self.visualizer_identifier)
-        if visualizer:
-            self.graph_html = visualizer.visualize(self.graph)
-        else:
-            self.graph_html = "No visualizer selected 🚫"
-
     @classmethod
     def from_dict(cls, data):
         filters = [Filter.from_dict(fd) for fd in data.get("filters", [])]
