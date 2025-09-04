@@ -1,8 +1,10 @@
 from use_cases.cli.commands.create_edge import CreateEdgeCommand
 from use_cases.cli.commands.create_node import CreateNodeCommand
+from use_cases.cli.commands.edit_node import EditNodeCommand
 
 COMMANDS = {
     ("create", "node"): CreateNodeCommand,
+    ("edit", "node"): EditNodeCommand,
     ("create", "edge"): CreateEdgeCommand,
     # TODO: add other commands here
 }

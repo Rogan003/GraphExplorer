@@ -33,6 +33,18 @@ class Graph:
     def remove_edge(self, edge: Edge):
         self.edges.remove(edge)
 
+    def edit_node(self, node: Node, properties: dict):
+      for key, value in properties.items():
+          node.data[key] = value  
+
+      return node
+  
+    def get_node(self, node_id: int) -> Node:
+      for node in self.nodes:
+          if node.id == node_id:
+              return node
+      raise ValueError(f"Node with id {node_id} does not exist.")
+
     def to_dict(self):
         return {
             "nodes": [node.to_dict() for node in self.nodes],
