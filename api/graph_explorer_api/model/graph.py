@@ -27,11 +27,27 @@ class Graph:
     def add_edge(self, edge: Edge):
         self.edges.append(edge)
 
-    def remove_node(self, node: Node):
+    def remove_node(self, node_id: int):
+        node = self.get_node(node_id)
         self.nodes.remove(node)
 
     def remove_edge(self, edge: Edge):
         self.edges.remove(edge)
+
+    def has_edges(self, node_id: int) -> bool:
+      return any(edge.from_node.id == node_id or edge.to_node.id == node_id for edge in self.edges)
+
+    def edit_node(self, node: Node, properties: dict):
+      for key, value in properties.items():
+          node.data[key] = value  
+
+      return node
+  
+    def get_node(self, node_id: int) -> Node:
+      for node in self.nodes:
+          if node.id == node_id:
+              return node
+      raise ValueError(f"Node with id {node_id} does not exist.")
 
     def to_dict(self):
         return {

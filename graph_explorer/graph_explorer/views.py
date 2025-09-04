@@ -65,7 +65,6 @@ def index(request):
         )
 
     if active_workspace:
-        active_workspace.load_graph(plugin_service, tree_view_service)
         active_workspace.show_graph(plugin_service, tree_view_service)
 
     if request.GET.get("reset_filters"):
@@ -74,7 +73,6 @@ def index(request):
         filter_error_msg = apply_filters(request, active_workspace)
 
     if active_workspace and filter_error_msg is None:
-        active_workspace.load_graph(plugin_service, tree_view_service)
         active_workspace.show_graph(plugin_service, tree_view_service)
 
     return render(request, "index.html", {
@@ -100,12 +98,12 @@ def cli_execute(request):
     if not cmd_str:
         return JsonResponse({"error": "No command provided"}, status=400)
 
+    active_ws_id = int(request.POST.get("workspace_id"))
     command = parse_command(cmd_str)
 
     plugin_service = apps.get_app_config("graph_explorer").plugin_service
     tree_view_service = apps.get_app_config("graph_explorer").tree_view_service
 
-    active_ws_id = int(request.GET.get("tab", 0))
     active_ws, workspaces = get_active_workspace(
         request.session,
         active_ws_id,
@@ -117,7 +115,7 @@ def cli_execute(request):
         return JsonResponse({"error": "No active workspace"}, status=400)
 
     result = execute_command(command, active_ws)
-    active_ws.refresh_visualization(plugin_service)
+    active_ws.show_graph(plugin_service, tree_view_service)
     save_workspace(request.session, active_ws)
 
     request.session["workspaces"] = workspaces

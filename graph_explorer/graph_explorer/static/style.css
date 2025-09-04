@@ -121,13 +121,7 @@ body, html {
     height: 100%;
 }
 
-.footer-tabs {
-    background-color: #2e343a;
-    display: flex;
-    justify-content: center;
-    padding: 10px 0;
-    margin-top: auto;
-}
+
 
 .page {
     display: grid;
@@ -143,10 +137,13 @@ body, html {
 
 .footer-tabs {
     grid-area: tabs;
+    position: sticky;
+    width: 100%;
     background-color: #2e343a;
     display: flex;
     justify-content: center;
     padding: 10px 0;
+    bottom: 0;
 }
 
 .workspace-tabs {
@@ -195,7 +192,7 @@ body, html {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .configuration-row {
