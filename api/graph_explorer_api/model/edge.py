@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 from dataclasses import dataclass, field
 from .node import Node
+from datetime import datetime, date
 
 @dataclass
 class Edge:
@@ -20,18 +23,42 @@ class Edge:
     data: dict = field(default_factory=dict)
 
     def to_dict(self):
+        def serialize(v):
+            if isinstance(v, (datetime, date)):
+                return v.isoformat()
+            return v
+
         return {
             "id": self.id,
             "from_node": self.from_node.to_dict(),
             "to_node": self.to_node.to_dict(),
-            "data": self.data
+            "data": {k: serialize(v) for k, v in self.data.items()},
         }
 
     @classmethod
     def from_dict(cls, data):
+        parsed_data = {}
+        for k, v in data.get("data", {}).items():
+            if isinstance(v, str):
+                parsed_data[k] = cls.__parse_datetime(v)
+            else:
+                parsed_data[k] = v
+
         return cls(
             id=data["id"],
             from_node=Node.from_dict(data["from_node"]),
             to_node=Node.from_dict(data["to_node"]),
-            data=data.get("data", {})
+            data=parsed_data,
         )
+
+    @staticmethod
+    def __parse_datetime(value: str) -> datetime | str:
+        """
+        Try to parse the input string to datetime.
+        If parsing fails, returns the original string.
+        Supports ISO 8601 format: "YYYY-MM-DDTHH:MM:SS"
+        """
+        try:
+            return datetime.fromisoformat(value)
+        except ValueError:
+            return value
