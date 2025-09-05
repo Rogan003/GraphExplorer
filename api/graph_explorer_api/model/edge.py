@@ -40,7 +40,7 @@ class Edge:
         parsed_data = {}
         for k, v in data.get("data", {}).items():
             if isinstance(v, str):
-                parsed_data[k] = cls.__parse_datetime(v)
+                parsed_data[k] = cls.__parse_date(v)
             else:
                 parsed_data[k] = v
 
@@ -52,13 +52,19 @@ class Edge:
         )
 
     @staticmethod
-    def __parse_datetime(value: str) -> datetime | str:
+    def __parse_date(value: str) -> date:
         """
-        Try to parse the input string to datetime.
-        If parsing fails, returns the original string.
-        Supports ISO 8601 format: "YYYY-MM-DDTHH:MM:SS"
+        Try to parse the input string to datetime.date.
+        Allowed formats:
+        - YYYY-MM-DD (ISO standard)
+        - DD.MM.YYYY
         """
         try:
-            return datetime.fromisoformat(value)
+            return date.fromisoformat(value)
         except ValueError:
-            return value
+            pass
+        try:
+            return datetime.strptime(value, "%d.%m.%Y").date()
+        except ValueError:
+            pass
+        raise ValueError(f"Invalid date format: {value}. Use YYYY-MM-DD or DD.MM.YYYY")
