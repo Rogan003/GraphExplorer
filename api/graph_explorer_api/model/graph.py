@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
-from datetime import date, datetime
 from typing import List
 from use_cases.filter.filter_error import FilterError
+from datetime import date, datetime
 
 from .node import Node
 from .edge import Edge
@@ -63,9 +63,8 @@ class Graph:
         g.edges = [Edge.from_dict(ed) for ed in data.get("edges", [])]
         return g
 
-    from datetime import date, datetime
-
-    def __parse_date(self, value: str) -> date:
+    @staticmethod
+    def __parse_date(value: str) -> date:
         """
         Try to parse the input string to datetime.date.
         Allowed formats:
