@@ -2,12 +2,14 @@ from use_cases.cli.commands.edges.create_edge import CreateEdgeCommand
 from use_cases.cli.commands.nodes.create_node import CreateNodeCommand
 from use_cases.cli.commands.nodes.edit_node import EditNodeCommand
 from use_cases.cli.commands.nodes.delete_node import DeleteNodeCommand
+from use_cases.cli.commands.edges.delete_edge import DeleteEdgeCommand
 
 COMMANDS = {
     ("create", "node"): CreateNodeCommand,
     ("edit", "node"): EditNodeCommand,
     ("delete", "node"): DeleteNodeCommand,
     ("create", "edge"): CreateEdgeCommand,
+    ("delete", "edge"): DeleteEdgeCommand,
     # TODO: add other commands here
 }
 
