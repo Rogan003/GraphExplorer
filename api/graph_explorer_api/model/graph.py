@@ -44,6 +44,12 @@ class Graph:
 
       return node
     
+    def edit_edge(self, edge: Edge, properties: dict):
+      for key, value in properties.items():
+          edge.data[key] = value  
+
+      return edge
+    
     def get_edge(self, edge_id: int) -> Edge:
       for edge in self.edges:
           if edge.id == edge_id:
