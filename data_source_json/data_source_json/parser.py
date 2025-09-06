@@ -10,15 +10,15 @@ from graph_explorer_api.model.node import Node
 
 class JSONParser:
     __graph: Graph = Graph()
-    __nodes: dict[str, Node] = {}  # node_id -> Node
+    __nodes: dict[int, Node] = {}  # node_id -> Node
     __edges_cnt: int = 0
     __nodes_cnt: int = 0
-    __edges_to_resolve: list[tuple[str, str, dict]] = []  # (from_id, to_id, edge_data)
+    __edges_to_resolve: list[tuple[int, int, dict]] = []  # (from_id, to_id, edge_data)
     __reference_attribute: str = "parent"
 
     def parse(self, data: str, reference_attribute: str, is_graph_directed: bool) -> Graph:
         self.__reset()  # so different instances won't use the same values
-        self.__reference_attribute = reference_attribute
+        self.__reference_attribute = reference_attribute # parent id
         self.__graph.directed = is_graph_directed
 
         json_data = json.loads(data)
@@ -39,7 +39,7 @@ class JSONParser:
             return
 
         # if no @id => generate value
-        root_node_id = str(self.__nodes_cnt)
+        root_node_id = self.__nodes_cnt
         self.__nodes_cnt += 1
 
         node_data = {}
@@ -47,7 +47,7 @@ class JSONParser:
             if isinstance(val, (dict, list)):
                 continue
             # collect node attributes
-            if key not in ["@id", self.__reference_attribute, "edge_data"]:
+            if key not in [self.__reference_attribute, "edge_data"]:
                 node_data[key] = self.__convert_value(val)
 
         if root_node_id not in self.__nodes:
@@ -60,13 +60,17 @@ class JSONParser:
         current_node = self.__nodes[root_node_id]
 
         # add `parent -> current` edge if it exists
-        if parent_id and parent_id in self.__nodes:
+        if parent_id is not None and parent_id in self.__nodes:
             edge_data = {k: self.__convert_value(v) for k, v in json_data.get("edge_data", {}).items()}
             self.__add_edge(self.__nodes[parent_id], current_node, edge_data)
 
         if self.__reference_attribute in json_data:
             edge_data = {k: self.__convert_value(v) for k, v in json_data.get("edge_data", {}).items()}
-            self.__edges_to_resolve.append((str(root_node_id), str(json_data[self.__reference_attribute]), edge_data))
+            try:
+                to_node_id = int(json_data[self.__reference_attribute])
+            except ValueError:
+                raise ValueError(f"Parent reference needs to be an integer id")
+            self.__edges_to_resolve.append((root_node_id, to_node_id, edge_data))
 
         # go through children
         for key, val in json_data.items():
