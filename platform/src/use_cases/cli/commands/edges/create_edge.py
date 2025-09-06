@@ -38,7 +38,7 @@ class CreateEdgeCommand(Command):
         if len(self.positional) < 2:
             return "Error: Need source and target node IDs"
 
-        source_id, target_id = self.positional[0], self.positional[1]
+        source_id, target_id = int(self.positional[0]), int(self.positional[1])
 
         source_node = next((n for n in self.workspace.graph.nodes if n.id == source_id), None)
         target_node = next((n for n in self.workspace.graph.nodes if n.id == target_id), None)
