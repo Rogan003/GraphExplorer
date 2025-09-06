@@ -31,7 +31,8 @@ class Graph:
         node = self.get_node(node_id)
         self.nodes.remove(node)
 
-    def remove_edge(self, edge: Edge):
+    def remove_edge(self, edge_id: int):
+        edge = self.get_edge(edge_id)
         self.edges.remove(edge)
 
     def has_edges(self, node_id: int) -> bool:
@@ -42,6 +43,18 @@ class Graph:
           node.data[key] = value  
 
       return node
+    
+    def edit_edge(self, edge: Edge, properties: dict):
+      for key, value in properties.items():
+          edge.data[key] = value  
+
+      return edge
+    
+    def get_edge(self, edge_id: int) -> Edge:
+      for edge in self.edges:
+          if edge.id == edge_id:
+              return edge
+      raise ValueError(f"Edge with id {edge_id} does not exist.")
   
     def get_node(self, node_id: int) -> Node:
       for node in self.nodes:

@@ -8,7 +8,7 @@
     <child_node>
         <leaf>Something else</leaf>
         <leaf2>End</leaf2>
-        <friend>
+        <friend description="good edge">
             <child_node reference="/node/child_node[1]"/>
         </friend>
     </child_node>

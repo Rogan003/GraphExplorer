@@ -5,7 +5,6 @@
       "name": "Parent Node",
       "value": 4,
       "weight": 3.5,
-      "birthday": "2025-08-24 12:52",
       "children": [
         {
           "@id": "2",
@@ -24,28 +23,9 @@
               "@id": "4",
               "name": "Parent Node",
               "parent": 3,
-              "edge_data": { "label": "references_parent", "since": "2022-08-24 14:52" }
+              "edge_data": { "label": "references_parent", "since": "today" }
             }
           ]
-        }
-      ]
-    },
-    {
-      "name": "Another Parent",
-      "value": 5,
-      "weight": 2.1,
-      "children": [
-        {
-          "@id": "6",
-          "name": "Fifth Child",
-          "value": 100,
-          "weight": 8
-        },
-        {
-          "@id": "7",
-          "name": "Sixth Child",
-          "value": 50.5,
-          "weight": 1
         }
       ]
     }

@@ -6,7 +6,8 @@ from graph_explorer_api.model.node import Node
 
 class XmlParser:
     __node_count: int = 0
-    __references: [tuple[Node, str]] = []
+    __edge_count: int = 0
+    __references: [tuple[Node, str, dict]] = []
     __xml_elements_to_graph_nodes: dict[etree._Element, Node] = {}
     __reference_attribute: str = "reference"
     __graph: Graph = Graph()
@@ -66,11 +67,12 @@ class XmlParser:
             child_node = self.__add_xml_tree_to_graph(child)
 
             if isinstance(child_node, Node):
-                self.__graph.edges.append(Edge(new_node, child_node))
+                self.__graph.edges.append(Edge(self.__edge_count, new_node, child_node, {}))
+                self.__edge_count += 1
 
             # this means that child_node is a reference to another node
             elif isinstance(child_node, str):
-                self.__references += [(new_node, child_node)]
+                self.__references += [(new_node, child_node, data)]
                 self.__node_count -= 1
                 self.__graph.nodes.remove(new_node)
                 self.__xml_elements_to_graph_nodes.pop(xml_node)
@@ -82,19 +84,20 @@ class XmlParser:
 
             # this only happens if the child node had a reference child, meaning it should be an edge
             else:
-                self.__references[-1] = (new_node, self.__references[-1][1])
+                self.__references[-1] = (new_node, self.__references[-1][1], self.__references[-1][2])
 
         return new_node
 
     def __resolve_references(self) -> Graph:
         # TODO: performance could be improved, think about doing that
-        for node, reference in self.__references:
+        for node, reference, data in self.__references:
             for node_in_graph in self.__graph.nodes:
                 if node_in_graph.id == node.id:
                     reference_node = self.__find_reference_node(reference)
                     if reference_node is None:
                         continue
-                    self.__graph.edges.append(Edge(node, reference_node))
+                    self.__graph.edges.append(Edge(self.__edge_count, node, reference_node, data))
+                    self.__edge_count += 1
                     break
 
     def __find_reference_node(self, reference: str) -> Node | None:
