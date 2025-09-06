@@ -34,7 +34,6 @@ class FilterGraphCommand(Command):
         """
         query = self.get_arg("query", required=True).strip()
 
-        # Determine comparator
         comparators = [">=", "<=", "!=", ">", "<", "="]
         comparator = None
         for comp in comparators:
@@ -65,5 +64,3 @@ class FilterGraphCommand(Command):
 
         except FilterError as fe:
             return str(fe)
-
-
