@@ -34,7 +34,8 @@ class BlockVisualizerPlugin(VisualizerPlugin):
                 {"name": key, "value": self.safe_value(value)}
                 for key, value in n.data.items()
                 if key is not None and value is not None and key != 'name'
-            ]
+            ],
+            "data": n.data
         }
         for n in graph.nodes
     ]
@@ -43,7 +44,8 @@ class BlockVisualizerPlugin(VisualizerPlugin):
         {
             "source": str(e.from_node.id),
             "target": str(e.to_node.id),
-            "directed": graph.directed
+            "directed": graph.directed,
+            "data": e.data
         }
         for e in graph.edges
     ]
