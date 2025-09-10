@@ -113,10 +113,16 @@ class Graph:
             ok_search = True
 
             if attribute_name and comparator and attribute_value:
-                if attribute_name not in node.data:
+                attr_key = None
+                for k in node.data.keys():
+                    if k.lower() == attribute_name.lower():
+                        attr_key = k
+                        break
+
+                if not attr_key:
                     ok_filter = False
                 else:
-                    node_value = node.data[attribute_name]
+                    node_value = node.data[attr_key]
                     node_type = type(node_value)
 
                     try:

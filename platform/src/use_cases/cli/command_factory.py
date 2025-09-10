@@ -4,6 +4,9 @@ from use_cases.cli.commands.nodes.edit_node import EditNodeCommand
 from use_cases.cli.commands.nodes.delete_node import DeleteNodeCommand
 from use_cases.cli.commands.edges.delete_edge import DeleteEdgeCommand
 from use_cases.cli.commands.edges.edit_edge import EditEdgeCommand
+from use_cases.cli.commands.graph.delete_graph import DeleteGraphCommand
+from use_cases.cli.commands.graph.search_graph import SearchGraphCommand
+from use_cases.cli.commands.graph.filter_graph import FilterGraphCommand
 
 COMMANDS = {
     ("create", "node"): CreateNodeCommand,
@@ -12,7 +15,9 @@ COMMANDS = {
     ("create", "edge"): CreateEdgeCommand,
     ("edit", "edge"): EditEdgeCommand,
     ("delete", "edge"): DeleteEdgeCommand,
-    # TODO: add other commands here
+    ("delete", "graph"): DeleteGraphCommand,
+    ("search", "graph"): SearchGraphCommand,
+    ("filter", "graph"): FilterGraphCommand,
 }
 
 def get_command_class(action, obj):

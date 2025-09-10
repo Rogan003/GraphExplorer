@@ -92,6 +92,13 @@ class Workspace:
     def clear_filters(self):
         self.filters = []
 
+    def delete_graph(self):
+        self.graph = Graph()
+        self.graph_data = self.graph.to_dict()
+
+        self.path = None
+        self.filters = []
+
     def get_filtered_graph(self) -> Graph:
         g = self.graph
 

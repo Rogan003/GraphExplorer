@@ -115,6 +115,8 @@ def cli_execute(request):
         return JsonResponse({"error": "No active workspace"}, status=400)
 
     result = execute_command(command, active_ws)
+    filter_error_msg = apply_filters(request, active_ws)
+
     active_ws.show_graph(plugin_service, tree_view_service)
     save_workspace(request.session, active_ws)
 
@@ -124,6 +126,9 @@ def cli_execute(request):
     return JsonResponse({
         "result": result,
         "graph_html": active_ws.graph_html,
+        "tree_view": active_ws.tree_view if active_ws else None,
+        "filter_error_msg": str(filter_error_msg) if filter_error_msg else None,
+        "applied_filters": [f.to_dict() if hasattr(f, "to_dict") else f for f in active_ws.filters if f is not None]
     })
 
 def data_source_config(request, ws_id):
