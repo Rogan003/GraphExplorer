@@ -18,7 +18,8 @@ class SimpleVisualizerPlugin(VisualizerPlugin):
     template = env.get_template("simple_visualizer.html")
 
     nodes_js = [ 
-      {"id": str(n.id)}
+      {"id": str(n.id),
+       "data": n.data}
       for n in graph.nodes
     ]
 
@@ -26,7 +27,8 @@ class SimpleVisualizerPlugin(VisualizerPlugin):
       {
         "source": str(e.from_node.id),
         "target": str(e.to_node.id),
-        "directed": graph.directed
+        "directed": graph.directed,
+        "data": e.data
       }
       for e in graph.edges
     ]

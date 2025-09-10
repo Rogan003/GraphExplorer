@@ -137,6 +137,22 @@ document.getElementById("filterForm").addEventListener("submit", function(e) {
 <div id="graph-area">
     {{ graph_html|safe }}
 </div>
+<div id="data-display" class="tooltip"></div>
+<style>
+.tooltip{
+  position:absolute;
+  background: rgba(230,240,250,0.98);
+  padding:6px 10px;
+  border-radius:8px;
+  pointer-events:none;
+  font-size:13px;
+  visibility:hidden;
+  box-shadow:0 4px 12px rgba(0,0,0,0.12);
+  z-index:9999;
+  max-width:320px;
+  word-break:break-word;
+}
+</style>
 {% endblock %}
 
 {% block workspace_tabs %}
@@ -252,6 +268,30 @@ function navigateToConfig() {
     window.location.href = "{% url 'data_source_config' ws_id=active_workspace_id %}";
 }
 
+function mouseOver(event, d) {
+  const dataDisplay = document.getElementById("data-display") 
+  let html = ""
+
+  console.log(d)
+
+  if (d.id !== undefined)
+      html += `<strong>ID:</strong> ${d.id}<br>`;
+
+  if (d.data && Object.keys(d.data).length > 0)
+      html += Object.entries(d.data)
+                  .map(([k,v]) => `${k}: ${v}`)
+                  .join("<br>");
+
+  dataDisplay.innerHTML = html;  
+  dataDisplay.style.left = `${event.pageX + 15}px`;
+  dataDisplay.style.top  = `${event.pageY - 20}px`;
+  dataDisplay.style.visibility = "visible";
+}
+
+function mouseOut() {
+    document.getElementById("data-display").style.visibility = "hidden";
+}
+
 document.addEventListener("DOMContentLoaded", function() { 
   const svg = d3.select("#graph-area svg");
 
@@ -268,10 +308,20 @@ document.addEventListener("DOMContentLoaded", function() {
     svg.call(zoom);
 
     const nodes = g.selectAll(".node");
+    const edges = g.selectAll(".link");
 
+    
     nodes.on("mousedown", function() {
         d3.event.stopPropagation();
     });
+
+    nodes.on("mouseover", function(d) { 
+        mouseOver(d3.event, d); 
+    }).on("mouseout", mouseOut);
+
+    edges.on("mouseover", function(d) { 
+        mouseOver(d3.event, d); 
+    }).on("mouseout", mouseOut);
 })
 </script>
 {% endblock %}
