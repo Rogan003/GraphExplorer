@@ -308,8 +308,9 @@ document.addEventListener("DOMContentLoaded", function() {
     svg.call(zoom);
 
     const nodes = g.selectAll(".node");
-    const edges = g.selectAll(".edge");
+    const edges = g.selectAll(".link");
 
+    
     nodes.on("mousedown", function() {
         d3.event.stopPropagation();
     });
@@ -321,7 +322,6 @@ document.addEventListener("DOMContentLoaded", function() {
     edges.on("mouseover", function(d) { 
         mouseOver(d3.event, d); 
     }).on("mouseout", mouseOut);
-    
 })
 </script>
 {% endblock %}
