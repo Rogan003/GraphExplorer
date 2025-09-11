@@ -278,6 +278,13 @@ document.addEventListener("DOMContentLoaded", function() {
         const style = document.createElement("style");
         style.id = "focused-style";
         style.textContent = `
+        .focused-node {
+                stroke: #ff9800 !important;
+                stroke-width: 1.5px !important;
+                border: 1px solid #ff9800 !important;
+                color: #ff9800 !important;
+            }
+
           .focused-node * {
                 stroke: #ff9800 !important;
                 stroke-width: 1.5px !important;
@@ -291,9 +298,11 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     })()
 
-    nodes.on("click", function() {
-        nodes.classed("focused-node", false);
-        d3.select(this).classed("focused-node", true);
+    nodes.on("click", function(d) {
+        // nodes.classed("focused-node", false);
+        // d3.select(this).classed("focused-node", true);
+        document.querySelectorAll(".focused-node").forEach(el => el.classList.remove("focused-node"));
+        document.querySelectorAll(`.node-${d.id}`).forEach(el => el.classList.add("focused-node"));
     });
 })
 </script>

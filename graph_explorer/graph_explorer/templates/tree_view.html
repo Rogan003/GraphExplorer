@@ -53,10 +53,6 @@
     color: #777;
     margin-left: 20px;
 }
-.selected-node {
-    border: 1px solid #ff9800 !important;
-    color: #ff9800 !important;
-}
 </style>
 
 <script>
@@ -104,9 +100,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const nameSpan = document.createElement("span");
         nameSpan.textContent = node.name;
+        nameSpan.classList.add(`node-${node.id}`);
         nameSpan.addEventListener("click", function(event) {
-            document.querySelectorAll(".selected-node").forEach(el => el.classList.remove("selected-node"));
-            event.target.classList.add("selected-node")
+            document.querySelectorAll(".focused-node").forEach(el => el.classList.remove("focused-node"));
+            document.querySelectorAll(`.node-${node.id}`).forEach(el => el.classList.add("focused-node"));
         });
 
         if (hasExpandableChildren(node)) {
