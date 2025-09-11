@@ -272,6 +272,29 @@ document.addEventListener("DOMContentLoaded", function() {
     nodes.on("mousedown", function() {
         d3.event.stopPropagation();
     });
+
+    (function ensureStyle() {
+      if (!document.getElementById("focused-style")) {
+        const style = document.createElement("style");
+        style.id = "focused-style";
+        style.textContent = `
+          .focused-node * {
+                stroke: #ff9800 !important;
+                stroke-width: 1.5px !important;
+            }
+
+            .node rect:hover {
+                cursor: pointer;
+            }
+        `;
+        document.head.appendChild(style);
+      }
+    })()
+
+    nodes.on("click", function() {
+        nodes.classed("focused-node", false);
+        d3.select(this).classed("focused-node", true);
+    });
 })
 </script>
 {% endblock %}

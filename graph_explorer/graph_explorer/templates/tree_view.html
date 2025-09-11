@@ -53,6 +53,10 @@
     color: #777;
     margin-left: 20px;
 }
+.selected-node {
+    border: 1px solid #ff9800 !important;
+    color: #ff9800 !important;
+}
 </style>
 
 <script>
@@ -98,9 +102,12 @@ document.addEventListener("DOMContentLoaded", function() {
         const li = document.createElement("li");
         if (node.id) li.dataset.nodeId = node.id;
 
-        // name
         const nameSpan = document.createElement("span");
         nameSpan.textContent = node.name;
+        nameSpan.addEventListener("click", function(event) {
+            document.querySelectorAll(".selected-node").forEach(el => el.classList.remove("selected-node"));
+            event.target.classList.add("selected-node")
+        });
 
         if (hasExpandableChildren(node)) {
             nameSpan.classList.add("caret");
