@@ -114,7 +114,11 @@ def cli_execute(request):
     if not active_ws:
         return JsonResponse({"error": "No active workspace"}, status=400)
 
-    result = execute_command(command, active_ws)
+    try:
+        result = execute_command(command, active_ws)
+    except Exception as e:
+        return JsonResponse({"error: ": str(e)}, status=400)
+    
     filter_error_msg = apply_filters(request, active_ws)
 
     active_ws.show_graph(plugin_service, tree_view_service)

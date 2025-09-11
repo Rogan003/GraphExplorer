@@ -1,4 +1,5 @@
 import shlex
+from datetime import datetime
 
 def _parse_property(tokens, i, properties):
     if i + 1 >= len(tokens):
@@ -7,15 +8,14 @@ def _parse_property(tokens, i, properties):
     if "=" not in prop_token:
         raise ValueError(f"Invalid property format: {prop_token}")
     key, val = prop_token.split("=", 1)
-    properties[key] = val
+    properties[key] = _convert_value(val)
     return i + 2
 
 def _parse_arg(token, args):
     if "=" not in token:
         raise ValueError(f"Invalid argument format: {token}")
     key, val = token[2:].split("=", 1)
-    args[key] = val
-
+    args[key] = _convert_value(val)
 
 def parse_command(command_str: str):
     """
@@ -67,3 +67,19 @@ def parse_command(command_str: str):
         "args": args,
         "positional": positional
     }
+
+
+def _convert_value(value: str):
+    if isinstance(value, str):
+        if value.isdigit():
+            return int(value)
+        try:
+            return float(value)
+        except ValueError:
+            pass
+        try:
+            return datetime.fromisoformat(value)
+        except ValueError:
+            pass
+        return value
+    return value
