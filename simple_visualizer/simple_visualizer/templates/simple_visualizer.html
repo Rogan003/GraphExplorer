@@ -102,7 +102,12 @@ function render() {
     node.append("text")
         .attr("text-anchor", "middle")
         .attr("dy", 4)
-        .text(d => d.id);
+        .text(d => d.id)
+
+    node.each(function(d) {
+        const g = d3.select(this);
+        g.classed("node-" + d.id, true);
+    })
 
     function getOffset(d, multiplier = 10) {
       if (!d.directed)

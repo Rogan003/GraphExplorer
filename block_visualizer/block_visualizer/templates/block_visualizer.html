@@ -130,6 +130,7 @@ function render() {
         const rectHeight = titleHeight + d.attributes.length * lineHeight + padding;
         const rectWidth = 140;
 
+        g.classed("node-" + d.id, true);
         // Rectangle
         g.append("rect")
             .attr("width", rectWidth)

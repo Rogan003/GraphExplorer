@@ -98,9 +98,13 @@ document.addEventListener("DOMContentLoaded", function() {
         const li = document.createElement("li");
         if (node.id) li.dataset.nodeId = node.id;
 
-        // name
         const nameSpan = document.createElement("span");
         nameSpan.textContent = node.name;
+        nameSpan.classList.add(`node-${node.id}`);
+        nameSpan.addEventListener("click", function(event) {
+            document.querySelectorAll(".focused-node").forEach(el => el.classList.remove("focused-node"));
+            document.querySelectorAll(`.node-${node.id}`).forEach(el => el.classList.add("focused-node"));
+        });
 
         if (hasExpandableChildren(node)) {
             nameSpan.classList.add("caret");

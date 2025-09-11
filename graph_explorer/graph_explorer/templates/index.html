@@ -314,7 +314,7 @@ document.addEventListener("DOMContentLoaded", function() {
     nodes.on("mousedown", function() {
         d3.event.stopPropagation();
     });
-
+  
     nodes.on("mouseover", function(d) { 
         mouseOver(d3.event, d); 
     }).on("mouseout", mouseOut);
@@ -322,6 +322,38 @@ document.addEventListener("DOMContentLoaded", function() {
     edges.on("mouseover", function(d) { 
         mouseOver(d3.event, d); 
     }).on("mouseout", mouseOut);
+
+    (function ensureStyle() {
+      if (!document.getElementById("focused-style")) {
+        const style = document.createElement("style");
+        style.id = "focused-style";
+        style.textContent = `
+        .focused-node {
+                stroke: #ff9800 !important;
+                stroke-width: 1.5px !important;
+                border: 1px solid #ff9800 !important;
+                color: #ff9800 !important;
+            }
+
+          .focused-node * {
+                stroke: #ff9800 !important;
+                stroke-width: 1.5px !important;
+            }
+
+            .node rect:hover {
+                cursor: pointer;
+            }
+        `;
+        document.head.appendChild(style);
+      }
+    })()
+
+    nodes.on("click", function(d) {
+        // nodes.classed("focused-node", false);
+        // d3.select(this).classed("focused-node", true);
+        document.querySelectorAll(".focused-node").forEach(el => el.classList.remove("focused-node"));
+        document.querySelectorAll(`.node-${d.id}`).forEach(el => el.classList.add("focused-node"));
+    });
 })
 </script>
 {% endblock %}
