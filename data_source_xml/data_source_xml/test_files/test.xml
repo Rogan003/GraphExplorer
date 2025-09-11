@@ -2,14 +2,15 @@
     <child_node>
         <leaf>Something</leaf>
         <friend>
-            <child_node reference="/node/child_node[2]"/>
+            <child_node reference="/node/child_node[2]" />
         </friend>
+        <birthday>2025-08-24 12:52:00</birthday>
     </child_node>
     <child_node>
         <leaf>Something else</leaf>
         <leaf2>End</leaf2>
         <friend description="good edge">
-            <child_node reference="/node/child_node[1]"/>
+            <child_node reference="/node/child_node[1]" />
         </friend>
     </child_node>
 </node>

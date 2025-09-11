@@ -1,4 +1,5 @@
 from lxml import etree, html
+from datetime import datetime
 
 from graph_explorer_api.model.edge import Edge
 from graph_explorer_api.model.graph import Graph
@@ -47,16 +48,16 @@ class XmlParser:
         if len(xml_node.getchildren()) == 0:
             reference_value = xml_node.get(self.__reference_attribute)
             if reference_value is not None:
-                return reference_value
+                return self.__convert_value(reference_value)
             else:
-                return xml_node.tag, xml_node.text
+                return xml_node.tag, self.__convert_value(xml_node.text)
 
         data = {
             "name": xml_node.tag,
-            "text": xml_node.text
+            "text": self.__convert_value(xml_node.text)
         }
         if xml_node.attrib:
-            data.update(xml_node.attrib)
+            data.update({k: self.__convert_value(v) for k, v in xml_node.attrib.items()})
 
         new_node = Node(self.__node_count, data)
         self.__node_count += 1
@@ -80,7 +81,7 @@ class XmlParser:
 
             # this means that child_node is a leaf node, here it becomes an attribute
             elif child_node is not None:
-                data[child_node[0]] = child_node[1]
+                data[child_node[0]] = self.__convert_value(child_node[1])
 
             # this only happens if the child node had a reference child, meaning it should be an edge
             else:
@@ -96,7 +97,9 @@ class XmlParser:
                     reference_node = self.__find_reference_node(reference)
                     if reference_node is None:
                         continue
-                    self.__graph.edges.append(Edge(self.__edge_count, node, reference_node, data))
+                    self.__graph.edges.append(
+                        Edge(self.__edge_count, node, reference_node, {k: self.__convert_value(v) for k,v in data.items()})
+                    )
                     self.__edge_count += 1
                     break
 
@@ -115,3 +118,19 @@ class XmlParser:
         self.__xml_elements_to_graph_nodes = {}
         self.__graph = Graph()
         self.__node_count = 0
+
+    @staticmethod
+    def __convert_value(value):
+        if isinstance(value, str):
+            if value.isdigit():
+                return int(value)
+            try:
+                return float(value)
+            except ValueError:
+                pass
+            try:
+                return datetime.fromisoformat(value)
+            except ValueError:
+                pass
+            return value  # string
+        return value
