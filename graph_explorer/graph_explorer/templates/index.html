@@ -1,0 +1,360 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form id="filterForm" method="post" action="{% url 'index' %}{% if request.META.QUERY_STRING %}?{{ request.META.QUERY_STRING }}{% endif %}">
+    {% csrf_token %}
+     <input type="hidden" name="workspace_id" value="{{ active_workspace_id }}">
+
+    <div class="filter-row" style="padding: 10px; padding-left: 17px; padding-right: 17px; background-color: #b8c8d9; border-radius: 12px;">
+        <label>
+            <b>Search:</b>
+            <input id="filter_search" value="" placeholder="search.." type="text" name="filter_search" style="margin-left: 2px; padding: 6px; border-radius: 7px; border: 0; width: 12%">
+        </label>
+        <label style = "margin-left: 5px">
+            <b>Filter:</b>
+            <input id="filter_attribute_name" value="" placeholder="attribute name" type="text" name="filter_attribute_name" style="margin-left: 2px; padding: 6px; border-radius: 7px; border: 0; width: 12%">
+            <select id="filter_comparator" name="filter_comparator" style="margin-left: 2px; padding: 6px; border-radius: 7px; border: 0">
+                <option value="=="> == </option>
+                <option value=">"> > </option>
+                <option value=">="> >= </option>
+                <option value="<"> < </option>
+                <option value="<="> <= </option>
+                <option value="!="> != </option>
+            </select>
+            <input id="filter_attribute_value" value="" placeholder="value" type="text" name="filter_attribute_value" style="margin-left: 2px; margin-right: 8px; padding: 6px; border-radius: 7px; border: 0; width: 12%">
+            <button class="tab-btn" type="submit">Apply</button>
+            <button class="tab-btn" name="reset_filters" type="submit" formaction="{% url 'index' %}{% if request.META.QUERY_STRING %}?{{ request.META.QUERY_STRING }}&reset_filters=true{% endif %}">Reset</button>
+        </label>
+    </div>
+</form>
+
+<script>
+document.getElementById("filterForm").addEventListener("submit", function(e) {
+    if (e.submitter && e.submitter.name === "reset_filters") {
+        return;
+    }
+
+    const search = document.getElementById("filter_search").value.trim();
+    const attr = document.getElementById("filter_attribute_name").value.trim();
+    const comp = document.getElementById("filter_comparator").value;
+    const val = document.getElementById("filter_attribute_value").value.trim();
+
+    if (!search && (!attr || !comp || !val)) {
+        e.preventDefault();  // stop submission
+    }
+});
+</script>
+
+{% if applied_filters %}
+<div class="applied-filters" style="margin-top: 3px; padding: 10px;">
+    <b>Applied Filters:</b>
+    <div style="margin-top: 6px; display: flex; flex-wrap: wrap; gap: 6px;">
+        {% for f in applied_filters %}
+            {% if f.search_value %}
+                <span style="
+                    display: inline-flex;
+                    align-items: center;
+                    background-color: #e2e8f0;
+                    color: #1a202c;
+                    font-size: 14px;
+                    border-radius: 16px;
+                    padding: 4px 10px;
+                ">
+                    🔍 {{ f.search_value }}
+                </span>
+            {% elif f.attribute_name and f.comparator and f.attribute_value %}
+                <span style="
+                    display: inline-flex;
+                    align-items: center;
+                    background-color: #e2e8f0;
+                    color: #1a202c;
+                    font-size: 14px;
+                    border-radius: 16px;
+                    padding: 4px 10px;
+                ">
+                    {{ f.attribute_name }} {{ f.comparator }} {{ f.attribute_value }}
+                </span>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% if filter_error_msg %}
+<div class="filter_error_msg-msg" style="color: red; margin-top: 8px; font-weight: bold;">
+    {{ filter_error_msg }}
+</div>
+{% endif %}
+
+<div class="configuration-row">
+    <div class="config-selector">
+        <span class="label">Visualizer:</span>
+        <div class="tabs">
+            {% for plugin in visualizer_plugins %}
+            <button
+                class="tab-btn {% if plugin.identifier == selected_visualizer_identifier %}active{% endif %}"
+                onclick="changeVisualizer('{{ plugin.identifier }}')">
+                {{ plugin.name }}
+            </button>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="config-selector">
+        <span class="label">Data Source:</span>
+        <div class="tabs">
+            {% for plugin in data_source_plugins %}
+            <button
+                class="tab-btn {% if plugin.identifier == selected_data_source_identifier %}active{% endif %}"
+                onclick="changeDataSource('{{ plugin.identifier }}')">
+                {{ plugin.name }}
+            </button>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="config-selector">
+        <span class="label">Select data source file:</span>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if loader_type == 'data_source_url_loader' %}
+            <input type="text" name="url" onchange="this.form.submit()">
+            <input type="submit" value="submit"/>
+            {% else %}
+            <input type="file" name="file" onchange="this.form.submit()">
+            {% endif %}
+        </form>
+    </div>
+
+    {% if active_workspace_id is not None and active_workspace_id < workspace_count %}
+    <div class="config-selector">
+        <span class="label">Change data source config:</span>
+        <button class="tab-btn" onClick="navigateToConfig()">Configuration</button>
+    </div>
+    {% endif %}
+</div>
+
+<div id="graph-area">
+    {{ graph_html|safe }}
+</div>
+<div id="data-display" class="tooltip"></div>
+<style>
+.tooltip{
+  position:absolute;
+  background: rgba(230,240,250,0.98);
+  padding:6px 10px;
+  border-radius:8px;
+  pointer-events:none;
+  font-size:13px;
+  visibility:hidden;
+  box-shadow:0 4px 12px rgba(0,0,0,0.12);
+  z-index:9999;
+  max-width:320px;
+  word-break:break-word;
+}
+</style>
+{% endblock %}
+
+{% block workspace_tabs %}
+<div class="workspace-tabs">
+    {% for workspace in workspaces %}
+        <a href="?tab={{ workspace.id }}" class="workspace-tab {% if workspace.id == active_workspace_id %}active{% endif %}">
+            <span class="tab-name">Workspace {{ workspace.id|add:1 }}</span>
+        </a>
+    {% endfor %}
+    <a href="javascript:void(0)" class="workspace-tab add-tab" onclick="createNewWorkspace()">+</a>
+</div>
+
+<div id="terminalModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeTerminal()">&times;</span>
+    <div id="terminal" style="background:black; color:rgb(56, 154, 184); padding:10px; font-family:monospace; height:300px; overflow-y:auto;">
+        <div id="output"></div>
+        <div>
+            <span>&gt; </span>
+            <input id="cli-input" style="background:black; color:rgb(220, 119, 190); border:none; outline:none; width:80%;" autofocus />
+        </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block header_actions %}
+    {% if active_workspace_id is not None and active_workspace_id < workspace_count %}
+    <button onclick="openTerminal()" class="open-cli-btn">Open CLI</button>
+    {% endif %}
+{% endblock %}
+
+
+
+{% block scripts %}
+<script>
+function changeVisualizer(identifier) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("visualizer", identifier);
+    url.searchParams.delete("new_workspace"); 
+    window.location.href = url.toString();
+}
+
+function changeDataSource(identifier) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("datasource", identifier);
+    url.searchParams.delete("new_workspace"); 
+    window.location.href = url.toString();
+}
+
+function createNewWorkspace() {
+    const url = new URL(window.location.href);
+    url.searchParams.set("new_workspace", "true");
+    url.searchParams.set("tab", "{{ workspace_count }}");
+    window.location.href = url.toString();
+}
+
+// CLI
+function openTerminal() {
+    document.getElementById("terminalModal").style.display = "block";
+    const input = document.getElementById("cli-input");
+    input.focus();
+
+    input.onkeydown = function(e) {
+        if (e.key === "Enter") {
+            const command = input.value;
+            fetch("/cli/execute/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: "command=" + encodeURIComponent(command) +
+                    "&workspace_id=" + encodeURIComponent("{{ active_workspace_id }}")
+            })
+            .then(res => res.json())
+            .then(data => {
+                const output = document.getElementById("output");
+                output.innerHTML += "&gt; " + command + "<br/>";
+                if (data.result) {
+                    output.innerHTML += data.result + "<br/>";
+                }
+                input.value = "";
+
+                if (data.graph_html) {
+                    const graphArea = document.getElementById("graph-area");
+                    graphArea.innerHTML = data.graph_html;
+
+                    graphArea.querySelectorAll("script").forEach(oldScript => {
+                        const newScript = document.createElement("script");
+                        if (oldScript.src) {
+                            newScript.src = oldScript.src;
+                            document.head.appendChild(newScript);
+                        } else {
+                            newScript.textContent = oldScript.textContent;
+                            graphArea.appendChild(newScript);
+                        }
+                    });
+                }
+
+                output.scrollTop = output.scrollHeight;
+            });
+        }
+    };
+}
+
+function closeTerminal() {
+    document.getElementById("terminalModal").style.display = "none";
+    document.location.reload();
+}
+
+function navigateToConfig() {
+    window.location.href = "{% url 'data_source_config' ws_id=active_workspace_id %}";
+}
+
+function mouseOver(event, d) {
+  const dataDisplay = document.getElementById("data-display") 
+  let html = ""
+
+  console.log(d)
+
+  if (d.id !== undefined)
+      html += `<strong>ID:</strong> ${d.id}<br>`;
+
+  if (d.data && Object.keys(d.data).length > 0)
+      html += Object.entries(d.data)
+                  .map(([k,v]) => `${k}: ${v}`)
+                  .join("<br>");
+
+  dataDisplay.innerHTML = html;  
+  dataDisplay.style.left = `${event.pageX + 15}px`;
+  dataDisplay.style.top  = `${event.pageY - 20}px`;
+  dataDisplay.style.visibility = "visible";
+}
+
+function mouseOut() {
+    document.getElementById("data-display").style.visibility = "hidden";
+}
+
+document.addEventListener("DOMContentLoaded", function() { 
+  const svg = d3.select("#graph-area svg");
+
+  let g = svg.select("g");
+
+  const zoom = d3.behavior.zoom()
+        .scaleExtent([0.5, 5])
+        .on("zoom", function() {
+            g.attr("transform",
+                "translate(" + d3.event.translate[0] + "," + d3.event.translate[1] + ") " +
+                "scale(" + d3.event.scale + ")");
+        });
+
+    svg.call(zoom);
+
+    const nodes = g.selectAll(".node");
+    const edges = g.selectAll(".link");
+
+    
+    nodes.on("mousedown", function() {
+        d3.event.stopPropagation();
+    });
+  
+    nodes.on("mouseover", function(d) { 
+        mouseOver(d3.event, d); 
+    }).on("mouseout", mouseOut);
+
+    edges.on("mouseover", function(d) { 
+        mouseOver(d3.event, d); 
+    }).on("mouseout", mouseOut);
+
+    (function ensureStyle() {
+      if (!document.getElementById("focused-style")) {
+        const style = document.createElement("style");
+        style.id = "focused-style";
+        style.textContent = `
+        .focused-node {
+                stroke: #ff9800 !important;
+                stroke-width: 1.5px !important;
+                border: 1px solid #ff9800 !important;
+                color: #ff9800 !important;
+            }
+
+          .focused-node * {
+                stroke: #ff9800 !important;
+                stroke-width: 1.5px !important;
+            }
+
+            .node rect:hover {
+                cursor: pointer;
+            }
+        `;
+        document.head.appendChild(style);
+      }
+    })()
+
+    nodes.on("click", function(d) {
+        // nodes.classed("focused-node", false);
+        // d3.select(this).classed("focused-node", true);
+        document.querySelectorAll(".focused-node").forEach(el => el.classList.remove("focused-node"));
+        document.querySelectorAll(`.node-${d.id}`).forEach(el => el.classList.add("focused-node"));
+    });
+})
+</script>
+{% endblock %}

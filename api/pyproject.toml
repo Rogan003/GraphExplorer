@@ -1,8 +1,14 @@
 [project]
-name = "graph-explorer-api"
+name = "graph_explorer_api"
 version = "0.1"
 description = "Graph Explorer API."
-dependencies = []
+dependencies = [
+    "requests==2.32.5",
+]
 
 [tool.setuptools]
-provides = ["graph-explorer-api"]
+provides = ["graph_explorer_api"]
+
+[project.entry-points."graph_explorer.data_source_loaders"]
+data_source_file_loader = "graph_explorer_api.plugins.data_source_loaders:DataSourceFileLoader"
+data_source_url_loader = "graph_explorer_api.plugins.data_source_loaders:DataSourceUrlLoader"

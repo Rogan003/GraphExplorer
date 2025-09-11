@@ -1,0 +1,207 @@
+<style>
+    #graph-container {
+        height: 70vh;
+        border: 1px solid #ccc;
+        margin: auto;
+        background: #f9f9f9;
+    }
+
+    .node rect {
+        fill: #469cc7; 
+        stroke: #1a73c7;
+        stroke-width: 1.5px;
+        rx: 8;
+        ry: 8;
+        filter: url(#drop-shadow);
+    }
+
+    .link {
+        stroke: #999;
+        stroke-opacity: 0.6;
+        stroke-width: 2px;
+    }
+
+    marker#arrowhead {
+        fill: #999;
+    }
+
+    .node text {
+        font-size: 12px;
+        pointer-events: none;
+    }
+
+    .node-title {
+        font-weight: bold;
+        font-size: 13px;
+    }
+</style>
+
+<script id="nodes-data" type="application/json">
+    {{ nodes | tojson }}
+</script>
+
+<script id="edges-data" type="application/json">
+    {{ edges | tojson }}
+</script>
+
+<div id="graph-container"></div>
+
+<script type="text/javascript" src="https://d3js.org/d3.v3.js"></script>
+<script type="text/javascript">
+function render() {
+    const graphNodes = JSON.parse(document.getElementById("nodes-data").textContent);
+    const graphLinks = JSON.parse(document.getElementById("edges-data").textContent);
+
+    const nodeById = {};
+    graphNodes.forEach(n => nodeById[n.id] = n);
+    graphLinks.forEach(l => {
+        l.source = nodeById[l.source];
+        l.target = nodeById[l.target];
+    });
+
+    const width = document.querySelector("#graph-container").clientWidth;
+    const height = document.querySelector("#graph-container").clientHeight;
+
+    const svg = d3.select("#graph-container").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    const g = svg.append("g")
+
+    // Drop shadow
+    const defs = svg.append("defs");
+    const filter = defs.append("filter")
+        .attr("id", "drop-shadow")
+        .attr("height", "130%");
+    filter.append("feGaussianBlur")
+        .attr("in", "SourceAlpha")
+        .attr("stdDeviation", 3)
+        .attr("result", "blur");
+    filter.append("feOffset")
+        .attr("in", "blur")
+        .attr("dx", 2)
+        .attr("dy", 2)
+        .attr("result", "offsetBlur");
+    const feMerge = filter.append("feMerge");
+    feMerge.append("feMergeNode").attr("in", "offsetBlur");
+    feMerge.append("feMergeNode").attr("in", "SourceGraphic");
+
+    // Arrow marker
+    svg.append("defs").append("marker")
+        .attr("id", "arrowhead")
+        .attr("viewBox", "0 -5 10 10")
+        .attr("refX", 25)
+        .attr("refY", 0)
+        .attr("markerWidth", 10)
+        .attr("markerHeight", 10)
+        .attr("orient", "auto")
+        .append("path")
+        .attr("d", "M0,-5L10,0L0,5");
+
+    const force = d3.layout.force()
+        .nodes(graphNodes)
+        .links(graphLinks)
+        .size([width, height])
+        .linkDistance(200)
+        .charge(-600)
+        .on("tick", ticked)
+        .start();
+
+    // Draw links BELOW nodes
+    const link = g.selectAll(".link")
+        .data(graphLinks)
+        .enter().insert("line", ":first-child")
+        .attr("class", "link")
+        .attr("marker-end", d => d.directed ? "url(#arrowhead)" : "");
+
+    // Draw nodes
+    const node = g.selectAll(".node")
+        .data(graphNodes)
+        .enter().append("g")
+        .attr("class", "node")
+        .call(force.drag);
+
+    node.each(function(d) {
+        const g = d3.select(this);
+        const lineHeight = 18;
+        const titleHeight = 20;
+        const padding = 10;
+
+        const rectHeight = titleHeight + d.attributes.length * lineHeight + padding;
+        const rectWidth = 140;
+
+        g.classed("node-" + d.id, true);
+        // Rectangle
+        g.append("rect")
+            .attr("width", rectWidth)
+            .attr("height", rectHeight)
+            .attr("x", -rectWidth/2)
+            .attr("y", -rectHeight/2);
+
+        let yOffset = -rectHeight/2 + titleHeight/2;
+
+        // Node title
+        g.append("text")
+            .attr("x", 0)
+            .attr("y", yOffset)
+            .attr("text-anchor", "middle")
+            .attr("class", "node-title")
+            .text(d.name);
+
+        // Attributes
+        d.attributes.forEach(attr => {
+            yOffset += lineHeight;
+            g.append("text")
+                .attr("x", 0)
+                .attr("y", yOffset)
+                .attr("text-anchor", "middle")
+                .text(`${attr.name}: ${attr.value}`);
+        });
+    });
+
+    // Function to shorten line so arrow ends at rect edge
+    function shortenLine(d) {
+        const dx = d.target.x - d.source.x;
+        const dy = d.target.y - d.source.y;
+        const angle = Math.atan2(dy, dx);
+
+        const targetWidth = 140 / 2;
+        const targetHeight = (20 + d.target.attributes.length * 18 + 10)/2;
+
+        const scaleX = targetWidth / Math.abs(Math.cos(angle));
+        const scaleY = targetHeight / Math.abs(Math.sin(angle));
+        const scale = Math.min(scaleX, scaleY);
+
+        return {
+            x: d.target.x - scale * Math.cos(angle),
+            y: d.target.y - scale * Math.sin(angle)
+        };
+    }
+
+  function getOffset(d, multiplier = 10) {
+      if (!d.directed)
+             return { x: 0, y: 0 };
+
+      const dx = d.target.x - d.source.x;
+      const dy = d.target.y - d.source.y;
+      const len = Math.sqrt(dx * dx + dy * dy);
+
+      const nx = -dy / len;
+      const ny = dx / len;
+
+      return { x: nx * multiplier, y: ny * multiplier };
+  }
+
+  function ticked() {
+      link  
+          .attr("x1", d => d.source.x + getOffset(d).x)
+          .attr("y1", d => d.source.y + getOffset(d).y)
+          .attr("x2", d => d.target.x + getOffset(d).x)
+          .attr("y2", d => d.target.y + getOffset(d).y);
+
+      node.attr("transform", d => `translate(${d.x},${d.y})`);
+  }
+}
+
+render();
+</script>

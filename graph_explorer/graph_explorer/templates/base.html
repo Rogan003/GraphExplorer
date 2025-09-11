@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     {% load static %}
+    <script type="text/javascript" src="https://d3js.org/d3.v3.js"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}"/>
+    <title>{{title}}</title>
+</head>
+<body>
+<div class="page">
+    <div class="header">
+        <header class="site-header">
+            <div class="logo">Graph Explorer</div>
+            <div class="header-actions">
+                {% block header_actions %}{% endblock %}
+            </div>
+        </header>
+    </div>
+    <div class="left">
+        <p>Tree layout</p>
+        <div class="tree-container">
+            {{ tree_view }}
+        </div>
+        <p>Bird layout</p>
+        <div class="bird-container">
+          {% include "bird_view.html" %}
+        </div>
+            {% block links %}{% endblock %}
+    </div>
+    <div class="center">
+        {% block content %}{% endblock %}
+    </div>
+    <div class="footer-tabs">
+        {% block workspace_tabs %}{% endblock %}
+    </div>
+
+    <div class="footer">Graph explorer</div>
+</div>
+{% block scripts %}{% endblock %}
+</body>
+</html>

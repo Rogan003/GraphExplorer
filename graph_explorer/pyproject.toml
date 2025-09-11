@@ -1,0 +1,12 @@
+[project]
+name = "graph_explorer"
+version = "0.1"
+description = "Graph Explorer"
+dependencies = [
+    "graph_explorer_platform==0.1",
+    "data_source_json==0.1",
+    "data_source_xml==0.1",
+    "block_visualizer==0.1",
+    "simple_visualizer==0.1",
+    "Django>=5.1.3"
+]

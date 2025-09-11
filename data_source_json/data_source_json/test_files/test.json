@@ -1,0 +1,2165 @@
+{
+  "nodes": [
+    {
+      "@id": "1",
+      "name": "Node 1",
+      "value": 49.25,
+      "weight": 8.95,
+      "birthday": "2023-10-23 01:06",
+      "children": [
+        {
+          "@id": "2",
+          "name": "Node 2",
+          "value": 88.63,
+          "weight": 9.88,
+          "birthday": "2020-09-25 05:09",
+          "children": [
+            {
+              "@id": "3",
+              "name": "Node 3",
+              "value": 87.35,
+              "weight": 1.62,
+              "birthday": "2024-02-19 20:10",
+              "children": [
+                {
+                  "@id": "4",
+                  "name": "Node 4",
+                  "value": 87.49,
+                  "weight": 5.13,
+                  "birthday": "2022-05-03 07:17",
+                  "parent": "3"
+                },
+                {
+                  "@id": "5",
+                  "name": "Node 5",
+                  "value": 67.61,
+                  "weight": 1.35,
+                  "birthday": "2021-12-04 18:56",
+                  "parent": "3"
+                },
+                {
+                  "@id": "6",
+                  "name": "Node 6",
+                  "value": 3.74,
+                  "weight": 4.22,
+                  "birthday": "2023-07-29 14:53",
+                  "parent": "3",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 7.51
+                  }
+                }
+              ],
+              "parent": "2"
+            },
+            {
+              "@id": "7",
+              "name": "Node 7",
+              "value": 44.12,
+              "weight": 7.71,
+              "birthday": "2025-09-26 08:03",
+              "children": [
+                {
+                  "@id": "8",
+                  "name": "Node 8",
+                  "value": 17.31,
+                  "weight": 8.88,
+                  "birthday": "2021-05-02 14:03",
+                  "parent": "7",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 4.83
+                  }
+                },
+                {
+                  "@id": "9",
+                  "name": "Node 9",
+                  "value": 25.76,
+                  "weight": 8.45,
+                  "birthday": "2023-03-13 10:28",
+                  "parent": "7"
+                },
+                {
+                  "@id": "10",
+                  "name": "Node 10",
+                  "value": 81.83,
+                  "weight": 4.81,
+                  "birthday": "2020-02-01 20:49",
+                  "parent": "7"
+                }
+              ],
+              "parent": "2",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 5.58
+              }
+            },
+            {
+              "@id": "11",
+              "name": "Node 11",
+              "value": 63.15,
+              "weight": 6.56,
+              "birthday": "2024-03-07 19:18",
+              "children": [
+                {
+                  "@id": "12",
+                  "name": "Node 12",
+                  "value": 33.59,
+                  "weight": 7.94,
+                  "birthday": "2023-08-11 15:46",
+                  "parent": "11",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 6.5
+                  }
+                },
+                {
+                  "@id": "13",
+                  "name": "Node 13",
+                  "value": 12.43,
+                  "weight": 9.08,
+                  "birthday": "2023-10-10 06:47",
+                  "parent": "11"
+                }
+              ],
+              "parent": "2",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 8.69
+              }
+            }
+          ],
+          "parent": "1"
+        },
+        {
+          "@id": "14",
+          "name": "Node 14",
+          "value": 45.73,
+          "weight": 5.69,
+          "birthday": "2021-09-14 17:57",
+          "children": [
+            {
+              "@id": "15",
+              "name": "Node 15",
+              "value": 40.41,
+              "weight": 8.69,
+              "birthday": "2024-02-09 05:16",
+              "children": [
+                {
+                  "@id": "16",
+                  "name": "Node 16",
+                  "value": 78.64,
+                  "weight": 9.71,
+                  "birthday": "2021-02-23 17:53",
+                  "parent": "15"
+                },
+                {
+                  "@id": "17",
+                  "name": "Node 17",
+                  "value": 33.29,
+                  "weight": 7.4,
+                  "birthday": "2025-12-02 14:10",
+                  "parent": "15"
+                }
+              ],
+              "parent": "14",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 9.47
+              }
+            },
+            {
+              "@id": "18",
+              "name": "Node 18",
+              "value": 61.53,
+              "weight": 7.91,
+              "birthday": "2020-12-04 06:38",
+              "children": [
+                {
+                  "@id": "19",
+                  "name": "Node 19",
+                  "value": 78.16,
+                  "weight": 7.82,
+                  "birthday": "2025-12-06 15:34",
+                  "parent": "18"
+                },
+                {
+                  "@id": "20",
+                  "name": "Node 20",
+                  "value": 21.7,
+                  "weight": 8.17,
+                  "birthday": "2024-06-25 03:00",
+                  "parent": "18",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 7.55
+                  }
+                },
+                {
+                  "@id": "21",
+                  "name": "Node 21",
+                  "value": 74.09,
+                  "weight": 5.7,
+                  "birthday": "2020-05-27 09:46",
+                  "parent": "18",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 8.23
+                  }
+                }
+              ],
+              "parent": "14"
+            }
+          ],
+          "parent": "1"
+        },
+        {
+          "@id": "22",
+          "name": "Node 22",
+          "value": 33.84,
+          "weight": 8.82,
+          "birthday": "2025-01-15 07:17",
+          "children": [
+            {
+              "@id": "23",
+              "name": "Node 23",
+              "value": 10.77,
+              "weight": 8.53,
+              "birthday": "2022-03-22 21:43",
+              "children": [
+                {
+                  "@id": "24",
+                  "name": "Node 24",
+                  "value": 77.45,
+                  "weight": 1.54,
+                  "birthday": "2021-10-16 13:09",
+                  "parent": "23"
+                },
+                {
+                  "@id": "25",
+                  "name": "Node 25",
+                  "value": 76.77,
+                  "weight": 2.71,
+                  "birthday": "2020-03-18 05:31",
+                  "parent": "23"
+                },
+                {
+                  "@id": "26",
+                  "name": "Node 26",
+                  "value": 90.73,
+                  "weight": 8.54,
+                  "birthday": "2023-09-24 12:05",
+                  "parent": "23",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 8.43
+                  }
+                }
+              ],
+              "parent": "22"
+            },
+            {
+              "@id": "27",
+              "name": "Node 27",
+              "value": 79.93,
+              "weight": 6.68,
+              "birthday": "2022-12-29 17:39",
+              "children": [
+                {
+                  "@id": "28",
+                  "name": "Node 28",
+                  "value": 37.08,
+                  "weight": 5.27,
+                  "birthday": "2022-11-08 12:51",
+                  "parent": "27"
+                },
+                {
+                  "@id": "29",
+                  "name": "Node 29",
+                  "value": 78.15,
+                  "weight": 4.75,
+                  "birthday": "2023-01-29 18:28",
+                  "parent": "27",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 1.12
+                  }
+                },
+                {
+                  "@id": "30",
+                  "name": "Node 30",
+                  "value": 15.62,
+                  "weight": 5.5,
+                  "birthday": "2022-09-21 17:01",
+                  "parent": "27",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 4.51
+                  }
+                }
+              ],
+              "parent": "22"
+            }
+          ],
+          "parent": "1",
+          "edge_data": {
+            "label": "has_child",
+            "weight": 6.4
+          }
+        }
+      ]
+    },
+    {
+      "@id": "30",
+      "name": "Node 30",
+      "value": 16.53,
+      "weight": 3.2,
+      "birthday": "2024-02-07 02:19",
+      "children": [
+        {
+          "@id": "31",
+          "name": "Node 31",
+          "value": 40.3,
+          "weight": 6.52,
+          "birthday": "2024-04-10 23:12",
+          "children": [
+            {
+              "@id": "32",
+              "name": "Node 32",
+              "value": 71.93,
+              "weight": 2.7,
+              "birthday": "2023-05-28 14:49",
+              "children": [
+                {
+                  "@id": "33",
+                  "name": "Node 33",
+                  "value": 32.43,
+                  "weight": 7.17,
+                  "birthday": "2025-09-19 04:39",
+                  "parent": "32",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 9.15
+                  }
+                },
+                {
+                  "@id": "34",
+                  "name": "Node 34",
+                  "value": 82.47,
+                  "weight": 9.27,
+                  "birthday": "2021-06-22 19:39",
+                  "parent": "32",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 1.34
+                  }
+                },
+                {
+                  "@id": "35",
+                  "name": "Node 35",
+                  "value": 73.59,
+                  "weight": 2.13,
+                  "birthday": "2021-07-09 22:02",
+                  "parent": "32"
+                },
+                {
+                  "@id": "36",
+                  "name": "Node 36",
+                  "value": 55.49,
+                  "weight": 3.47,
+                  "birthday": "2024-06-27 13:37",
+                  "parent": "32"
+                }
+              ],
+              "parent": "31"
+            },
+            {
+              "@id": "37",
+              "name": "Node 37",
+              "value": 62.06,
+              "weight": 3.39,
+              "birthday": "2020-11-29 04:28",
+              "children": [
+                {
+                  "@id": "38",
+                  "name": "Node 38",
+                  "value": 34.18,
+                  "weight": 2.62,
+                  "birthday": "2021-03-01 04:48",
+                  "parent": "37",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 5.59
+                  }
+                },
+                {
+                  "@id": "39",
+                  "name": "Node 39",
+                  "value": 2.16,
+                  "weight": 9.4,
+                  "birthday": "2023-01-03 02:12",
+                  "parent": "37"
+                },
+                {
+                  "@id": "40",
+                  "name": "Node 40",
+                  "value": 61.84,
+                  "weight": 1.75,
+                  "birthday": "2021-01-08 17:06",
+                  "parent": "37",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 9.66
+                  }
+                },
+                {
+                  "@id": "41",
+                  "name": "Node 41",
+                  "value": 82.31,
+                  "weight": 4.31,
+                  "birthday": "2020-01-16 22:01",
+                  "parent": "37"
+                }
+              ],
+              "parent": "31",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 4.49
+              }
+            },
+            {
+              "@id": "42",
+              "name": "Node 42",
+              "value": 97.32,
+              "weight": 5.96,
+              "birthday": "2022-01-15 18:22",
+              "children": [
+                {
+                  "@id": "43",
+                  "name": "Node 43",
+                  "value": 6.6,
+                  "weight": 9.36,
+                  "birthday": "2020-08-25 11:41",
+                  "parent": "42",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 1.16
+                  }
+                },
+                {
+                  "@id": "44",
+                  "name": "Node 44",
+                  "value": 17.72,
+                  "weight": 9.73,
+                  "birthday": "2021-06-02 02:22",
+                  "parent": "42"
+                }
+              ],
+              "parent": "31",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 3.18
+              }
+            }
+          ],
+          "parent": "30",
+          "edge_data": {
+            "label": "has_child",
+            "weight": 7.06
+          }
+        },
+        {
+          "@id": "45",
+          "name": "Node 45",
+          "value": 94.9,
+          "weight": 9.17,
+          "birthday": "2021-05-02 12:40",
+          "children": [
+            {
+              "@id": "46",
+              "name": "Node 46",
+              "value": 72.8,
+              "weight": 8.79,
+              "birthday": "2023-03-24 17:02",
+              "children": [
+                {
+                  "@id": "47",
+                  "name": "Node 47",
+                  "value": 28.77,
+                  "weight": 6.23,
+                  "birthday": "2025-02-27 16:09",
+                  "parent": "46"
+                },
+                {
+                  "@id": "48",
+                  "name": "Node 48",
+                  "value": 29.9,
+                  "weight": 9.74,
+                  "birthday": "2023-06-10 10:59",
+                  "parent": "46"
+                }
+              ],
+              "parent": "45",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 5.76
+              }
+            },
+            {
+              "@id": "49",
+              "name": "Node 49",
+              "value": 8.3,
+              "weight": 2.46,
+              "birthday": "2022-04-14 19:55",
+              "children": [
+                {
+                  "@id": "50",
+                  "name": "Node 50",
+                  "value": 18.41,
+                  "weight": 2.01,
+                  "birthday": "2025-09-16 16:04",
+                  "parent": "49"
+                },
+                {
+                  "@id": "51",
+                  "name": "Node 51",
+                  "value": 61.4,
+                  "weight": 9.88,
+                  "birthday": "2025-01-14 05:51",
+                  "parent": "49",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 5.1
+                  }
+                }
+              ],
+              "parent": "45",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 4.87
+              }
+            }
+          ],
+          "parent": "30",
+          "edge_data": {
+            "label": "has_child",
+            "weight": 3.9
+          }
+        }
+      ]
+    },
+    {
+      "@id": "51",
+      "name": "Node 51",
+      "value": 31.77,
+      "weight": 4.01,
+      "birthday": "2020-03-05 10:32",
+      "children": [
+        {
+          "@id": "52",
+          "name": "Node 52",
+          "value": 46.87,
+          "weight": 1.44,
+          "birthday": "2024-10-22 22:16",
+          "children": [
+            {
+              "@id": "53",
+              "name": "Node 53",
+              "value": 86.95,
+              "weight": 5.46,
+              "birthday": "2025-06-19 20:23",
+              "children": [
+                {
+                  "@id": "54",
+                  "name": "Node 54",
+                  "value": 49.72,
+                  "weight": 1.76,
+                  "birthday": "2020-02-13 13:24",
+                  "parent": "53",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 5.12
+                  }
+                },
+                {
+                  "@id": "55",
+                  "name": "Node 55",
+                  "value": 56.86,
+                  "weight": 8.29,
+                  "birthday": "2024-11-06 01:00",
+                  "parent": "53",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 9.62
+                  }
+                }
+              ],
+              "parent": "52"
+            },
+            {
+              "@id": "56",
+              "name": "Node 56",
+              "value": 34.11,
+              "weight": 2.66,
+              "birthday": "2025-02-05 07:16",
+              "children": [
+                {
+                  "@id": "57",
+                  "name": "Node 57",
+                  "value": 96.09,
+                  "weight": 6.2,
+                  "birthday": "2025-12-30 22:43",
+                  "parent": "56",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 1.47
+                  }
+                },
+                {
+                  "@id": "58",
+                  "name": "Node 58",
+                  "value": 98.11,
+                  "weight": 8.56,
+                  "birthday": "2024-07-30 21:33",
+                  "parent": "56"
+                }
+              ],
+              "parent": "52",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 3.55
+              }
+            },
+            {
+              "@id": "59",
+              "name": "Node 59",
+              "value": 7.65,
+              "weight": 4.68,
+              "birthday": "2020-12-25 12:37",
+              "children": [
+                {
+                  "@id": "60",
+                  "name": "Node 60",
+                  "value": 94.85,
+                  "weight": 7.95,
+                  "birthday": "2021-09-15 17:24",
+                  "parent": "59"
+                },
+                {
+                  "@id": "61",
+                  "name": "Node 61",
+                  "value": 36.57,
+                  "weight": 7.05,
+                  "birthday": "2021-04-05 19:41",
+                  "parent": "59"
+                },
+                {
+                  "@id": "62",
+                  "name": "Node 62",
+                  "value": 36.25,
+                  "weight": 9.35,
+                  "birthday": "2025-03-17 06:08",
+                  "parent": "59"
+                },
+                {
+                  "@id": "63",
+                  "name": "Node 63",
+                  "value": 39.02,
+                  "weight": 9.44,
+                  "birthday": "2021-04-19 12:12",
+                  "parent": "59"
+                }
+              ],
+              "parent": "52"
+            },
+            {
+              "@id": "64",
+              "name": "Node 64",
+              "value": 27.36,
+              "weight": 7.62,
+              "birthday": "2021-06-01 18:12",
+              "children": [
+                {
+                  "@id": "65",
+                  "name": "Node 65",
+                  "value": 80.74,
+                  "weight": 3.48,
+                  "birthday": "2023-02-12 11:56",
+                  "parent": "64"
+                },
+                {
+                  "@id": "66",
+                  "name": "Node 66",
+                  "value": 78.62,
+                  "weight": 4.81,
+                  "birthday": "2022-01-31 14:04",
+                  "parent": "64",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 2.85
+                  }
+                },
+                {
+                  "@id": "67",
+                  "name": "Node 67",
+                  "value": 65.01,
+                  "weight": 9.79,
+                  "birthday": "2023-02-20 00:15",
+                  "parent": "64"
+                }
+              ],
+              "parent": "52",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 2.85
+              }
+            }
+          ],
+          "parent": "51"
+        },
+        {
+          "@id": "68",
+          "name": "Node 68",
+          "value": 17.49,
+          "weight": 2.38,
+          "birthday": "2023-03-12 11:21",
+          "children": [
+            {
+              "@id": "69",
+              "name": "Node 69",
+              "value": 11.84,
+              "weight": 9.9,
+              "birthday": "2020-09-20 14:39",
+              "children": [
+                {
+                  "@id": "70",
+                  "name": "Node 70",
+                  "value": 54.06,
+                  "weight": 3.99,
+                  "birthday": "2023-07-17 20:56",
+                  "parent": "69"
+                },
+                {
+                  "@id": "71",
+                  "name": "Node 71",
+                  "value": 1.66,
+                  "weight": 3.41,
+                  "birthday": "2024-01-25 06:19",
+                  "parent": "69"
+                }
+              ],
+              "parent": "68",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 6.09
+              }
+            },
+            {
+              "@id": "72",
+              "name": "Node 72",
+              "value": 90.77,
+              "weight": 4.22,
+              "birthday": "2021-04-24 10:34",
+              "children": [
+                {
+                  "@id": "73",
+                  "name": "Node 73",
+                  "value": 43.14,
+                  "weight": 7.59,
+                  "birthday": "2025-02-15 13:17",
+                  "parent": "72"
+                },
+                {
+                  "@id": "74",
+                  "name": "Node 74",
+                  "value": 15.2,
+                  "weight": 2.01,
+                  "birthday": "2023-10-24 10:27",
+                  "parent": "72",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 5.74
+                  }
+                }
+              ],
+              "parent": "68",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 2.7
+              }
+            }
+          ],
+          "parent": "51",
+          "edge_data": {
+            "label": "has_child",
+            "weight": 1.15
+          }
+        }
+      ]
+    },
+    {
+      "@id": "74",
+      "name": "Node 74",
+      "value": 87.28,
+      "weight": 8.88,
+      "birthday": "2021-06-16 12:59",
+      "children": [
+        {
+          "@id": "75",
+          "name": "Node 75",
+          "value": 39.72,
+          "weight": 3.46,
+          "birthday": "2020-07-24 04:59",
+          "children": [
+            {
+              "@id": "76",
+              "name": "Node 76",
+              "value": 5.31,
+              "weight": 1.09,
+              "birthday": "2020-09-11 06:45",
+              "children": [
+                {
+                  "@id": "77",
+                  "name": "Node 77",
+                  "value": 19.65,
+                  "weight": 7.99,
+                  "birthday": "2024-03-09 17:06",
+                  "parent": "76"
+                },
+                {
+                  "@id": "78",
+                  "name": "Node 78",
+                  "value": 79.8,
+                  "weight": 3.89,
+                  "birthday": "2020-09-07 19:01",
+                  "parent": "76"
+                }
+              ],
+              "parent": "75",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 3.46
+              }
+            },
+            {
+              "@id": "79",
+              "name": "Node 79",
+              "value": 30.91,
+              "weight": 3.01,
+              "birthday": "2021-12-07 23:28",
+              "children": [
+                {
+                  "@id": "80",
+                  "name": "Node 80",
+                  "value": 95.12,
+                  "weight": 4.73,
+                  "birthday": "2025-10-30 03:11",
+                  "parent": "79",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 9.42
+                  }
+                },
+                {
+                  "@id": "81",
+                  "name": "Node 81",
+                  "value": 54.74,
+                  "weight": 2.36,
+                  "birthday": "2025-04-28 17:16",
+                  "parent": "79"
+                },
+                {
+                  "@id": "82",
+                  "name": "Node 82",
+                  "value": 54.96,
+                  "weight": 1.22,
+                  "birthday": "2021-10-25 18:31",
+                  "parent": "79",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 3.18
+                  }
+                }
+              ],
+              "parent": "75"
+            },
+            {
+              "@id": "83",
+              "name": "Node 83",
+              "value": 64.67,
+              "weight": 7.11,
+              "birthday": "2025-08-19 13:51",
+              "children": [
+                {
+                  "@id": "84",
+                  "name": "Node 84",
+                  "value": 86.03,
+                  "weight": 8.42,
+                  "birthday": "2023-09-19 21:17",
+                  "parent": "83"
+                },
+                {
+                  "@id": "85",
+                  "name": "Node 85",
+                  "value": 43.86,
+                  "weight": 2.32,
+                  "birthday": "2021-01-30 01:27",
+                  "parent": "83"
+                },
+                {
+                  "@id": "86",
+                  "name": "Node 86",
+                  "value": 80.08,
+                  "weight": 2.83,
+                  "birthday": "2020-08-22 09:54",
+                  "parent": "83",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 9.57
+                  }
+                },
+                {
+                  "@id": "87",
+                  "name": "Node 87",
+                  "value": 19.14,
+                  "weight": 2.74,
+                  "birthday": "2023-11-07 19:46",
+                  "parent": "83",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 8.51
+                  }
+                }
+              ],
+              "parent": "75"
+            }
+          ],
+          "parent": "74"
+        },
+        {
+          "@id": "88",
+          "name": "Node 88",
+          "value": 83.11,
+          "weight": 6.54,
+          "birthday": "2022-09-03 21:41",
+          "children": [
+            {
+              "@id": "89",
+              "name": "Node 89",
+              "value": 87.83,
+              "weight": 4.02,
+              "birthday": "2020-05-24 22:23",
+              "children": [
+                {
+                  "@id": "90",
+                  "name": "Node 90",
+                  "value": 99.96,
+                  "weight": 7.53,
+                  "birthday": "2024-02-04 22:48",
+                  "parent": "89"
+                },
+                {
+                  "@id": "91",
+                  "name": "Node 91",
+                  "value": 46.72,
+                  "weight": 2.2,
+                  "birthday": "2024-11-06 10:48",
+                  "parent": "89"
+                },
+                {
+                  "@id": "92",
+                  "name": "Node 92",
+                  "value": 59.85,
+                  "weight": 4.43,
+                  "birthday": "2024-05-13 18:52",
+                  "parent": "89",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 6.1
+                  }
+                }
+              ],
+              "parent": "88"
+            },
+            {
+              "@id": "93",
+              "name": "Node 93",
+              "value": 19.62,
+              "weight": 7.0,
+              "birthday": "2021-11-18 08:41",
+              "children": [
+                {
+                  "@id": "94",
+                  "name": "Node 94",
+                  "value": 43.36,
+                  "weight": 9.89,
+                  "birthday": "2022-06-18 00:03",
+                  "parent": "93",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 7.09
+                  }
+                },
+                {
+                  "@id": "95",
+                  "name": "Node 95",
+                  "value": 56.68,
+                  "weight": 2.33,
+                  "birthday": "2025-10-15 22:41",
+                  "parent": "93",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 8.19
+                  }
+                },
+                {
+                  "@id": "96",
+                  "name": "Node 96",
+                  "value": 24.35,
+                  "weight": 5.33,
+                  "birthday": "2021-06-23 11:30",
+                  "parent": "93"
+                }
+              ],
+              "parent": "88",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 6.97
+              }
+            },
+            {
+              "@id": "97",
+              "name": "Node 97",
+              "value": 70.4,
+              "weight": 3.07,
+              "birthday": "2022-08-19 08:11",
+              "children": [
+                {
+                  "@id": "98",
+                  "name": "Node 98",
+                  "value": 99.73,
+                  "weight": 1.84,
+                  "birthday": "2024-04-09 20:05",
+                  "parent": "97"
+                },
+                {
+                  "@id": "99",
+                  "name": "Node 99",
+                  "value": 48.21,
+                  "weight": 7.64,
+                  "birthday": "2025-08-20 03:39",
+                  "parent": "97",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 7.83
+                  }
+                },
+                {
+                  "@id": "100",
+                  "name": "Node 100",
+                  "value": 2.76,
+                  "weight": 6.63,
+                  "birthday": "2020-11-23 09:25",
+                  "parent": "97",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 5.49
+                  }
+                }
+              ],
+              "parent": "88",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 5.54
+              }
+            }
+          ],
+          "parent": "74",
+          "edge_data": {
+            "label": "has_child",
+            "weight": 9.83
+          }
+        }
+      ]
+    },
+    {
+      "@id": "100",
+      "name": "Node 100",
+      "value": 61.95,
+      "weight": 7.91,
+      "birthday": "2025-05-10 15:48",
+      "children": [
+        {
+          "@id": "101",
+          "name": "Node 101",
+          "value": 97.84,
+          "weight": 1.62,
+          "birthday": "2020-11-29 19:37",
+          "children": [
+            {
+              "@id": "102",
+              "name": "Node 102",
+              "value": 13.39,
+              "weight": 8.43,
+              "birthday": "2020-12-30 16:02",
+              "children": [
+                {
+                  "@id": "103",
+                  "name": "Node 103",
+                  "value": 84.21,
+                  "weight": 9.84,
+                  "birthday": "2020-08-03 22:29",
+                  "parent": "102",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 8.72
+                  }
+                },
+                {
+                  "@id": "104",
+                  "name": "Node 104",
+                  "value": 57.75,
+                  "weight": 4.89,
+                  "birthday": "2022-12-27 18:30",
+                  "parent": "102"
+                },
+                {
+                  "@id": "105",
+                  "name": "Node 105",
+                  "value": 4.08,
+                  "weight": 1.67,
+                  "birthday": "2023-10-15 19:46",
+                  "parent": "102"
+                }
+              ],
+              "parent": "101"
+            },
+            {
+              "@id": "106",
+              "name": "Node 106",
+              "value": 45.85,
+              "weight": 6.5,
+              "birthday": "2020-04-14 14:13",
+              "children": [
+                {
+                  "@id": "107",
+                  "name": "Node 107",
+                  "value": 58.05,
+                  "weight": 6.13,
+                  "birthday": "2023-11-20 11:29",
+                  "parent": "106"
+                },
+                {
+                  "@id": "108",
+                  "name": "Node 108",
+                  "value": 3.84,
+                  "weight": 6.18,
+                  "birthday": "2020-08-28 06:06",
+                  "parent": "106",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 2.52
+                  }
+                },
+                {
+                  "@id": "109",
+                  "name": "Node 109",
+                  "value": 5.95,
+                  "weight": 3.45,
+                  "birthday": "2024-04-23 20:58",
+                  "parent": "106"
+                },
+                {
+                  "@id": "110",
+                  "name": "Node 110",
+                  "value": 97.09,
+                  "weight": 9.94,
+                  "birthday": "2025-09-18 13:27",
+                  "parent": "106",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 4.09
+                  }
+                }
+              ],
+              "parent": "101"
+            }
+          ],
+          "parent": "100",
+          "edge_data": {
+            "label": "has_child",
+            "weight": 6.34
+          }
+        },
+        {
+          "@id": "111",
+          "name": "Node 111",
+          "value": 40.96,
+          "weight": 6.67,
+          "birthday": "2023-12-23 08:50",
+          "children": [
+            {
+              "@id": "112",
+              "name": "Node 112",
+              "value": 27.8,
+              "weight": 1.95,
+              "birthday": "2021-03-27 14:10",
+              "children": [
+                {
+                  "@id": "113",
+                  "name": "Node 113",
+                  "value": 88.92,
+                  "weight": 8.92,
+                  "birthday": "2024-12-24 14:41",
+                  "parent": "112",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 2.99
+                  }
+                },
+                {
+                  "@id": "114",
+                  "name": "Node 114",
+                  "value": 95.9,
+                  "weight": 8.34,
+                  "birthday": "2023-11-23 05:01",
+                  "parent": "112"
+                },
+                {
+                  "@id": "115",
+                  "name": "Node 115",
+                  "value": 81.29,
+                  "weight": 7.37,
+                  "birthday": "2025-10-03 12:41",
+                  "parent": "112",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 1.76
+                  }
+                }
+              ],
+              "parent": "111"
+            },
+            {
+              "@id": "116",
+              "name": "Node 116",
+              "value": 99.39,
+              "weight": 4.9,
+              "birthday": "2022-07-13 20:40",
+              "children": [
+                {
+                  "@id": "117",
+                  "name": "Node 117",
+                  "value": 43.36,
+                  "weight": 1.35,
+                  "birthday": "2020-10-20 11:18",
+                  "parent": "116"
+                },
+                {
+                  "@id": "118",
+                  "name": "Node 118",
+                  "value": 18.59,
+                  "weight": 2.32,
+                  "birthday": "2023-01-24 23:28",
+                  "parent": "116"
+                },
+                {
+                  "@id": "119",
+                  "name": "Node 119",
+                  "value": 69.11,
+                  "weight": 8.98,
+                  "birthday": "2024-07-21 08:45",
+                  "parent": "116",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 1.99
+                  }
+                }
+              ],
+              "parent": "111",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 3.19
+              }
+            },
+            {
+              "@id": "120",
+              "name": "Node 120",
+              "value": 22.09,
+              "weight": 7.1,
+              "birthday": "2020-05-17 10:55",
+              "children": [
+                {
+                  "@id": "121",
+                  "name": "Node 121",
+                  "value": 91.95,
+                  "weight": 2.14,
+                  "birthday": "2023-04-15 23:44",
+                  "parent": "120",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 2.2
+                  }
+                },
+                {
+                  "@id": "122",
+                  "name": "Node 122",
+                  "value": 45.5,
+                  "weight": 8.6,
+                  "birthday": "2020-01-26 19:06",
+                  "parent": "120"
+                },
+                {
+                  "@id": "123",
+                  "name": "Node 123",
+                  "value": 53.74,
+                  "weight": 4.21,
+                  "birthday": "2023-10-13 21:10",
+                  "parent": "120"
+                },
+                {
+                  "@id": "124",
+                  "name": "Node 124",
+                  "value": 14.07,
+                  "weight": 7.82,
+                  "birthday": "2024-05-15 12:45",
+                  "parent": "120",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 9.66
+                  }
+                }
+              ],
+              "parent": "111"
+            },
+            {
+              "@id": "125",
+              "name": "Node 125",
+              "value": 30.74,
+              "weight": 3.39,
+              "birthday": "2023-11-25 01:21",
+              "children": [
+                {
+                  "@id": "126",
+                  "name": "Node 126",
+                  "value": 3.87,
+                  "weight": 4.47,
+                  "birthday": "2020-04-23 07:39",
+                  "parent": "125",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 6.87
+                  }
+                },
+                {
+                  "@id": "127",
+                  "name": "Node 127",
+                  "value": 52.47,
+                  "weight": 1.61,
+                  "birthday": "2021-10-08 03:35",
+                  "parent": "125"
+                }
+              ],
+              "parent": "111"
+            }
+          ],
+          "parent": "100"
+        },
+        {
+          "@id": "128",
+          "name": "Node 128",
+          "value": 11.84,
+          "weight": 4.84,
+          "birthday": "2023-11-03 09:23",
+          "children": [
+            {
+              "@id": "129",
+              "name": "Node 129",
+              "value": 73.69,
+              "weight": 7.75,
+              "birthday": "2025-12-08 16:28",
+              "children": [
+                {
+                  "@id": "130",
+                  "name": "Node 130",
+                  "value": 91.74,
+                  "weight": 2.5,
+                  "birthday": "2020-09-14 13:16",
+                  "parent": "129"
+                },
+                {
+                  "@id": "131",
+                  "name": "Node 131",
+                  "value": 51.76,
+                  "weight": 1.5,
+                  "birthday": "2022-02-17 11:31",
+                  "parent": "129"
+                },
+                {
+                  "@id": "132",
+                  "name": "Node 132",
+                  "value": 88.05,
+                  "weight": 3.87,
+                  "birthday": "2024-12-17 20:30",
+                  "parent": "129"
+                },
+                {
+                  "@id": "133",
+                  "name": "Node 133",
+                  "value": 30.27,
+                  "weight": 6.38,
+                  "birthday": "2021-08-23 05:43",
+                  "parent": "129",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 8.98
+                  }
+                }
+              ],
+              "parent": "128",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 4.91
+              }
+            },
+            {
+              "@id": "134",
+              "name": "Node 134",
+              "value": 65.34,
+              "weight": 9.58,
+              "birthday": "2025-09-15 16:51",
+              "children": [
+                {
+                  "@id": "135",
+                  "name": "Node 135",
+                  "value": 97.62,
+                  "weight": 5.17,
+                  "birthday": "2025-03-03 11:10",
+                  "parent": "134"
+                },
+                {
+                  "@id": "136",
+                  "name": "Node 136",
+                  "value": 98.26,
+                  "weight": 9.04,
+                  "birthday": "2020-04-06 22:54",
+                  "parent": "134",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 9.2
+                  }
+                },
+                {
+                  "@id": "137",
+                  "name": "Node 137",
+                  "value": 37.33,
+                  "weight": 5.66,
+                  "birthday": "2024-01-28 09:39",
+                  "parent": "134",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 4.5
+                  }
+                }
+              ],
+              "parent": "128"
+            },
+            {
+              "@id": "138",
+              "name": "Node 138",
+              "value": 27.72,
+              "weight": 4.6,
+              "birthday": "2022-02-28 09:46",
+              "children": [
+                {
+                  "@id": "139",
+                  "name": "Node 139",
+                  "value": 66.58,
+                  "weight": 8.88,
+                  "birthday": "2023-07-04 00:12",
+                  "parent": "138",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 8.33
+                  }
+                },
+                {
+                  "@id": "140",
+                  "name": "Node 140",
+                  "value": 2.06,
+                  "weight": 8.05,
+                  "birthday": "2020-12-18 23:53",
+                  "parent": "138",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 5.74
+                  }
+                },
+                {
+                  "@id": "141",
+                  "name": "Node 141",
+                  "value": 53.28,
+                  "weight": 8.71,
+                  "birthday": "2020-04-10 09:27",
+                  "parent": "138",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 6.45
+                  }
+                }
+              ],
+              "parent": "128"
+            }
+          ],
+          "parent": "100"
+        }
+      ]
+    },
+    {
+      "@id": "141",
+      "name": "Node 141",
+      "value": 44.2,
+      "weight": 7.33,
+      "birthday": "2020-02-08 22:44",
+      "children": [
+        {
+          "@id": "142",
+          "name": "Node 142",
+          "value": 36.86,
+          "weight": 5.16,
+          "birthday": "2025-12-10 03:49",
+          "children": [
+            {
+              "@id": "143",
+              "name": "Node 143",
+              "value": 1.25,
+              "weight": 9.03,
+              "birthday": "2024-07-18 18:10",
+              "children": [
+                {
+                  "@id": "144",
+                  "name": "Node 144",
+                  "value": 80.08,
+                  "weight": 9.55,
+                  "birthday": "2022-11-09 09:29",
+                  "parent": "143",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 5.79
+                  }
+                },
+                {
+                  "@id": "145",
+                  "name": "Node 145",
+                  "value": 20.72,
+                  "weight": 1.48,
+                  "birthday": "2025-08-29 04:14",
+                  "parent": "143"
+                },
+                {
+                  "@id": "146",
+                  "name": "Node 146",
+                  "value": 56.04,
+                  "weight": 7.45,
+                  "birthday": "2021-03-01 06:26",
+                  "parent": "143",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 8.68
+                  }
+                },
+                {
+                  "@id": "147",
+                  "name": "Node 147",
+                  "value": 80.94,
+                  "weight": 1.08,
+                  "birthday": "2021-06-07 08:40",
+                  "parent": "143"
+                }
+              ],
+              "parent": "142"
+            },
+            {
+              "@id": "148",
+              "name": "Node 148",
+              "value": 64.68,
+              "weight": 6.17,
+              "birthday": "2023-12-12 21:37",
+              "children": [
+                {
+                  "@id": "149",
+                  "name": "Node 149",
+                  "value": 53.6,
+                  "weight": 7.54,
+                  "birthday": "2025-01-12 02:45",
+                  "parent": "148"
+                },
+                {
+                  "@id": "150",
+                  "name": "Node 150",
+                  "value": 1.39,
+                  "weight": 2.6,
+                  "birthday": "2023-10-01 23:59",
+                  "parent": "148"
+                }
+              ],
+              "parent": "142"
+            },
+            {
+              "@id": "151",
+              "name": "Node 151",
+              "value": 34.01,
+              "weight": 1.23,
+              "birthday": "2020-08-18 17:23",
+              "children": [
+                {
+                  "@id": "152",
+                  "name": "Node 152",
+                  "value": 81.88,
+                  "weight": 6.2,
+                  "birthday": "2025-09-15 23:51",
+                  "parent": "151"
+                },
+                {
+                  "@id": "153",
+                  "name": "Node 153",
+                  "value": 72.87,
+                  "weight": 3.88,
+                  "birthday": "2022-10-19 03:23",
+                  "parent": "151",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 8.0
+                  }
+                },
+                {
+                  "@id": "154",
+                  "name": "Node 154",
+                  "value": 32.84,
+                  "weight": 9.8,
+                  "birthday": "2020-12-02 23:11",
+                  "parent": "151"
+                }
+              ],
+              "parent": "142"
+            },
+            {
+              "@id": "155",
+              "name": "Node 155",
+              "value": 48.99,
+              "weight": 2.72,
+              "birthday": "2023-03-26 19:21",
+              "children": [
+                {
+                  "@id": "156",
+                  "name": "Node 156",
+                  "value": 36.43,
+                  "weight": 7.45,
+                  "birthday": "2023-11-18 17:22",
+                  "parent": "155",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 1.2
+                  }
+                },
+                {
+                  "@id": "157",
+                  "name": "Node 157",
+                  "value": 65.52,
+                  "weight": 1.7,
+                  "birthday": "2024-11-08 05:43",
+                  "parent": "155",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 6.39
+                  }
+                },
+                {
+                  "@id": "158",
+                  "name": "Node 158",
+                  "value": 72.97,
+                  "weight": 9.54,
+                  "birthday": "2025-12-30 00:34",
+                  "parent": "155",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 1.17
+                  }
+                }
+              ],
+              "parent": "142"
+            }
+          ],
+          "parent": "141",
+          "edge_data": {
+            "label": "has_child",
+            "weight": 2.2
+          }
+        },
+        {
+          "@id": "159",
+          "name": "Node 159",
+          "value": 72.66,
+          "weight": 6.81,
+          "birthday": "2025-07-01 17:27",
+          "children": [
+            {
+              "@id": "160",
+              "name": "Node 160",
+              "value": 51.15,
+              "weight": 5.1,
+              "birthday": "2021-08-07 17:55",
+              "children": [
+                {
+                  "@id": "161",
+                  "name": "Node 161",
+                  "value": 87.88,
+                  "weight": 1.97,
+                  "birthday": "2025-05-06 08:54",
+                  "parent": "160"
+                },
+                {
+                  "@id": "162",
+                  "name": "Node 162",
+                  "value": 7.91,
+                  "weight": 5.09,
+                  "birthday": "2023-01-20 18:08",
+                  "parent": "160"
+                },
+                {
+                  "@id": "163",
+                  "name": "Node 163",
+                  "value": 42.89,
+                  "weight": 8.98,
+                  "birthday": "2023-08-24 13:54",
+                  "parent": "160"
+                }
+              ],
+              "parent": "159"
+            },
+            {
+              "@id": "164",
+              "name": "Node 164",
+              "value": 28.63,
+              "weight": 1.22,
+              "birthday": "2020-05-13 23:21",
+              "children": [
+                {
+                  "@id": "165",
+                  "name": "Node 165",
+                  "value": 34.68,
+                  "weight": 2.23,
+                  "birthday": "2022-02-20 01:01",
+                  "parent": "164",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 2.69
+                  }
+                },
+                {
+                  "@id": "166",
+                  "name": "Node 166",
+                  "value": 52.73,
+                  "weight": 4.28,
+                  "birthday": "2025-09-07 06:21",
+                  "parent": "164"
+                }
+              ],
+              "parent": "159",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 8.56
+              }
+            },
+            {
+              "@id": "167",
+              "name": "Node 167",
+              "value": 59.38,
+              "weight": 4.24,
+              "birthday": "2025-07-21 20:58",
+              "children": [
+                {
+                  "@id": "168",
+                  "name": "Node 168",
+                  "value": 63.06,
+                  "weight": 8.73,
+                  "birthday": "2020-01-16 16:21",
+                  "parent": "167"
+                },
+                {
+                  "@id": "169",
+                  "name": "Node 169",
+                  "value": 10.5,
+                  "weight": 8.9,
+                  "birthday": "2020-04-24 02:53",
+                  "parent": "167"
+                },
+                {
+                  "@id": "170",
+                  "name": "Node 170",
+                  "value": 77.86,
+                  "weight": 1.0,
+                  "birthday": "2020-11-20 23:56",
+                  "parent": "167",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 1.53
+                  }
+                }
+              ],
+              "parent": "159",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 5.6
+              }
+            }
+          ],
+          "parent": "141",
+          "edge_data": {
+            "label": "has_child",
+            "weight": 1.38
+          }
+        }
+      ]
+    },
+    {
+      "@id": "170",
+      "name": "Node 170",
+      "value": 13.25,
+      "weight": 6.05,
+      "birthday": "2022-11-29 08:36",
+      "children": [
+        {
+          "@id": "171",
+          "name": "Node 171",
+          "value": 23.16,
+          "weight": 4.02,
+          "birthday": "2024-01-13 07:01",
+          "children": [
+            {
+              "@id": "172",
+              "name": "Node 172",
+              "value": 62.98,
+              "weight": 2.13,
+              "birthday": "2021-03-27 17:28",
+              "children": [
+                {
+                  "@id": "173",
+                  "name": "Node 173",
+                  "value": 24.87,
+                  "weight": 8.82,
+                  "birthday": "2020-08-13 19:24",
+                  "parent": "172",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 3.63
+                  }
+                },
+                {
+                  "@id": "174",
+                  "name": "Node 174",
+                  "value": 56.25,
+                  "weight": 7.14,
+                  "birthday": "2022-02-22 17:12",
+                  "parent": "172",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 7.5
+                  }
+                },
+                {
+                  "@id": "175",
+                  "name": "Node 175",
+                  "value": 86.06,
+                  "weight": 5.56,
+                  "birthday": "2025-12-07 21:06",
+                  "parent": "172",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 7.49
+                  }
+                }
+              ],
+              "parent": "171",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 1.27
+              }
+            },
+            {
+              "@id": "176",
+              "name": "Node 176",
+              "value": 86.64,
+              "weight": 6.15,
+              "birthday": "2022-08-29 10:07",
+              "children": [
+                {
+                  "@id": "177",
+                  "name": "Node 177",
+                  "value": 16.55,
+                  "weight": 5.14,
+                  "birthday": "2024-05-30 02:34",
+                  "parent": "176"
+                },
+                {
+                  "@id": "178",
+                  "name": "Node 178",
+                  "value": 96.51,
+                  "weight": 2.53,
+                  "birthday": "2022-01-23 20:28",
+                  "parent": "176"
+                },
+                {
+                  "@id": "179",
+                  "name": "Node 179",
+                  "value": 59.81,
+                  "weight": 1.28,
+                  "birthday": "2022-10-05 16:54",
+                  "parent": "176"
+                }
+              ],
+              "parent": "171",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 7.72
+              }
+            },
+            {
+              "@id": "180",
+              "name": "Node 180",
+              "value": 37.82,
+              "weight": 7.03,
+              "birthday": "2023-09-10 11:35",
+              "children": [
+                {
+                  "@id": "181",
+                  "name": "Node 181",
+                  "value": 93.31,
+                  "weight": 3.98,
+                  "birthday": "2025-10-14 08:33",
+                  "parent": "180",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 6.55
+                  }
+                },
+                {
+                  "@id": "182",
+                  "name": "Node 182",
+                  "value": 43.89,
+                  "weight": 1.16,
+                  "birthday": "2020-02-13 01:03",
+                  "parent": "180"
+                },
+                {
+                  "@id": "183",
+                  "name": "Node 183",
+                  "value": 94.96,
+                  "weight": 6.82,
+                  "birthday": "2023-07-17 22:39",
+                  "parent": "180",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 4.95
+                  }
+                }
+              ],
+              "parent": "171",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 3.79
+              }
+            },
+            {
+              "@id": "184",
+              "name": "Node 184",
+              "value": 43.03,
+              "weight": 1.01,
+              "birthday": "2025-05-15 20:15",
+              "children": [
+                {
+                  "@id": "185",
+                  "name": "Node 185",
+                  "value": 92.76,
+                  "weight": 7.99,
+                  "birthday": "2021-03-13 02:55",
+                  "parent": "184"
+                },
+                {
+                  "@id": "186",
+                  "name": "Node 186",
+                  "value": 94.33,
+                  "weight": 2.73,
+                  "birthday": "2021-07-30 15:40",
+                  "parent": "184",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 5.26
+                  }
+                },
+                {
+                  "@id": "187",
+                  "name": "Node 187",
+                  "value": 17.63,
+                  "weight": 7.48,
+                  "birthday": "2022-09-05 22:06",
+                  "parent": "184",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 5.15
+                  }
+                },
+                {
+                  "@id": "188",
+                  "name": "Node 188",
+                  "value": 95.78,
+                  "weight": 5.12,
+                  "birthday": "2025-05-12 11:00",
+                  "parent": "184"
+                }
+              ],
+              "parent": "171",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 7.74
+              }
+            }
+          ],
+          "parent": "170",
+          "edge_data": {
+            "label": "has_child",
+            "weight": 4.35
+          }
+        },
+        {
+          "@id": "189",
+          "name": "Node 189",
+          "value": 91.11,
+          "weight": 5.74,
+          "birthday": "2023-05-19 01:42",
+          "children": [
+            {
+              "@id": "190",
+              "name": "Node 190",
+              "value": 13.54,
+              "weight": 7.35,
+              "birthday": "2020-02-17 02:19",
+              "children": [
+                {
+                  "@id": "191",
+                  "name": "Node 191",
+                  "value": 75.04,
+                  "weight": 9.12,
+                  "birthday": "2024-11-09 16:42",
+                  "parent": "190"
+                },
+                {
+                  "@id": "192",
+                  "name": "Node 192",
+                  "value": 67.71,
+                  "weight": 6.27,
+                  "birthday": "2020-07-19 20:44",
+                  "parent": "190"
+                }
+              ],
+              "parent": "189",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 3.88
+              }
+            },
+            {
+              "@id": "193",
+              "name": "Node 193",
+              "value": 35.9,
+              "weight": 2.6,
+              "birthday": "2024-07-20 02:42",
+              "children": [
+                {
+                  "@id": "194",
+                  "name": "Node 194",
+                  "value": 49.92,
+                  "weight": 9.52,
+                  "birthday": "2025-04-13 17:43",
+                  "parent": "193"
+                },
+                {
+                  "@id": "195",
+                  "name": "Node 195",
+                  "value": 2.66,
+                  "weight": 8.44,
+                  "birthday": "2021-09-10 19:27",
+                  "parent": "193",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 5.3
+                  }
+                }
+              ],
+              "parent": "189"
+            },
+            {
+              "@id": "196",
+              "name": "Node 196",
+              "value": 16.8,
+              "weight": 8.5,
+              "birthday": "2025-03-05 20:34",
+              "children": [
+                {
+                  "@id": "197",
+                  "name": "Node 197",
+                  "value": 90.44,
+                  "weight": 1.85,
+                  "birthday": "2024-06-09 04:42",
+                  "parent": "196",
+                  "edge_data": {
+                    "label": "has_child",
+                    "weight": 3.87
+                  }
+                },
+                {
+                  "@id": "198",
+                  "name": "Node 198",
+                  "value": 34.59,
+                  "weight": 2.76,
+                  "birthday": "2022-07-26 15:41",
+                  "parent": "196"
+                },
+                {
+                  "@id": "199",
+                  "name": "Node 199",
+                  "value": 81.94,
+                  "weight": 9.07,
+                  "birthday": "2025-04-10 00:11",
+                  "parent": "196"
+                }
+              ],
+              "parent": "189",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 2.69
+              }
+            },
+            {
+              "@id": "200",
+              "name": "Node 200",
+              "value": 97.77,
+              "weight": 8.01,
+              "birthday": "2023-08-02 05:06",
+              "parent": "189",
+              "edge_data": {
+                "label": "has_child",
+                "weight": 6.63
+              }
+            }
+          ],
+          "parent": "170",
+          "edge_data": {
+            "label": "has_child",
+            "weight": 8.16
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "nodes": [
+    {
+      "@id": "1",
+      "name": "Parent Node",
+      "value": 4,
+      "weight": 3.5,
+      "children": [
+        {
+          "@id": "2",
+          "name": "First Child",
+          "value": 42,
+          "weight": 8,
+          "edge_data": { "label": "has_child", "weight": 5 }
+        },
+        {
+          "@id": "3",
+          "name": "Second Child",
+          "value": 17.2,
+          "weight": 5,
+          "children": [
+            {
+              "@id": "4",
+              "name": "Parent Node",
+              "parent": 3,
+              "edge_data": { "label": "references_parent", "since": "today" }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

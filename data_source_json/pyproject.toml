@@ -1,0 +1,10 @@
+[project]
+name = "data_source_json"
+version = "0.1"
+description = "Data source JSON plugin"
+dependencies = [
+    "graph_explorer_api==0.1",
+]
+
+[project.entry-points."graph_explorer.data_sources"]
+data_source_json = "data_source_json.data_source_parser:DataSourceJSONParser"

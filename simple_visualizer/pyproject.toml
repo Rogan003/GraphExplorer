@@ -1,0 +1,20 @@
+[project]
+name = "simple_visualizer"
+version = "0.1"
+description = "Simple visualizer plugin"
+dependencies = [
+    "graph_explorer_api==0.1",
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["simple_visualizer"]
+
+[project.entry-points."graph_explorer.visualizers"]
+simple_visualizer = "simple_visualizer.simple_visualizer:SimpleVisualizerPlugin"
+
+[tool.setuptools.data-files]
+templates = ["simple_visualizer/templates/*"]

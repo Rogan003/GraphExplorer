@@ -1,0 +1,11 @@
+[project]
+name = "data_source_xml"
+version = "0.1"
+description = "Data source XML plugin"
+dependencies = [
+    "graph_explorer_api==0.1",
+    "lxml==6.0.0",
+]
+
+[project.entry-points."graph_explorer.data_sources"]
+data_source_xml = "data_source_xml.data_source_parser:DataSourceXmlParser"

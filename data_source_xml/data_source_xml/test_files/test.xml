@@ -1,0 +1,1546 @@
+<?xml version="1.0"?>
+<library>
+  <info>
+    <name>Central City Library</name>
+    <address>Main Street 123, Central City</address>
+    <established>1985</established>
+  </info>
+  <books>
+    <book id="B001">
+      <title>Book Title 1</title>
+      <author id="A020">Author A020</author>
+      <genre>Fantasy</genre>
+      <published>2020</published>
+      <available>true</available>
+    </book>
+    <book id="B002">
+      <title>Book Title 2</title>
+      <author id="A027">Author A027</author>
+      <genre>Historical</genre>
+      <published>1949</published>
+      <available>true</available>
+    </book>
+    <book id="B003">
+      <title>Book Title 3</title>
+      <author id="A018">Author A018</author>
+      <genre>Mystery</genre>
+      <published>1985</published>
+      <available>false</available>
+    </book>
+    <book id="B004">
+      <title>Book Title 4</title>
+      <author id="A025">Author A025</author>
+      <genre>Fantasy</genre>
+      <published>1947</published>
+      <available>false</available>
+    </book>
+    <book id="B005">
+      <title>Book Title 5</title>
+      <author id="A011">Author A011</author>
+      <genre>Fantasy</genre>
+      <published>1932</published>
+      <available>false</available>
+    </book>
+    <book id="B006">
+      <title>Book Title 6</title>
+      <author id="A016">Author A016</author>
+      <genre>Dystopian</genre>
+      <published>1997</published>
+      <available>true</available>
+    </book>
+    <book id="B007">
+      <title>Book Title 7</title>
+      <author id="A022">Author A022</author>
+      <genre>Mystery</genre>
+      <published>1978</published>
+      <available>false</available>
+    </book>
+    <book id="B008">
+      <title>Book Title 8</title>
+      <author id="A012">Author A012</author>
+      <genre>Dystopian</genre>
+      <published>2012</published>
+      <available>false</available>
+    </book>
+    <book id="B009">
+      <title>Book Title 9</title>
+      <author id="A030">Author A030</author>
+      <genre>Fantasy</genre>
+      <published>1957</published>
+      <available>true</available>
+    </book>
+    <book id="B010">
+      <title>Book Title 10</title>
+      <author id="A003">Author A003</author>
+      <genre>Science Fiction</genre>
+      <published>1974</published>
+      <available>true</available>
+    </book>
+    <book id="B011">
+      <title>Book Title 11</title>
+      <author id="A026">Author A026</author>
+      <genre>Science Fiction</genre>
+      <published>2004</published>
+      <available>true</available>
+    </book>
+    <book id="B012">
+      <title>Book Title 12</title>
+      <author id="A010">Author A010</author>
+      <genre>Science Fiction</genre>
+      <published>1956</published>
+      <available>false</available>
+    </book>
+    <book id="B013">
+      <title>Book Title 13</title>
+      <author id="A015">Author A015</author>
+      <genre>Mystery</genre>
+      <published>2003</published>
+      <available>false</available>
+    </book>
+    <book id="B014">
+      <title>Book Title 14</title>
+      <author id="A013">Author A013</author>
+      <genre>Fantasy</genre>
+      <published>2008</published>
+      <available>true</available>
+    </book>
+    <book id="B015">
+      <title>Book Title 15</title>
+      <author id="A023">Author A023</author>
+      <genre>Dystopian</genre>
+      <published>1943</published>
+      <available>false</available>
+    </book>
+    <book id="B016">
+      <title>Book Title 16</title>
+      <author id="A005">Author A005</author>
+      <genre>Science Fiction</genre>
+      <published>1941</published>
+      <available>true</available>
+    </book>
+    <book id="B017">
+      <title>Book Title 17</title>
+      <author id="A006">Author A006</author>
+      <genre>Romance</genre>
+      <published>1981</published>
+      <available>false</available>
+    </book>
+    <book id="B018">
+      <title>Book Title 18</title>
+      <author id="A030">Author A030</author>
+      <genre>Historical</genre>
+      <published>1906</published>
+      <available>false</available>
+    </book>
+    <book id="B019">
+      <title>Book Title 19</title>
+      <author id="A030">Author A030</author>
+      <genre>Dystopian</genre>
+      <published>1978</published>
+      <available>false</available>
+    </book>
+    <book id="B020">
+      <title>Book Title 20</title>
+      <author id="A016">Author A016</author>
+      <genre>Romance</genre>
+      <published>1965</published>
+      <available>true</available>
+    </book>
+    <book id="B021">
+      <title>Book Title 21</title>
+      <author id="A024">Author A024</author>
+      <genre>Historical</genre>
+      <published>2004</published>
+      <available>false</available>
+    </book>
+    <book id="B022">
+      <title>Book Title 22</title>
+      <author id="A005">Author A005</author>
+      <genre>Science Fiction</genre>
+      <published>1952</published>
+      <available>false</available>
+    </book>
+    <book id="B023">
+      <title>Book Title 23</title>
+      <author id="A012">Author A012</author>
+      <genre>Dystopian</genre>
+      <published>1916</published>
+      <available>false</available>
+    </book>
+    <book id="B024">
+      <title>Book Title 24</title>
+      <author id="A010">Author A010</author>
+      <genre>Dystopian</genre>
+      <published>1991</published>
+      <available>false</available>
+    </book>
+    <book id="B025">
+      <title>Book Title 25</title>
+      <author id="A017">Author A017</author>
+      <genre>Dystopian</genre>
+      <published>1920</published>
+      <available>false</available>
+    </book>
+    <book id="B026">
+      <title>Book Title 26</title>
+      <author id="A026">Author A026</author>
+      <genre>Science Fiction</genre>
+      <published>2019</published>
+      <available>false</available>
+    </book>
+    <book id="B027">
+      <title>Book Title 27</title>
+      <author id="A023">Author A023</author>
+      <genre>Fantasy</genre>
+      <published>1991</published>
+      <available>false</available>
+    </book>
+    <book id="B028">
+      <title>Book Title 28</title>
+      <author id="A002">Author A002</author>
+      <genre>Dystopian</genre>
+      <published>1960</published>
+      <available>true</available>
+    </book>
+    <book id="B029">
+      <title>Book Title 29</title>
+      <author id="A013">Author A013</author>
+      <genre>Mystery</genre>
+      <published>1967</published>
+      <available>false</available>
+    </book>
+    <book id="B030">
+      <title>Book Title 30</title>
+      <author id="A024">Author A024</author>
+      <genre>Historical</genre>
+      <published>1918</published>
+      <available>true</available>
+    </book>
+    <book id="B031">
+      <title>Book Title 31</title>
+      <author id="A009">Author A009</author>
+      <genre>Science Fiction</genre>
+      <published>2016</published>
+      <available>false</available>
+    </book>
+    <book id="B032">
+      <title>Book Title 32</title>
+      <author id="A010">Author A010</author>
+      <genre>Romance</genre>
+      <published>2020</published>
+      <available>true</available>
+    </book>
+    <book id="B033">
+      <title>Book Title 33</title>
+      <author id="A016">Author A016</author>
+      <genre>Science Fiction</genre>
+      <published>2004</published>
+      <available>true</available>
+    </book>
+    <book id="B034">
+      <title>Book Title 34</title>
+      <author id="A015">Author A015</author>
+      <genre>Mystery</genre>
+      <published>1950</published>
+      <available>true</available>
+    </book>
+    <book id="B035">
+      <title>Book Title 35</title>
+      <author id="A001">Author A001</author>
+      <genre>Historical</genre>
+      <published>1948</published>
+      <available>false</available>
+    </book>
+    <book id="B036">
+      <title>Book Title 36</title>
+      <author id="A011">Author A011</author>
+      <genre>Romance</genre>
+      <published>1994</published>
+      <available>false</available>
+    </book>
+    <book id="B037">
+      <title>Book Title 37</title>
+      <author id="A008">Author A008</author>
+      <genre>Dystopian</genre>
+      <published>1943</published>
+      <available>true</available>
+    </book>
+    <book id="B038">
+      <title>Book Title 38</title>
+      <author id="A022">Author A022</author>
+      <genre>Dystopian</genre>
+      <published>1918</published>
+      <available>true</available>
+    </book>
+    <book id="B039">
+      <title>Book Title 39</title>
+      <author id="A003">Author A003</author>
+      <genre>Romance</genre>
+      <published>1913</published>
+      <available>false</available>
+    </book>
+    <book id="B040">
+      <title>Book Title 40</title>
+      <author id="A014">Author A014</author>
+      <genre>Romance</genre>
+      <published>2003</published>
+      <available>false</available>
+    </book>
+    <book id="B041">
+      <title>Book Title 41</title>
+      <author id="A019">Author A019</author>
+      <genre>Dystopian</genre>
+      <published>1908</published>
+      <available>false</available>
+    </book>
+    <book id="B042">
+      <title>Book Title 42</title>
+      <author id="A025">Author A025</author>
+      <genre>Dystopian</genre>
+      <published>1953</published>
+      <available>true</available>
+    </book>
+    <book id="B043">
+      <title>Book Title 43</title>
+      <author id="A019">Author A019</author>
+      <genre>Romance</genre>
+      <published>1984</published>
+      <available>false</available>
+    </book>
+    <book id="B044">
+      <title>Book Title 44</title>
+      <author id="A030">Author A030</author>
+      <genre>Historical</genre>
+      <published>1999</published>
+      <available>true</available>
+    </book>
+    <book id="B045">
+      <title>Book Title 45</title>
+      <author id="A001">Author A001</author>
+      <genre>Dystopian</genre>
+      <published>2018</published>
+      <available>true</available>
+    </book>
+    <book id="B046">
+      <title>Book Title 46</title>
+      <author id="A029">Author A029</author>
+      <genre>Fantasy</genre>
+      <published>2013</published>
+      <available>false</available>
+    </book>
+    <book id="B047">
+      <title>Book Title 47</title>
+      <author id="A001">Author A001</author>
+      <genre>Historical</genre>
+      <published>2013</published>
+      <available>false</available>
+    </book>
+    <book id="B048">
+      <title>Book Title 48</title>
+      <author id="A017">Author A017</author>
+      <genre>Mystery</genre>
+      <published>1995</published>
+      <available>false</available>
+    </book>
+    <book id="B049">
+      <title>Book Title 49</title>
+      <author id="A010">Author A010</author>
+      <genre>Mystery</genre>
+      <published>1952</published>
+      <available>false</available>
+    </book>
+    <book id="B050">
+      <title>Book Title 50</title>
+      <author id="A014">Author A014</author>
+      <genre>Mystery</genre>
+      <published>2020</published>
+      <available>true</available>
+    </book>
+    <book id="B051">
+      <title>Book Title 51</title>
+      <author id="A007">Author A007</author>
+      <genre>Science Fiction</genre>
+      <published>1960</published>
+      <available>true</available>
+    </book>
+    <book id="B052">
+      <title>Book Title 52</title>
+      <author id="A006">Author A006</author>
+      <genre>Science Fiction</genre>
+      <published>1990</published>
+      <available>true</available>
+    </book>
+    <book id="B053">
+      <title>Book Title 53</title>
+      <author id="A027">Author A027</author>
+      <genre>Science Fiction</genre>
+      <published>1982</published>
+      <available>true</available>
+    </book>
+    <book id="B054">
+      <title>Book Title 54</title>
+      <author id="A020">Author A020</author>
+      <genre>Science Fiction</genre>
+      <published>1963</published>
+      <available>false</available>
+    </book>
+    <book id="B055">
+      <title>Book Title 55</title>
+      <author id="A004">Author A004</author>
+      <genre>Mystery</genre>
+      <published>1987</published>
+      <available>false</available>
+    </book>
+    <book id="B056">
+      <title>Book Title 56</title>
+      <author id="A013">Author A013</author>
+      <genre>Dystopian</genre>
+      <published>2010</published>
+      <available>true</available>
+    </book>
+    <book id="B057">
+      <title>Book Title 57</title>
+      <author id="A005">Author A005</author>
+      <genre>Fantasy</genre>
+      <published>1941</published>
+      <available>false</available>
+    </book>
+    <book id="B058">
+      <title>Book Title 58</title>
+      <author id="A013">Author A013</author>
+      <genre>Mystery</genre>
+      <published>1954</published>
+      <available>true</available>
+    </book>
+    <book id="B059">
+      <title>Book Title 59</title>
+      <author id="A020">Author A020</author>
+      <genre>Science Fiction</genre>
+      <published>1922</published>
+      <available>false</available>
+    </book>
+    <book id="B060">
+      <title>Book Title 60</title>
+      <author id="A012">Author A012</author>
+      <genre>Romance</genre>
+      <published>1980</published>
+      <available>false</available>
+    </book>
+    <book id="B061">
+      <title>Book Title 61</title>
+      <author id="A009">Author A009</author>
+      <genre>Science Fiction</genre>
+      <published>2022</published>
+      <available>true</available>
+    </book>
+    <book id="B062">
+      <title>Book Title 62</title>
+      <author id="A022">Author A022</author>
+      <genre>Fantasy</genre>
+      <published>2001</published>
+      <available>false</available>
+    </book>
+    <book id="B063">
+      <title>Book Title 63</title>
+      <author id="A026">Author A026</author>
+      <genre>Dystopian</genre>
+      <published>1922</published>
+      <available>false</available>
+    </book>
+    <book id="B064">
+      <title>Book Title 64</title>
+      <author id="A016">Author A016</author>
+      <genre>Mystery</genre>
+      <published>2002</published>
+      <available>true</available>
+    </book>
+    <book id="B065">
+      <title>Book Title 65</title>
+      <author id="A020">Author A020</author>
+      <genre>Mystery</genre>
+      <published>1924</published>
+      <available>true</available>
+    </book>
+    <book id="B066">
+      <title>Book Title 66</title>
+      <author id="A012">Author A012</author>
+      <genre>Romance</genre>
+      <published>2001</published>
+      <available>true</available>
+    </book>
+    <book id="B067">
+      <title>Book Title 67</title>
+      <author id="A026">Author A026</author>
+      <genre>Fantasy</genre>
+      <published>1941</published>
+      <available>false</available>
+    </book>
+    <book id="B068">
+      <title>Book Title 68</title>
+      <author id="A003">Author A003</author>
+      <genre>Fantasy</genre>
+      <published>1975</published>
+      <available>true</available>
+    </book>
+    <book id="B069">
+      <title>Book Title 69</title>
+      <author id="A030">Author A030</author>
+      <genre>Romance</genre>
+      <published>1948</published>
+      <available>true</available>
+    </book>
+    <book id="B070">
+      <title>Book Title 70</title>
+      <author id="A023">Author A023</author>
+      <genre>Historical</genre>
+      <published>1996</published>
+      <available>true</available>
+    </book>
+    <book id="B071">
+      <title>Book Title 71</title>
+      <author id="A029">Author A029</author>
+      <genre>Historical</genre>
+      <published>1948</published>
+      <available>true</available>
+    </book>
+    <book id="B072">
+      <title>Book Title 72</title>
+      <author id="A019">Author A019</author>
+      <genre>Mystery</genre>
+      <published>1966</published>
+      <available>false</available>
+    </book>
+    <book id="B073">
+      <title>Book Title 73</title>
+      <author id="A019">Author A019</author>
+      <genre>Dystopian</genre>
+      <published>1994</published>
+      <available>false</available>
+    </book>
+    <book id="B074">
+      <title>Book Title 74</title>
+      <author id="A025">Author A025</author>
+      <genre>Historical</genre>
+      <published>1980</published>
+      <available>true</available>
+    </book>
+    <book id="B075">
+      <title>Book Title 75</title>
+      <author id="A016">Author A016</author>
+      <genre>Romance</genre>
+      <published>1996</published>
+      <available>false</available>
+    </book>
+    <book id="B076">
+      <title>Book Title 76</title>
+      <author id="A017">Author A017</author>
+      <genre>Dystopian</genre>
+      <published>2014</published>
+      <available>true</available>
+    </book>
+    <book id="B077">
+      <title>Book Title 77</title>
+      <author id="A021">Author A021</author>
+      <genre>Romance</genre>
+      <published>1929</published>
+      <available>true</available>
+    </book>
+    <book id="B078">
+      <title>Book Title 78</title>
+      <author id="A029">Author A029</author>
+      <genre>Mystery</genre>
+      <published>2020</published>
+      <available>true</available>
+    </book>
+    <book id="B079">
+      <title>Book Title 79</title>
+      <author id="A014">Author A014</author>
+      <genre>Mystery</genre>
+      <published>1939</published>
+      <available>true</available>
+    </book>
+    <book id="B080">
+      <title>Book Title 80</title>
+      <author id="A004">Author A004</author>
+      <genre>Science Fiction</genre>
+      <published>1914</published>
+      <available>false</available>
+    </book>
+    <book id="B081">
+      <title>Book Title 81</title>
+      <author id="A004">Author A004</author>
+      <genre>Dystopian</genre>
+      <published>1982</published>
+      <available>true</available>
+    </book>
+    <book id="B082">
+      <title>Book Title 82</title>
+      <author id="A024">Author A024</author>
+      <genre>Historical</genre>
+      <published>1993</published>
+      <available>true</available>
+    </book>
+    <book id="B083">
+      <title>Book Title 83</title>
+      <author id="A006">Author A006</author>
+      <genre>Romance</genre>
+      <published>1989</published>
+      <available>true</available>
+    </book>
+    <book id="B084">
+      <title>Book Title 84</title>
+      <author id="A009">Author A009</author>
+      <genre>Historical</genre>
+      <published>1967</published>
+      <available>true</available>
+    </book>
+    <book id="B085">
+      <title>Book Title 85</title>
+      <author id="A004">Author A004</author>
+      <genre>Romance</genre>
+      <published>1984</published>
+      <available>false</available>
+    </book>
+    <book id="B086">
+      <title>Book Title 86</title>
+      <author id="A002">Author A002</author>
+      <genre>Historical</genre>
+      <published>1928</published>
+      <available>true</available>
+    </book>
+    <book id="B087">
+      <title>Book Title 87</title>
+      <author id="A022">Author A022</author>
+      <genre>Science Fiction</genre>
+      <published>1902</published>
+      <available>false</available>
+    </book>
+    <book id="B088">
+      <title>Book Title 88</title>
+      <author id="A005">Author A005</author>
+      <genre>Historical</genre>
+      <published>1995</published>
+      <available>true</available>
+    </book>
+    <book id="B089">
+      <title>Book Title 89</title>
+      <author id="A021">Author A021</author>
+      <genre>Mystery</genre>
+      <published>1985</published>
+      <available>false</available>
+    </book>
+    <book id="B090">
+      <title>Book Title 90</title>
+      <author id="A013">Author A013</author>
+      <genre>Historical</genre>
+      <published>1961</published>
+      <available>true</available>
+    </book>
+    <book id="B091">
+      <title>Book Title 91</title>
+      <author id="A025">Author A025</author>
+      <genre>Mystery</genre>
+      <published>1907</published>
+      <available>false</available>
+    </book>
+    <book id="B092">
+      <title>Book Title 92</title>
+      <author id="A019">Author A019</author>
+      <genre>Dystopian</genre>
+      <published>2008</published>
+      <available>true</available>
+    </book>
+    <book id="B093">
+      <title>Book Title 93</title>
+      <author id="A008">Author A008</author>
+      <genre>Dystopian</genre>
+      <published>1992</published>
+      <available>true</available>
+    </book>
+    <book id="B094">
+      <title>Book Title 94</title>
+      <author id="A010">Author A010</author>
+      <genre>Science Fiction</genre>
+      <published>1988</published>
+      <available>true</available>
+    </book>
+    <book id="B095">
+      <title>Book Title 95</title>
+      <author id="A022">Author A022</author>
+      <genre>Science Fiction</genre>
+      <published>1997</published>
+      <available>false</available>
+    </book>
+    <book id="B096">
+      <title>Book Title 96</title>
+      <author id="A027">Author A027</author>
+      <genre>Fantasy</genre>
+      <published>1931</published>
+      <available>true</available>
+    </book>
+    <book id="B097">
+      <title>Book Title 97</title>
+      <author id="A013">Author A013</author>
+      <genre>Fantasy</genre>
+      <published>1905</published>
+      <available>false</available>
+    </book>
+    <book id="B098">
+      <title>Book Title 98</title>
+      <author id="A013">Author A013</author>
+      <genre>Mystery</genre>
+      <published>1923</published>
+      <available>true</available>
+    </book>
+    <book id="B099">
+      <title>Book Title 99</title>
+      <author id="A013">Author A013</author>
+      <genre>Science Fiction</genre>
+      <published>1928</published>
+      <available>true</available>
+    </book>
+    <book id="B100">
+      <title>Book Title 100</title>
+      <author id="A028">Author A028</author>
+      <genre>Dystopian</genre>
+      <published>2018</published>
+      <available>false</available>
+    </book>
+    <book id="B101">
+      <title>Book Title 101</title>
+      <author id="A014">Author A014</author>
+      <genre>Romance</genre>
+      <published>1978</published>
+      <available>false</available>
+    </book>
+    <book id="B102">
+      <title>Book Title 102</title>
+      <author id="A027">Author A027</author>
+      <genre>Mystery</genre>
+      <published>1982</published>
+      <available>false</available>
+    </book>
+    <book id="B103">
+      <title>Book Title 103</title>
+      <author id="A029">Author A029</author>
+      <genre>Fantasy</genre>
+      <published>2017</published>
+      <available>true</available>
+    </book>
+    <book id="B104">
+      <title>Book Title 104</title>
+      <author id="A004">Author A004</author>
+      <genre>Science Fiction</genre>
+      <published>1982</published>
+      <available>true</available>
+    </book>
+    <book id="B105">
+      <title>Book Title 105</title>
+      <author id="A020">Author A020</author>
+      <genre>Fantasy</genre>
+      <published>1964</published>
+      <available>false</available>
+    </book>
+    <book id="B106">
+      <title>Book Title 106</title>
+      <author id="A024">Author A024</author>
+      <genre>Dystopian</genre>
+      <published>1987</published>
+      <available>false</available>
+    </book>
+    <book id="B107">
+      <title>Book Title 107</title>
+      <author id="A023">Author A023</author>
+      <genre>Romance</genre>
+      <published>2015</published>
+      <available>false</available>
+    </book>
+    <book id="B108">
+      <title>Book Title 108</title>
+      <author id="A011">Author A011</author>
+      <genre>Dystopian</genre>
+      <published>1914</published>
+      <available>false</available>
+    </book>
+    <book id="B109">
+      <title>Book Title 109</title>
+      <author id="A019">Author A019</author>
+      <genre>Fantasy</genre>
+      <published>2018</published>
+      <available>true</available>
+    </book>
+    <book id="B110">
+      <title>Book Title 110</title>
+      <author id="A011">Author A011</author>
+      <genre>Romance</genre>
+      <published>1911</published>
+      <available>true</available>
+    </book>
+    <book id="B111">
+      <title>Book Title 111</title>
+      <author id="A017">Author A017</author>
+      <genre>Mystery</genre>
+      <published>1948</published>
+      <available>false</available>
+    </book>
+    <book id="B112">
+      <title>Book Title 112</title>
+      <author id="A010">Author A010</author>
+      <genre>Mystery</genre>
+      <published>2000</published>
+      <available>true</available>
+    </book>
+    <book id="B113">
+      <title>Book Title 113</title>
+      <author id="A013">Author A013</author>
+      <genre>Mystery</genre>
+      <published>1929</published>
+      <available>true</available>
+    </book>
+    <book id="B114">
+      <title>Book Title 114</title>
+      <author id="A012">Author A012</author>
+      <genre>Fantasy</genre>
+      <published>1924</published>
+      <available>false</available>
+    </book>
+    <book id="B115">
+      <title>Book Title 115</title>
+      <author id="A021">Author A021</author>
+      <genre>Romance</genre>
+      <published>1997</published>
+      <available>true</available>
+    </book>
+    <book id="B116">
+      <title>Book Title 116</title>
+      <author id="A009">Author A009</author>
+      <genre>Historical</genre>
+      <published>1954</published>
+      <available>true</available>
+    </book>
+    <book id="B117">
+      <title>Book Title 117</title>
+      <author id="A004">Author A004</author>
+      <genre>Fantasy</genre>
+      <published>1990</published>
+      <available>false</available>
+    </book>
+    <book id="B118">
+      <title>Book Title 118</title>
+      <author id="A008">Author A008</author>
+      <genre>Mystery</genre>
+      <published>1970</published>
+      <available>true</available>
+    </book>
+    <book id="B119">
+      <title>Book Title 119</title>
+      <author id="A015">Author A015</author>
+      <genre>Science Fiction</genre>
+      <published>1916</published>
+      <available>false</available>
+    </book>
+    <book id="B120">
+      <title>Book Title 120</title>
+      <author id="A010">Author A010</author>
+      <genre>Romance</genre>
+      <published>1960</published>
+      <available>true</available>
+    </book>
+    <book id="B121">
+      <title>Book Title 121</title>
+      <author id="A005">Author A005</author>
+      <genre>Dystopian</genre>
+      <published>1937</published>
+      <available>true</available>
+    </book>
+    <book id="B122">
+      <title>Book Title 122</title>
+      <author id="A023">Author A023</author>
+      <genre>Fantasy</genre>
+      <published>1998</published>
+      <available>true</available>
+    </book>
+    <book id="B123">
+      <title>Book Title 123</title>
+      <author id="A022">Author A022</author>
+      <genre>Dystopian</genre>
+      <published>2007</published>
+      <available>true</available>
+    </book>
+    <book id="B124">
+      <title>Book Title 124</title>
+      <author id="A008">Author A008</author>
+      <genre>Romance</genre>
+      <published>2006</published>
+      <available>false</available>
+    </book>
+    <book id="B125">
+      <title>Book Title 125</title>
+      <author id="A001">Author A001</author>
+      <genre>Fantasy</genre>
+      <published>1987</published>
+      <available>false</available>
+    </book>
+    <book id="B126">
+      <title>Book Title 126</title>
+      <author id="A013">Author A013</author>
+      <genre>Romance</genre>
+      <published>2015</published>
+      <available>true</available>
+    </book>
+    <book id="B127">
+      <title>Book Title 127</title>
+      <author id="A015">Author A015</author>
+      <genre>Science Fiction</genre>
+      <published>1991</published>
+      <available>true</available>
+    </book>
+    <book id="B128">
+      <title>Book Title 128</title>
+      <author id="A004">Author A004</author>
+      <genre>Science Fiction</genre>
+      <published>1972</published>
+      <available>true</available>
+    </book>
+    <book id="B129">
+      <title>Book Title 129</title>
+      <author id="A001">Author A001</author>
+      <genre>Historical</genre>
+      <published>2005</published>
+      <available>true</available>
+    </book>
+    <book id="B130">
+      <title>Book Title 130</title>
+      <author id="A012">Author A012</author>
+      <genre>Science Fiction</genre>
+      <published>1968</published>
+      <available>false</available>
+    </book>
+    <book id="B131">
+      <title>Book Title 131</title>
+      <author id="A022">Author A022</author>
+      <genre>Fantasy</genre>
+      <published>2005</published>
+      <available>true</available>
+    </book>
+    <book id="B132">
+      <title>Book Title 132</title>
+      <author id="A008">Author A008</author>
+      <genre>Romance</genre>
+      <published>1997</published>
+      <available>true</available>
+    </book>
+    <book id="B133">
+      <title>Book Title 133</title>
+      <author id="A004">Author A004</author>
+      <genre>Mystery</genre>
+      <published>1946</published>
+      <available>true</available>
+    </book>
+    <book id="B134">
+      <title>Book Title 134</title>
+      <author id="A008">Author A008</author>
+      <genre>Romance</genre>
+      <published>1994</published>
+      <available>true</available>
+    </book>
+    <book id="B135">
+      <title>Book Title 135</title>
+      <author id="A025">Author A025</author>
+      <genre>Dystopian</genre>
+      <published>1950</published>
+      <available>false</available>
+    </book>
+    <book id="B136">
+      <title>Book Title 136</title>
+      <author id="A026">Author A026</author>
+      <genre>Mystery</genre>
+      <published>2017</published>
+      <available>false</available>
+    </book>
+    <book id="B137">
+      <title>Book Title 137</title>
+      <author id="A002">Author A002</author>
+      <genre>Fantasy</genre>
+      <published>1997</published>
+      <available>false</available>
+    </book>
+    <book id="B138">
+      <title>Book Title 138</title>
+      <author id="A017">Author A017</author>
+      <genre>Romance</genre>
+      <published>1948</published>
+      <available>false</available>
+    </book>
+    <book id="B139">
+      <title>Book Title 139</title>
+      <author id="A007">Author A007</author>
+      <genre>Fantasy</genre>
+      <published>2016</published>
+      <available>false</available>
+    </book>
+    <book id="B140">
+      <title>Book Title 140</title>
+      <author id="A002">Author A002</author>
+      <genre>Science Fiction</genre>
+      <published>1948</published>
+      <available>false</available>
+    </book>
+    <book id="B141">
+      <title>Book Title 141</title>
+      <author id="A016">Author A016</author>
+      <genre>Romance</genre>
+      <published>1927</published>
+      <available>false</available>
+    </book>
+    <book id="B142">
+      <title>Book Title 142</title>
+      <author id="A018">Author A018</author>
+      <genre>Mystery</genre>
+      <published>1933</published>
+      <available>true</available>
+    </book>
+    <book id="B143">
+      <title>Book Title 143</title>
+      <author id="A018">Author A018</author>
+      <genre>Science Fiction</genre>
+      <published>1994</published>
+      <available>true</available>
+    </book>
+    <book id="B144">
+      <title>Book Title 144</title>
+      <author id="A010">Author A010</author>
+      <genre>Romance</genre>
+      <published>1968</published>
+      <available>true</available>
+    </book>
+    <book id="B145">
+      <title>Book Title 145</title>
+      <author id="A027">Author A027</author>
+      <genre>Mystery</genre>
+      <published>1942</published>
+      <available>false</available>
+    </book>
+    <book id="B146">
+      <title>Book Title 146</title>
+      <author id="A026">Author A026</author>
+      <genre>Fantasy</genre>
+      <published>1941</published>
+      <available>true</available>
+    </book>
+    <book id="B147">
+      <title>Book Title 147</title>
+      <author id="A027">Author A027</author>
+      <genre>Romance</genre>
+      <published>1956</published>
+      <available>false</available>
+    </book>
+    <book id="B148">
+      <title>Book Title 148</title>
+      <author id="A012">Author A012</author>
+      <genre>Dystopian</genre>
+      <published>1905</published>
+      <available>true</available>
+    </book>
+    <book id="B149">
+      <title>Book Title 149</title>
+      <author id="A022">Author A022</author>
+      <genre>Romance</genre>
+      <published>1966</published>
+      <available>false</available>
+    </book>
+    <book id="B150">
+      <title>Book Title 150</title>
+      <author id="A018">Author A018</author>
+      <genre>Mystery</genre>
+      <published>1949</published>
+      <available>true</available>
+    </book>
+  </books>
+  <authors>
+    <author id="A001">
+      <name>Author A001</name>
+      <birth>1903</birth>
+      <death>2004</death>
+      <nationality>German</nationality>
+    </author>
+    <author id="A002">
+      <name>Author A002</name>
+      <birth>1927</birth>
+      <death>1986</death>
+      <nationality>British</nationality>
+    </author>
+    <author id="A003">
+      <name>Author A003</name>
+      <birth>1947</birth>
+      <death>1991</death>
+      <nationality>Italian</nationality>
+    </author>
+    <author id="A004">
+      <name>Author A004</name>
+      <birth>1968</birth>
+      <death>2004</death>
+      <nationality>Spanish</nationality>
+    </author>
+    <author id="A005">
+      <name>Author A005</name>
+      <birth>1975</birth>
+      <death>1992</death>
+      <nationality>American</nationality>
+    </author>
+    <author id="A006">
+      <name>Author A006</name>
+      <birth>1943</birth>
+      <death>2018</death>
+      <nationality>American</nationality>
+    </author>
+    <author id="A007">
+      <name>Author A007</name>
+      <birth>1920</birth>
+      <death>2004</death>
+      <nationality>French</nationality>
+    </author>
+    <author id="A008">
+      <name>Author A008</name>
+      <birth>1851</birth>
+      <death>2008</death>
+      <nationality>Italian</nationality>
+    </author>
+    <author id="A009">
+      <name>Author A009</name>
+      <birth>1977</birth>
+      <death>1984</death>
+      <nationality>Spanish</nationality>
+    </author>
+    <author id="A010">
+      <name>Author A010</name>
+      <birth>1891</birth>
+      <death>1989</death>
+      <nationality>American</nationality>
+    </author>
+    <author id="A011">
+      <name>Author A011</name>
+      <birth>1853</birth>
+      <death>1998</death>
+      <nationality>French</nationality>
+    </author>
+    <author id="A012">
+      <name>Author A012</name>
+      <birth>1912</birth>
+      <death>1999</death>
+      <nationality>German</nationality>
+    </author>
+    <author id="A013">
+      <name>Author A013</name>
+      <birth>1856</birth>
+      <death>2000</death>
+      <nationality>American</nationality>
+    </author>
+    <author id="A014">
+      <name>Author A014</name>
+      <birth>1934</birth>
+      <death>2015</death>
+      <nationality>French</nationality>
+    </author>
+    <author id="A015">
+      <name>Author A015</name>
+      <birth>1950</birth>
+      <death>1993</death>
+      <nationality>American</nationality>
+    </author>
+    <author id="A016">
+      <name>Author A016</name>
+      <birth>1889</birth>
+      <death>2019</death>
+      <nationality>American</nationality>
+    </author>
+    <author id="A017">
+      <name>Author A017</name>
+      <birth>1939</birth>
+      <death>2000</death>
+      <nationality>French</nationality>
+    </author>
+    <author id="A018">
+      <name>Author A018</name>
+      <birth>1879</birth>
+      <death>2017</death>
+      <nationality>German</nationality>
+    </author>
+    <author id="A019">
+      <name>Author A019</name>
+      <birth>1906</birth>
+      <death>2017</death>
+      <nationality>German</nationality>
+    </author>
+    <author id="A020">
+      <name>Author A020</name>
+      <birth>1865</birth>
+      <death>2020</death>
+      <nationality>French</nationality>
+    </author>
+    <author id="A021">
+      <name>Author A021</name>
+      <birth>1886</birth>
+      <death>1994</death>
+      <nationality>Italian</nationality>
+    </author>
+    <author id="A022">
+      <name>Author A022</name>
+      <birth>1856</birth>
+      <death>2005</death>
+      <nationality>German</nationality>
+    </author>
+    <author id="A023">
+      <name>Author A023</name>
+      <birth>1852</birth>
+      <death>1981</death>
+      <nationality>Spanish</nationality>
+    </author>
+    <author id="A024">
+      <name>Author A024</name>
+      <birth>1857</birth>
+      <death>2001</death>
+      <nationality>Italian</nationality>
+    </author>
+    <author id="A025">
+      <name>Author A025</name>
+      <birth>1923</birth>
+      <death>1989</death>
+      <nationality>British</nationality>
+    </author>
+    <author id="A026">
+      <name>Author A026</name>
+      <birth>1942</birth>
+      <death>1998</death>
+      <nationality>Italian</nationality>
+    </author>
+    <author id="A027">
+      <name>Author A027</name>
+      <birth>1870</birth>
+      <death>2022</death>
+      <nationality>American</nationality>
+    </author>
+    <author id="A028">
+      <name>Author A028</name>
+      <birth>1944</birth>
+      <death>2015</death>
+      <nationality>Spanish</nationality>
+    </author>
+    <author id="A029">
+      <name>Author A029</name>
+      <birth>1918</birth>
+      <death>2010</death>
+      <nationality>Spanish</nationality>
+    </author>
+    <author id="A030">
+      <name>Author A030</name>
+      <birth>1911</birth>
+      <death>1996</death>
+      <nationality>Italian</nationality>
+    </author>
+  </authors>
+  <members>
+    <member id="M001">
+      <name>Member 1</name>
+      <joined>2020-04-01</joined>
+      <borrowed>
+        <bookRef>B042</bookRef>
+        <bookRef>B063</bookRef>
+      </borrowed>
+    </member>
+    <member id="M002">
+      <name>Member 2</name>
+      <joined>2019-04-04</joined>
+      <borrowed>
+        <bookRef>B138</bookRef>
+        <bookRef>B095</bookRef>
+        <bookRef>B142</bookRef>
+      </borrowed>
+    </member>
+    <member id="M003">
+      <name>Member 3</name>
+      <joined>2015-05-15</joined>
+      <borrowed>
+        <bookRef>B027</bookRef>
+        <bookRef>B103</bookRef>
+        <bookRef>B055</bookRef>
+        <bookRef>B031</bookRef>
+        <bookRef>B058</bookRef>
+        <bookRef>B013</bookRef>
+        <bookRef>B086</bookRef>
+      </borrowed>
+    </member>
+    <member id="M004">
+      <name>Member 4</name>
+      <joined>2018-11-28</joined>
+      <borrowed>
+        <bookRef>B117</bookRef>
+        <bookRef>B068</bookRef>
+      </borrowed>
+    </member>
+    <member id="M005">
+      <name>Member 5</name>
+      <joined>2021-08-06</joined>
+      <borrowed>
+        <bookRef>B059</bookRef>
+        <bookRef>B132</bookRef>
+        <bookRef>B043</bookRef>
+        <bookRef>B112</bookRef>
+        <bookRef>B062</bookRef>
+        <bookRef>B058</bookRef>
+        <bookRef>B131</bookRef>
+      </borrowed>
+    </member>
+    <member id="M006">
+      <name>Member 6</name>
+      <joined>2015-02-23</joined>
+      <borrowed>
+        <bookRef>B033</bookRef>
+        <bookRef>B140</bookRef>
+        <bookRef>B131</bookRef>
+        <bookRef>B047</bookRef>
+        <bookRef>B114</bookRef>
+      </borrowed>
+    </member>
+    <member id="M007">
+      <name>Member 7</name>
+      <joined>2019-05-17</joined>
+      <borrowed>
+        <bookRef>B084</bookRef>
+        <bookRef>B134</bookRef>
+      </borrowed>
+    </member>
+    <member id="M008">
+      <name>Member 8</name>
+      <joined>2023-09-05</joined>
+      <borrowed>
+        <bookRef>B020</bookRef>
+        <bookRef>B138</bookRef>
+        <bookRef>B043</bookRef>
+        <bookRef>B048</bookRef>
+        <bookRef>B147</bookRef>
+        <bookRef>B055</bookRef>
+      </borrowed>
+    </member>
+    <member id="M009">
+      <name>Member 9</name>
+      <joined>2015-05-10</joined>
+      <borrowed>
+        <bookRef>B132</bookRef>
+        <bookRef>B134</bookRef>
+        <bookRef>B010</bookRef>
+        <bookRef>B098</bookRef>
+        <bookRef>B095</bookRef>
+        <bookRef>B123</bookRef>
+      </borrowed>
+    </member>
+    <member id="M010">
+      <name>Member 10</name>
+      <joined>2016-02-21</joined>
+      <borrowed>
+        <bookRef>B089</bookRef>
+        <bookRef>B096</bookRef>
+        <bookRef>B052</bookRef>
+        <bookRef>B116</bookRef>
+        <bookRef>B102</bookRef>
+        <bookRef>B117</bookRef>
+        <bookRef>B046</bookRef>
+      </borrowed>
+    </member>
+    <member id="M011">
+      <name>Member 11</name>
+      <joined>2023-12-12</joined>
+      <borrowed>
+        <bookRef>B117</bookRef>
+        <bookRef>B139</bookRef>
+        <bookRef>B067</bookRef>
+      </borrowed>
+    </member>
+    <member id="M012">
+      <name>Member 12</name>
+      <joined>2017-05-21</joined>
+      <borrowed>
+        <bookRef>B150</bookRef>
+        <bookRef>B074</bookRef>
+        <bookRef>B102</bookRef>
+      </borrowed>
+    </member>
+    <member id="M013">
+      <name>Member 13</name>
+      <joined>2018-11-05</joined>
+      <borrowed>
+        <bookRef>B120</bookRef>
+        <bookRef>B019</bookRef>
+        <bookRef>B080</bookRef>
+        <bookRef>B086</bookRef>
+        <bookRef>B147</bookRef>
+        <bookRef>B122</bookRef>
+        <bookRef>B126</bookRef>
+      </borrowed>
+    </member>
+    <member id="M014">
+      <name>Member 14</name>
+      <joined>2022-02-16</joined>
+      <borrowed>
+        <bookRef>B131</bookRef>
+      </borrowed>
+    </member>
+    <member id="M015">
+      <name>Member 15</name>
+      <joined>2021-06-22</joined>
+      <borrowed>
+        <bookRef>B117</bookRef>
+      </borrowed>
+    </member>
+    <member id="M016">
+      <name>Member 16</name>
+      <joined>2018-11-22</joined>
+      <borrowed>
+        <bookRef>B107</bookRef>
+        <bookRef>B009</bookRef>
+        <bookRef>B024</bookRef>
+      </borrowed>
+    </member>
+    <member id="M017">
+      <name>Member 17</name>
+      <joined>2021-06-14</joined>
+      <borrowed>
+        <bookRef>B063</bookRef>
+      </borrowed>
+    </member>
+    <member id="M018">
+      <name>Member 18</name>
+      <joined>2021-07-01</joined>
+      <borrowed>
+        <bookRef>B092</bookRef>
+      </borrowed>
+    </member>
+    <member id="M019">
+      <name>Member 19</name>
+      <joined>2020-06-24</joined>
+      <borrowed>
+        <bookRef>B008</bookRef>
+        <bookRef>B005</bookRef>
+        <bookRef>B040</bookRef>
+        <bookRef>B039</bookRef>
+        <bookRef>B114</bookRef>
+        <bookRef>B071</bookRef>
+        <bookRef>B090</bookRef>
+      </borrowed>
+    </member>
+    <member id="M020">
+      <name>Member 20</name>
+      <joined>2016-01-15</joined>
+      <borrowed>
+        <bookRef>B101</bookRef>
+        <bookRef>B086</bookRef>
+        <bookRef>B117</bookRef>
+        <bookRef>B004</bookRef>
+        <bookRef>B066</bookRef>
+        <bookRef>B029</bookRef>
+        <bookRef>B019</bookRef>
+      </borrowed>
+    </member>
+    <member id="M021">
+      <name>Member 21</name>
+      <joined>2020-11-22</joined>
+      <borrowed>
+        <bookRef>B080</bookRef>
+        <bookRef>B070</bookRef>
+        <bookRef>B136</bookRef>
+        <bookRef>B061</bookRef>
+        <bookRef>B109</bookRef>
+        <bookRef>B049</bookRef>
+        <bookRef>B137</bookRef>
+      </borrowed>
+    </member>
+    <member id="M022">
+      <name>Member 22</name>
+      <joined>2016-04-05</joined>
+      <borrowed>
+        <bookRef>B116</bookRef>
+      </borrowed>
+    </member>
+    <member id="M023">
+      <name>Member 23</name>
+      <joined>2023-03-27</joined>
+      <borrowed>
+        <bookRef>B064</bookRef>
+        <bookRef>B144</bookRef>
+        <bookRef>B055</bookRef>
+        <bookRef>B135</bookRef>
+        <bookRef>B103</bookRef>
+        <bookRef>B130</bookRef>
+        <bookRef>B075</bookRef>
+      </borrowed>
+    </member>
+    <member id="M024">
+      <name>Member 24</name>
+      <joined>2018-10-07</joined>
+      <borrowed>
+        <bookRef>B114</bookRef>
+        <bookRef>B095</bookRef>
+        <bookRef>B122</bookRef>
+        <bookRef>B035</bookRef>
+      </borrowed>
+    </member>
+    <member id="M025">
+      <name>Member 25</name>
+      <joined>2017-11-06</joined>
+      <borrowed>
+        <bookRef>B018</bookRef>
+        <bookRef>B085</bookRef>
+        <bookRef>B086</bookRef>
+      </borrowed>
+    </member>
+    <member id="M026">
+      <name>Member 26</name>
+      <joined>2023-06-07</joined>
+      <borrowed>
+        <bookRef>B089</bookRef>
+        <bookRef>B007</bookRef>
+      </borrowed>
+    </member>
+    <member id="M027">
+      <name>Member 27</name>
+      <joined>2022-07-09</joined>
+      <borrowed>
+        <bookRef>B133</bookRef>
+      </borrowed>
+    </member>
+    <member id="M028">
+      <name>Member 28</name>
+      <joined>2021-03-10</joined>
+      <borrowed>
+        <bookRef>B150</bookRef>
+        <bookRef>B097</bookRef>
+        <bookRef>B064</bookRef>
+        <bookRef>B091</bookRef>
+        <bookRef>B096</bookRef>
+        <bookRef>B126</bookRef>
+        <bookRef>B048</bookRef>
+      </borrowed>
+    </member>
+    <member id="M029">
+      <name>Member 29</name>
+      <joined>2019-04-20</joined>
+      <borrowed>
+        <bookRef>B024</bookRef>
+        <bookRef>B057</bookRef>
+        <bookRef>B042</bookRef>
+        <bookRef>B145</bookRef>
+        <bookRef>B082</bookRef>
+      </borrowed>
+    </member>
+    <member id="M030">
+      <name>Member 30</name>
+      <joined>2020-03-02</joined>
+      <borrowed>
+        <bookRef>B028</bookRef>
+        <bookRef>B136</bookRef>
+        <bookRef>B035</bookRef>
+        <bookRef>B084</bookRef>
+      </borrowed>
+    </member>
+  </members>
+</library>

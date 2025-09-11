@@ -1,0 +1,138 @@
+<style>
+    #graph-container {
+        width: 80%;
+        height: 70vh;
+        border: 1px solid #ccc;
+        margin: auto;
+        background: #f9f9f9;
+    }
+
+    .node circle {
+        fill: #469cc7;
+        stroke: #1a73c7;
+        stroke-width: 1.5px;
+    }
+
+    .link {
+        stroke: #999;
+        stroke-opacity: 0.6;
+        stroke-width: 2px;
+    }
+
+    marker#arrowhead {
+        fill: #999;
+    }
+
+    .node text {
+        font-size: 12px;
+        pointer-events: none;
+        fill: white;
+        font-weight: bold;
+    }
+</style>
+
+<script id="nodes-data" type="application/json">
+    {{ nodes | tojson }}
+</script>
+
+<script id="edges-data" type="application/json">
+    {{ edges | tojson }}
+</script>
+
+<div id="graph-container"></div>
+
+<script type="text/javascript" src="https://d3js.org/d3.v3.js"></script>
+<script type="text/javascript">
+function render() {
+    const graphNodes = JSON.parse(document.getElementById("nodes-data").textContent);
+    const graphLinks = JSON.parse(document.getElementById("edges-data").textContent);
+
+    const nodeById = {};
+    graphNodes.forEach(n => nodeById[n.id] = n);
+    graphLinks.forEach(l => {
+        l.source = nodeById[l.source];
+        l.target = nodeById[l.target];
+    });
+
+    const width = document.querySelector("#graph-container").clientWidth;
+    const height = document.querySelector("#graph-container").clientHeight;
+
+    const svg = d3.select("#graph-container").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    const g = svg.append("g")
+    
+    // Arrow marker
+    svg.append("defs").append("marker")
+        .attr("id", "arrowhead")
+        .attr("viewBox", "0 -5 10 10")
+        .attr("refX", 15)
+        .attr("refY", 0)
+        .attr("markerWidth", 10)
+        .attr("markerHeight", 10)
+        .attr("orient", "auto")
+        .append("path")
+        .attr("d", "M0,-5L10,0L0,5");
+
+    const force = d3.layout.force()
+        .nodes(graphNodes)
+        .links(graphLinks)
+        .size([width, height])
+        .linkDistance(150)
+        .charge(-400)
+        .on("tick", ticked)
+        .start();
+
+    const link = g.selectAll(".link")
+        .data(graphLinks)
+        .enter().append("line")
+        .attr("class", "link")
+        .attr("marker-end", d => d.directed ? "url(#arrowhead)" : "");
+
+    const node = g.selectAll(".node")
+        .data(graphNodes)
+        .enter().append("g")
+        .attr("class", "node")
+        .call(force.drag);
+
+    node.append("circle")
+        .attr("r", 20);
+
+    node.append("text")
+        .attr("text-anchor", "middle")
+        .attr("dy", 4)
+        .text(d => d.id)
+
+    node.each(function(d) {
+        const g = d3.select(this);
+        g.classed("node-" + d.id, true);
+    })
+
+    function getOffset(d, multiplier = 10) {
+      if (!d.directed)
+             return { x: 0, y: 0 };
+
+      const dx = d.target.x - d.source.x;
+      const dy = d.target.y - d.source.y;
+      const len = Math.sqrt(dx * dx + dy * dy);
+
+      const nx = -dy / len;
+      const ny = dx / len;
+
+      return { x: nx * multiplier, y: ny * multiplier };
+}
+
+    function ticked() {
+        link  
+            .attr("x1", d => d.source.x + getOffset(d).x)
+            .attr("y1", d => d.source.y + getOffset(d).y)
+            .attr("x2", d => d.target.x + getOffset(d).x)
+            .attr("y2", d => d.target.y + getOffset(d).y);
+
+        node.attr("transform", d => `translate(${d.x},${d.y})`);
+    }
+}
+
+render();
+</script>
