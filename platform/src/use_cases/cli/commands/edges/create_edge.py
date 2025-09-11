@@ -38,16 +38,11 @@ class CreateEdgeCommand(Command):
         if len(self.positional) < 2:
             return "Error: Need source and target node IDs"
 
-        try:
-          source_id = int(self.positional[0])
-          target_id = int(self.positional[1])
-        except IndexError:
-            return "You must provide both source_id and target_id."
-        except ValueError:
-            return "Source ID and Target ID must be valid integers."
+        source_id = str(self.positional[0])
+        target_id = str(self.positional[1])
 
-        source_node = next((n for n in self.workspace.graph.nodes if n.id == source_id), None)
-        target_node = next((n for n in self.workspace.graph.nodes if n.id == target_id), None)
+        source_node = next((n for n in self.workspace.graph.nodes if str(n.id) == source_id), None)
+        target_node = next((n for n in self.workspace.graph.nodes if str(n.id) == target_id), None)
 
         if not source_node or not target_node:
             return f"Error: Node(s) not found: {source_id}, {target_id}"

@@ -178,14 +178,29 @@ function render() {
         };
     }
 
-    function ticked() {
-        link.attr("x1", d => d.source.x)
-            .attr("y1", d => d.source.y)
-            .attr("x2", d => d.directed ? shortenLine(d).x : d.target.x)
-            .attr("y2", d => d.directed ? shortenLine(d).y : d.target.y);
+  function getOffset(d, multiplier = 10) {
+      if (!d.directed)
+             return { x: 0, y: 0 };
 
-        node.attr("transform", d => `translate(${d.x},${d.y})`);
-    }
+      const dx = d.target.x - d.source.x;
+      const dy = d.target.y - d.source.y;
+      const len = Math.sqrt(dx * dx + dy * dy);
+
+      const nx = -dy / len;
+      const ny = dx / len;
+
+      return { x: nx * multiplier, y: ny * multiplier };
+  }
+
+  function ticked() {
+      link  
+          .attr("x1", d => d.source.x + getOffset(d).x)
+          .attr("y1", d => d.source.y + getOffset(d).y)
+          .attr("x2", d => d.target.x + getOffset(d).x)
+          .attr("y2", d => d.target.y + getOffset(d).y);
+
+      node.attr("transform", d => `translate(${d.x},${d.y})`);
+  }
 }
 
 render();
