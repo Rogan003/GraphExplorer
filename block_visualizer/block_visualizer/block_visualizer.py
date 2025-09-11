@@ -20,6 +20,11 @@ class BlockVisualizerPlugin(VisualizerPlugin):
           return value.strftime("%d.%m.%Y.")  # "24.08.2025." (only date)
       return str(value)
 
+  def sanitize_data(self, data) -> dict:
+      if not isinstance(data, dict):
+          return {}
+      return {k: self.safe_value(v) for k, v in data.items() if k is not None and v is not None}
+
   def visualize(self, graph: Graph, **kwargs) -> str:
     p = os.path.dirname(__file__)
     path = os.path.join(p, "templates")
@@ -35,7 +40,7 @@ class BlockVisualizerPlugin(VisualizerPlugin):
                 for key, value in n.data.items()
                 if key is not None and value is not None and key != 'name'
             ],
-            "data": n.data
+            "data": self.sanitize_data(n.data)
         }
         for n in graph.nodes
     ]
@@ -45,7 +50,7 @@ class BlockVisualizerPlugin(VisualizerPlugin):
             "source": str(e.from_node.id),
             "target": str(e.to_node.id),
             "directed": graph.directed,
-            "data": e.data
+            "data": self.sanitize_data(e.data)
         }
         for e in graph.edges
     ]
